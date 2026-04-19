@@ -11,12 +11,12 @@ export const environment = {
   geminiApiKey: (import.meta as any).env?.['VITE_GEMINI_API_KEY'] ?? '',
 
   firebase: {
-    apiKey:            (import.meta as any).env?.['VITE_FIREBASE_API_KEY']             ?? 'REEMPLAZA_AQUI',
-    authDomain:        (import.meta as any).env?.['VITE_FIREBASE_AUTH_DOMAIN']         ?? 'REEMPLAZA_AQUI',
-    databaseURL:       (import.meta as any).env?.['VITE_FIREBASE_DATABASE_URL']        ?? '',
-    projectId:         (import.meta as any).env?.['VITE_FIREBASE_PROJECT_ID']          ?? 'REEMPLAZA_AQUI',
-    storageBucket:     (import.meta as any).env?.['VITE_FIREBASE_STORAGE_BUCKET']      ?? 'REEMPLAZA_AQUI',
-    messagingSenderId: (import.meta as any).env?.['VITE_FIREBASE_MESSAGING_SENDER_ID'] ?? 'REEMPLAZA_AQUI',
-    appId:             (import.meta as any).env?.['VITE_FIREBASE_APP_ID']              ?? 'REEMPLAZA_AQUI',
+    apiKey:            (import.meta as any).env?.['VITE_FIREBASE_API_KEY']             ?? 'demo-api-key',
+    authDomain:        (import.meta as any).env?.['VITE_FIREBASE_AUTH_DOMAIN']         ?? 'demo-project.firebaseapp.com',
+    databaseURL:       (import.meta as any).env?.['VITE_FIREBASE_DATABASE_URL']        || 'https://demo-project-default-rtdb.firebaseio.com',
+    projectId:         (import.meta as any).env?.['VITE_FIREBASE_PROJECT_ID']          ?? 'demo-project',
+    storageBucket:     (import.meta as any).env?.['VITE_FIREBASE_STORAGE_BUCKET']      ?? 'demo-project.appspot.com',
+    messagingSenderId: (import.meta as any).env?.['VITE_FIREBASE_MESSAGING_SENDER_ID'] ?? '123456789',
+    appId:             (import.meta as any).env?.['VITE_FIREBASE_APP_ID']              ?? '1:123456789:web:abcdef',
   }
 };

@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import angular from '@analogjs/vite-plugin-angular';
 
 export default defineConfig({
+  cacheDir: 'C:/temp/.vite-assetguard',
   plugins: [angular({ tsconfig: './tsconfig.json' })],
   base: '/',
   server: {
