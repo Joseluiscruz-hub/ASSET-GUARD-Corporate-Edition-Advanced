@@ -59,71 +59,70 @@
         <span class="mt-1.5 text-[10px] text-slate-500 hidden lg:block uppercase font-bold tracking-widest">Planta Cuautitlán</span>
       </div>
 
-      <!-- Nav Items -->
       <nav class="p-2 lg:p-4 space-y-1.5 mt-2">
-        <button (click)="setView('home')" 
+        <a routerLink="/home" 
           class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-[#DA291C] bg-slate-800/60 text-white': currentView() === 'home', 'border-transparent hover:bg-slate-800/50': currentView() !== 'home'}">
-          <i class="fas fa-home w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-[#DA291C]]="currentView() === 'home'"></i>
+          [ngClass]="{'border-[#DA291C] bg-slate-800/60 text-white': currentUrl() === '/home' || currentUrl() === '/', 'border-transparent hover:bg-slate-800/50': currentUrl() !== '/home' && currentUrl() !== '/'}">
+          <i class="fas fa-home w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-[#DA291C]]="currentUrl() === '/home' || currentUrl() === '/'"></i>
           <span class="ml-3 text-sm font-bold hidden lg:block">Análisis por Zona</span>
-        </button>
+        </a>
 
-        <button (click)="setView('dashboard')" 
+        <a routerLink="/dashboard" 
           class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-[#DA291C] bg-slate-800/60 text-white': currentView() === 'dashboard', 'border-transparent hover:bg-slate-800/50': currentView() !== 'dashboard'}">
-          <i class="fas fa-chart-pie w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-[#DA291C]]="currentView() === 'dashboard'"></i>
+          [ngClass]="{'border-[#DA291C] bg-slate-800/60 text-white': currentUrl().includes('dashboard'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('dashboard')}">
+          <i class="fas fa-chart-pie w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-[#DA291C]]="currentUrl().includes('dashboard')"></i>
           <span class="ml-3 text-sm font-bold hidden lg:block">Dashboard</span>
-        </button>
+        </a>
 
-        <button (click)="setView('compliance')" 
+        <a routerLink="/compliance" 
           class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-emerald-500 bg-slate-800/60 text-white': currentView() === 'compliance', 'border-transparent hover:bg-slate-800/50': currentView() !== 'compliance'}">
-          <i class="fas fa-calendar-check w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-emerald-400]="currentView() === 'compliance'"></i>
+          [ngClass]="{'border-emerald-500 bg-slate-800/60 text-white': currentUrl().includes('compliance'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('compliance')}">
+          <i class="fas fa-calendar-check w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-emerald-400]="currentUrl().includes('compliance')"></i>
           <span class="ml-3 text-sm font-bold hidden lg:block">Programa SMP</span>
-        </button>
+        </a>
 
-        <button (click)="setView('service')" 
+        <a routerLink="/service" 
           class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-orange-500 bg-slate-800/60 text-white': currentView() === 'service', 'border-transparent hover:bg-slate-800/50': currentView() !== 'service'}">
-          <i class="fas fa-wrench w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-orange-400]="currentView() === 'service'"></i>
+          [ngClass]="{'border-orange-500 bg-slate-800/60 text-white': currentUrl().includes('service'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('service')}">
+          <i class="fas fa-wrench w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-orange-400]="currentUrl().includes('service')"></i>
           <span class="ml-3 text-sm font-bold hidden lg:block">Panel de Servicio</span>
-        </button>
+        </a>
 
-        <button (click)="setView('work-orders')" 
+        <a routerLink="/work-orders" 
           class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-emerald-500 bg-slate-800/60 text-white': currentView() === 'work-orders', 'border-transparent hover:bg-slate-800/50': currentView() !== 'work-orders'}">
-          <i class="fas fa-tasks w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-emerald-400]="currentView() === 'work-orders'"></i>
+          [ngClass]="{'border-emerald-500 bg-slate-800/60 text-white': currentUrl().includes('work-orders'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('work-orders')}">
+          <i class="fas fa-tasks w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-emerald-400]="currentUrl().includes('work-orders')"></i>
           <span class="ml-3 text-sm font-bold hidden lg:block">Órdenes Trabajo</span>
-        </button>
+        </a>
 
-        <button (click)="setView('inventory')" 
+        <a routerLink="/inventory" 
           class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-purple-500 bg-slate-800/60 text-white': currentView() === 'inventory', 'border-transparent hover:bg-slate-800/50': currentView() !== 'inventory'}">
-          <i class="fas fa-boxes w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-purple-400]="currentView() === 'inventory'"></i>
+          [ngClass]="{'border-purple-500 bg-slate-800/60 text-white': currentUrl().includes('inventory'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('inventory')}">
+          <i class="fas fa-boxes w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-purple-400]="currentUrl().includes('inventory')"></i>
           <span class="ml-3 text-sm font-bold hidden lg:block">Inventario</span>
-        </button>
+        </a>
 
-        <button (click)="setView('assets')" 
+        <a routerLink="/assets" 
           class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-blue-500 bg-slate-800/60 text-white': currentView() === 'assets', 'border-transparent hover:bg-slate-800/50': currentView() !== 'assets'}">
-          <i class="fas fa-truck-moving w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-blue-400]="currentView() === 'assets'"></i>
+          [ngClass]="{'border-blue-500 bg-slate-800/60 text-white': currentUrl().includes('assets'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('assets')}">
+          <i class="fas fa-truck-moving w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-blue-400]="currentUrl().includes('assets')"></i>
           <span class="ml-3 text-sm font-bold hidden lg:block">Gestión de Activos</span>
-        </button>
+        </a>
 
         <div class="!mt-6 pt-6 border-t border-slate-800/50">
-          <button (click)="setView('solicitor')" 
+          <a routerLink="/report" 
             class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-            [ngClass]="{'border-slate-500 bg-slate-800/60 text-white': currentView() === 'solicitor', 'border-transparent hover:bg-slate-800/50': currentView() !== 'solicitor'}">
-            <i class="fas fa-mobile-alt w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-slate-400]="currentView() === 'solicitor'"></i>
+            [ngClass]="{'border-slate-500 bg-slate-800/60 text-white': currentUrl().includes('report'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('report')}">
+            <i class="fas fa-mobile-alt w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-slate-400]="currentUrl().includes('report')"></i>
             <span class="ml-3 text-sm font-bold hidden lg:block">App Operador</span>
-          </button>
+          </a>
 
-          <button (click)="setView('settings')" 
+          <a routerLink="/admin" 
             class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-            [ngClass]="{'border-indigo-500 bg-slate-800/60 text-white': currentView() === 'settings', 'border-transparent hover:bg-slate-800/50': currentView() !== 'settings'}">
-            <i class="fas fa-cog w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-indigo-400]="currentView() === 'settings'"></i>
+            [ngClass]="{'border-indigo-500 bg-slate-800/60 text-white': currentUrl().includes('admin'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('admin')}">
+            <i class="fas fa-cog w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-indigo-400]="currentUrl().includes('admin')"></i>
             <span class="ml-3 text-sm font-bold hidden lg:block">Configuración</span>
-          </button>
+          </a>
         </div>
       </nav>
     </div>
@@ -192,17 +191,7 @@
     <main class="flex-1 overflow-y-auto custom-scroll p-6 relative bg-slate-100 dark:bg-gray-900">
       <div class="fade-enter max-w-8xl mx-auto h-full pb-20">
         
-        @switch (currentView()) {
-          @case ('home') { <app-home-step1 /> }
-          @case ('dashboard') { <app-dashboard /> }
-          @case ('compliance') { <app-maintenance-compliance /> }
-          @case ('service') { <app-service-panel /> }
-          @case ('work-orders') { <app-work-orders /> }
-          @case ('inventory') { <app-inventory /> }
-          @case ('assets') { <app-asset-list /> }
-          @case ('solicitor') { <app-solicitor-panel /> }
-          @case ('settings') { <app-admin /> }
-        }
+        <router-outlet />
       </div>
     </main>
 

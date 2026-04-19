@@ -1,19 +1,5 @@
-import { Component, signal, effect, inject, computed } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import DOMPurify from 'dompurify';
-import { DataService } from './services/data.service';
-import { GeminiService } from './services/gemini.service';
-import { AuthService } from './services/auth.service';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AssetListComponent } from './components/admin/asset-list.component';
-import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
-import { AdminComponent } from './components/admin/admin.component';
-import { ServicePanelComponent } from './components/service-panel.component';
-import { SolicitorPanelComponent } from './components/solicitor-panel/solicitor-panel.component';
-import { MaintenanceComplianceComponent } from './components/maintenance-compliance/maintenance-compliance.component';
-import { InventoryComponent } from './components/inventory/inventory.component';
-import { WorkOrdersComponent } from './components/work-orders/work-orders.component';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
+import { filter } from 'rxjs';
 import template from './app.component.html?raw';
 
 type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'settings' | 'compliance' | 'inventory' | 'work-orders';
@@ -24,15 +10,7 @@ type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'setting
   imports: [
     CommonModule, 
     DatePipe,
-    DashboardComponent, 
-    AssetListComponent, 
-    AssetDetailComponent, 
-    AdminComponent, 
-    ServicePanelComponent,
-    SolicitorPanelComponent,
-    MaintenanceComplianceComponent,
-    InventoryComponent,
-    WorkOrdersComponent
+    RouterModule
   ],
   template,
   styles: [`
@@ -45,9 +23,10 @@ export class AppComponent {
   geminiService = inject(GeminiService);
   authService = inject(AuthService);
   sanitizer = inject(DomSanitizer);
+  router = inject(Router);
 
   // State
-  currentView = signal<View>('home');
+  currentUrl = signal<string>('/');
   selectedAssetId = signal<string | null>(null);
   showAiPanel = signal(false);
 
@@ -89,6 +68,19 @@ export class AppComponent {
       this.previousFailureCount = list.length;
     });
 
+    // Router Sync
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      this.currentUrl.set(event.urlAfterRedirects);
+      this.selectedAssetId.set(null);
+      
+      // Auto-switch plant mode for dashboard
+      const isDashboard = event.urlAfterRedirects.includes('dashboard');
+      if (isDashboard && !this.plantMode()) this.dataService.togglePlantMode();
+      if (!isDashboard && this.plantMode()) this.dataService.togglePlantMode();
+    });
+
     // Custom Events
     window.addEventListener('asset-selected', (e: any) => this.selectedAssetId.set(e.detail));
     window.addEventListener('asset-closed', () => this.selectedAssetId.set(null));
@@ -108,16 +100,6 @@ export class AppComponent {
 
   async logout() {
     await this.authService.logout();
-  }
-
-  // Navigation Logic
-  setView(view: View) {
-    this.currentView.set(view);
-    this.selectedAssetId.set(null);
-    
-    // Auto-switch theme based on view context
-    if (view === 'dashboard' && !this.plantMode()) this.dataService.togglePlantMode();
-    if (view !== 'dashboard' && this.plantMode()) this.dataService.togglePlantMode();
   }
 
   toggleAiPanel() {
@@ -149,31 +131,29 @@ export class AppComponent {
   }
 
   get viewTitle(): string {
-    switch(this.currentView()) {
-      case 'home': return 'Análisis por Zona';
-      case 'dashboard': return 'Dashboard Corporativo (NOC)';
-      case 'compliance': return 'Programa SMP - Cumplimiento';
-      case 'assets': return 'Gestión de Activos / Flota';
-      case 'service': return 'Panel de Servicio Técnico Toyota';
-      case 'solicitor': return 'App Operador (Solicitante)';
-      case 'inventory': return 'Inventario y Refacciones';
-      case 'work-orders': return 'Órdenes de Trabajo';
-      case 'settings': return 'Configuración';
-      default: return 'AssetGuard Advanced';
-    }
+    const url = this.currentUrl();
+    if (url === '/' || url === '/home') return 'Análisis por Zona';
+    if (url.includes('dashboard')) return 'Dashboard Corporativo (NOC)';
+    if (url.includes('compliance')) return 'Programa SMP - Cumplimiento';
+    if (url.includes('assets')) return 'Gestión de Activos / Flota';
+    if (url.includes('service')) return 'Panel de Servicio Técnico Toyota';
+    if (url.includes('report')) return 'App Operador (Solicitante)';
+    if (url.includes('inventory')) return 'Inventario y Refacciones';
+    if (url.includes('work-orders')) return 'Órdenes de Trabajo';
+    if (url.includes('admin')) return 'Configuración';
+    return 'AssetGuard Advanced';
   }
 
   get viewSubtitle(): string {
-    switch(this.currentView()) {
-      case 'home': return 'Estado general por zonas de operación.';
-      case 'dashboard': return 'KPIs de disponibilidad, seguridad y costos en tiempo real.';
-      case 'compliance': return 'Seguimiento del programa de mantenimiento sistemático.';
-      case 'assets': return 'Listado maestro, ubicación y estado de toda la flota.';
-      case 'service': return 'Administración de órdenes de trabajo y técnicos.';
-      case 'inventory': return 'Control de stock y alertas de reabastecimiento.';
-      case 'work-orders': return 'Gestión visual de tareas de mantenimiento.';
-      case 'settings': return 'Administración del sistema y conexiones.';
-      default: return '';
-    }
+    const url = this.currentUrl();
+    if (url === '/' || url === '/home') return 'Estado general por zonas de operación.';
+    if (url.includes('dashboard')) return 'KPIs de disponibilidad, seguridad y costos en tiempo real.';
+    if (url.includes('compliance')) return 'Seguimiento del programa de mantenimiento sistemático.';
+    if (url.includes('assets')) return 'Listado maestro, ubicación y estado de toda la flota.';
+    if (url.includes('service')) return 'Administración de órdenes de trabajo y técnicos.';
+    if (url.includes('inventory')) return 'Control de stock y alertas de reabastecimiento.';
+    if (url.includes('work-orders')) return 'Gestión visual de tareas de mantenimiento.';
+    if (url.includes('admin')) return 'Administración del sistema y conexiones.';
+    return '';
   }
 }
