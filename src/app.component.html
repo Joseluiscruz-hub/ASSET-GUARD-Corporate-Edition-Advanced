@@ -12,12 +12,35 @@
         <img src="https://logodownload.org/wp-content/uploads/2014/09/coca-cola-logo-1-1.png" alt="FEMSA" class="h-8 mb-4">
         <h2 class="text-2xl font-black text-slate-800 tracking-tight">AssetGuard Advanced</h2>
         <p class="text-slate-500 text-sm mt-2 mb-8">Gestión de Activos y Mantenimiento Predictivo</p>
-        
-        <button (click)="login()" class="w-full flex items-center justify-center gap-3 bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-bold transition-all shadow-lg shadow-slate-900/20">
-          <i class="fab fa-google"></i>
-          Iniciar Sesión con Google
+
+        @if (loginError()) {
+          <div class="w-full mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600 font-semibold">
+            <i class="fas fa-exclamation-triangle mr-1"></i> {{ loginError() }}
+          </div>
+        }
+
+        <button (click)="loginWithGoogle()"
+          [disabled]="isLoggingIn()"
+          class="w-full flex items-center justify-center gap-3 bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-bold transition-all shadow-lg shadow-slate-900/20 disabled:opacity-60 disabled:cursor-not-allowed">
+          @if (isLoggingIn()) {
+            <i class="fas fa-circle-notch fa-spin"></i> Autenticando...
+          } @else {
+            <i class="fab fa-google"></i> Iniciar Sesión con Google
+          }
         </button>
-        
+
+        <div class="flex items-center gap-3 w-full my-4">
+          <div class="flex-1 h-px bg-slate-200"></div>
+          <span class="text-xs text-slate-400 font-medium">o</span>
+          <div class="flex-1 h-px bg-slate-200"></div>
+        </div>
+
+        <button (click)="loginAsDemo()"
+          [disabled]="isLoggingIn()"
+          class="w-full flex items-center justify-center gap-3 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-xl font-bold transition-all text-sm disabled:opacity-60 disabled:cursor-not-allowed">
+          <i class="fas fa-play-circle"></i> Entrar en Modo Demo
+        </button>
+
         <p class="text-[10px] text-slate-400 mt-8 uppercase tracking-widest font-bold">Planta Cuautitlán | Toyota Logistics</p>
       </div>
     </div>

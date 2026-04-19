@@ -165,3 +165,33 @@ export interface AIInspectionResponse {
     image_quality_warning?: string;    // Aviso si la imagen no es clara
   };
 }
+
+// --- ESTADO DE REFACCION (Enum) ---
+
+export enum EstadoRefaccion {
+  NO_APLICA  = 'N/A',
+  EN_STOCK   = 'En Stock',
+  PEDIDA     = 'Pedida',
+  POR_RECIBIR = 'Por Recibir',
+}
+
+// --- PROGRAMA DE MANTENIMIENTO SISTEMÁTICO ---
+
+export interface MaintenanceSchedule {
+  id: string;
+  model: string;
+  serial: string;
+  economico: string;
+  supervisor: string;
+  smpType: 'X' | 'Y' | 'Z' | 'REV';
+  scheduledDate: string;     // ISO Date
+  realDate?: string;         // ISO Date (cuándo se ejecutó realmente)
+  duration: string;          // Duración estimada (e.g. "2hrs")
+  otFolio: string;           // Folio de Orden de Trabajo Toyota (MXOT...)
+  serviceOrder: string;      // Orden de servicio interna
+  hourMeter?: number;        // Horómetro al momento del servicio
+  technician: string;
+  status: 'Programado' | 'Completado' | 'Vencido';
+  history: string[];
+  comments: string;
+}

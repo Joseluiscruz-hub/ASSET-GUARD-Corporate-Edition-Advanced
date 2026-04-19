@@ -1,8 +1,4 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import firebaseConfig from '../firebase-applet-config.json';
-
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
-export const auth = getAuth(app);
+// firebase.ts — DEPRECATED
+// Este archivo fue reemplazado por firebase-init.ts
+// Para importar Firebase usa: import { firebaseApp, auth, db, rtdb } from './firebase-init';
+export { firebaseApp, auth, db, rtdb } from './firebase-init';

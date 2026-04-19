@@ -10,7 +10,7 @@ import { AssetListComponent } from './components/admin/asset-list.component';
 import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { ServicePanelComponent } from './components/service-panel.component';
-import { SolicitorPanelComponent } from './solicitor-panel/solicitor-panel.component';
+import { SolicitorPanelComponent } from './components/solicitor-panel/solicitor-panel.component';
 import { MaintenanceComplianceComponent } from './components/maintenance-compliance/maintenance-compliance.component';
 import { InventoryComponent } from './components/inventory/inventory.component';
 import { WorkOrdersComponent } from './components/work-orders/work-orders.component';
@@ -55,6 +55,8 @@ export class AppComponent {
   user = this.authService.currentUser;
   userProfile = this.authService.userProfile;
   isAuthReady = this.authService.isAuthReady;
+  loginError = this.authService.error;
+  isLoggingIn = signal(false);
 
   // Data Signals
   connectionStatus = this.dataService.connectionStatus;
@@ -92,12 +94,20 @@ export class AppComponent {
     window.addEventListener('asset-closed', () => this.selectedAssetId.set(null));
   }
 
-  login() {
-    this.authService.login();
+  async loginWithGoogle() {
+    this.isLoggingIn.set(true);
+    await this.authService.loginWithGoogle();
+    this.isLoggingIn.set(false);
   }
 
-  logout() {
-    this.authService.logout();
+  async loginAsDemo() {
+    this.isLoggingIn.set(true);
+    await this.authService.loginAsDemo();
+    this.isLoggingIn.set(false);
+  }
+
+  async logout() {
+    await this.authService.logout();
   }
 
   // Navigation Logic
