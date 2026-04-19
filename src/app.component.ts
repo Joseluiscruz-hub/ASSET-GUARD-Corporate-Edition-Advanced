@@ -1,5 +1,12 @@
+import { Component, inject, signal, computed, effect } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
+import { DataService } from './services/data.service';
+import { GeminiService } from './services/gemini.service';
+import { AuthService } from './services/auth.service';
+import DOMPurify from 'dompurify';
 import template from './app.component.html?raw';
 
 type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'settings' | 'compliance' | 'inventory' | 'work-orders';
