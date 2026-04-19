@@ -24,15 +24,15 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build
-        run: npx ng build --configuration production --base-href /ASSET-GUARD-Corporate-Edition-Advanced/
+        run: npm run build
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/asset-guard-corporate-edition-advanced/browser/
+          path: dist/
 
   deploy:
     needs: build_site
