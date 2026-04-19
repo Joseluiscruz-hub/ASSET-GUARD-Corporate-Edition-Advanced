@@ -1,0 +1,50 @@
+{
+  "name": "asset-guard-advanced",
+  "version": "1.0.0",
+  "description": "AssetGuard Corporate Edition Advanced - Fusión IA Gemini 2.5, UI moderna Angular signals, modularidad enterprise.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 3000",
+    "build": "vite build",
+    "watch": "vite build --watch",
+    "test": "vitest",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "@angular/animations": "^19.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/compiler": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/router": "^19.0.0",
+    "@google/generative-ai": "^0.24.1",
+    "chart.js": "^4.5.1",
+    "exceljs": "^4.4.0",
+    "firebase": "^11.4.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^2.3.1",
+    "@angular-devkit/build-angular": "^19.0.0",
+    "@angular/cli": "^19.0.0",
+    "@angular/compiler-cli": "^19.0.0",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^18.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^10.1.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "~5.5.0",
+    "typescript-eslint": "^8.57.2",
+    "vite": "^6.0.0",
+    "vitest": "^1.3.1"
+  }
+}
