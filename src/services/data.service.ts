@@ -1,0 +1,448 @@
+import { Injectable, signal, computed, effect } from '@angular/core';
+import {
+  Asset,
+  FailureReport,
+  Status,
+  KPIData,
+  ForkliftFailureEntry,
+  MaintenanceTask,
+  MaintenanceSchedule,
+  EstadoRefaccion
+} from '../types';
+import { firebaseApp } from '../firebase-init';
+import {
+  getDatabase,
+  ref,
+  onValue,
+  set,
+  update
+} from 'firebase/database';
+import { hydrateRealAssets } from '../data/real-fleet';
+import { environment } from '../environments/environment';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DataService {
+  private app = firebaseApp;
+  private db: ReturnType<typeof getDatabase> | null = null;
+  private firebaseConfig = environment.firebase;
+
+  // --- System State Signals ---
+  readonly connectionStatus = signal<'online' | 'offline' | 'syncing'>('syncing');
+  readonly lastUpdate = signal<Date>(new Date());
+  readonly plantMode = signal<boolean>(false);
+  readonly isKioskMode = signal<boolean>(false);
+  readonly activeSlide = signal<number>(0);
+  private kioskInterval: ReturnType<typeof setInterval> | null = null;
+
+  // --- Master Catalogs ---
+  readonly statuses: Status[] = [
+    {
+      id: '1',
+      name: 'Operativo',
+      color: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+      hex: '#10b981'
+    },
+    { id: '2', name: 'Taller', color: 'bg-red-100 text-red-800 border-red-200', hex: '#ef4444' },
+    {
+      id: '3',
+      name: 'Preventivo',
+      color: 'bg-amber-100 text-amber-800 border-amber-200',
+      hex: '#f59e0b'
+    },
+    { id: '4', name: 'Baja', color: 'bg-slate-100 text-slate-800 border-slate-200', hex: '#64748b' }
+  ];
+
+  // --- Business Data Signals ---
+  private assetsSignal = signal<Asset[]>([]);
+  private reportsSignal = signal<FailureReport[]>([]);
+  readonly forkliftFailures = signal<ForkliftFailureEntry[]>([]);
+
+  // --- Public Read-Only Signals ---
+  readonly assets = this.assetsSignal.asReadonly();
+  readonly reports = this.reportsSignal.asReadonly();
+
+  // --- Computed KPIs ---
+  readonly kpiData = computed<KPIData>(() => {
+    const totalAssets = this.assetsSignal().length;
+    const operativeAssets = this.assetsSignal().filter(a => a.status.name === 'Operativo').length;
+    const closedReports = this.reportsSignal().filter(r => r.exitDate);
+    let totalRepairHours = 0;
+    closedReports.forEach(r => {
+      const start = new Date(r.entryDate).getTime();
+      const end = new Date(r.exitDate!).getTime();
+      totalRepairHours += (end - start) / (1000 * 60 * 60);
+    });
+    const mttr = closedReports.length > 0 ? totalRepairHours / closedReports.length : 0;
+    const currentMonth = new Date().getMonth();
+    const monthlyCost = this.reportsSignal()
+      .filter(r => new Date(r.entryDate).getMonth() === currentMonth)
+      .reduce((acc, curr) => acc + curr.estimatedCost, 0);
+
+    return {
+      availability: totalAssets > 0 ? (operativeAssets / totalAssets) * 100 : 0,
+      mttr: Math.round(mttr * 10) / 10,
+      totalCostMonth: monthlyCost,
+      budgetMonth: 18000
+    };
+  });
+
+  readonly fleetAvailability = computed(() => {
+    const allAssets = this.assetsSignal();
+    if (allAssets.length === 0) return { percentage: 100, label: 'Excelente', color: '#10b981' };
+    const operativeUnits = allAssets.filter(m => m.status.name === 'Operativo').length;
+    const percentage = (operativeUnits / allAssets.length) * 100;
+    return {
+      percentage: Math.round(percentage),
+      label: percentage >= 90 ? 'Excelente' : percentage >= 80 ? 'Regular' : 'Crítico',
+      color: percentage >= 90 ? '#10b981' : percentage >= 80 ? '#f59e0b' : '#ef4444'
+    };
+  });
+
+  readonly topOperators = computed(() => {
+    const failures = this.forkliftFailures();
+    const counts: { [key: string]: number } = {};
+    failures.forEach(f => {
+      if (f.reporta) counts[f.reporta] = (counts[f.reporta] || 0) + 10;
+    });
+    return Object.entries(counts)
+      .map(([name, points]) => ({ name, points }))
+      .sort((a, b) => b.points - a.points)
+      .slice(0, 3);
+  });
+
+  readonly safetyStats = signal({
+    daysWithoutAccident: 142,
+    record: 180,
+    announcement: 'Uso obligatorio de EPP en Patio de Maniobras'
+  });
+
+  readonly crewLeaderboard = signal([
+    { rank: 1, name: 'Turno 1 (Matutino)', score: 98, pallets: 1450 },
+    { rank: 2, name: 'Turno 2 (Vespertino)', score: 94, pallets: 1320 },
+    { rank: 3, name: 'Turno 3 (Nocturno)', score: 89, pallets: 1105 }
+  ]);
+
+  readonly maintenanceSchedule = computed<MaintenanceSchedule[]>(() => this.generateMaintenanceSchedule());
+
+  readonly complianceStats = computed(() => {
+    const schedule = this.maintenanceSchedule();
+    const total = schedule.length;
+    const completed = schedule.filter(s => s.status === 'Completado').length;
+    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+    return { total, completed, percentage };
+  });
+
+  constructor() {
+    this.initFirebase();
+    this.initializeData();
+    
+    effect(() => {
+      this.syncAssetsWithFailures(this.forkliftFailures());
+    });
+
+    effect(() => {
+      if (this.isKioskMode()) this.startKioskRotation();
+      else this.stopKioskRotation();
+    });
+
+    window.addEventListener('online', () => this.updateConnectionStatus());
+    window.addEventListener('offline', () => this.updateConnectionStatus());
+  }
+
+  private initializeData() {
+    const assets = this.loadRealFleet();
+    this.assetsSignal.set(assets);
+    const reports = this.generateRealReports();
+    this.reportsSignal.set(reports);
+    const failures = this.generateRealLiveFailures().map(f => ({
+      ...f,
+      sla: f.sla || {},
+      fechaEstimadaLlegada: f.fechaEstimadaLlegada || '',
+      refacciones: f.refacciones || []
+    }));
+    this.forkliftFailures.set(failures);
+  }
+
+  private initFirebase() {
+    try {
+      if (!this.firebaseConfig.apiKey || !this.firebaseConfig.databaseURL || !this.firebaseConfig.projectId) {
+        console.warn('Firebase configuration incomplete. Running in offline mode.');
+        this.connectionStatus.set('offline');
+        return;
+      }
+      this.db = getDatabase(this.app);
+      const connectedRef = ref(this.db!, '.info/connected');
+      onValue(connectedRef, snap => {
+        if (snap.val() === true) {
+          this.connectionStatus.set('online');
+        } else {
+          this.connectionStatus.set('offline');
+        }
+      });
+      this.setupListeners();
+    } catch (e) {
+      console.error('Firebase init error:', e);
+      this.connectionStatus.set('offline');
+    }
+  }
+
+  private updateConnectionStatus() {
+    this.connectionStatus.set(navigator.onLine ? 'online' : 'offline');
+  }
+
+  private setupListeners() {
+    if (!this.db) return;
+    const failuresRef = ref(this.db, 'failures');
+    onValue(failuresRef, snapshot => {
+      const data = snapshot.val();
+      this.lastUpdate.set(new Date());
+      if (data) {
+        const list = Object.values(data) as ForkliftFailureEntry[];
+        list.sort((a, b) => new Date(b.fechaIngreso).getTime() - new Date(a.fechaIngreso).getTime());
+        this.forkliftFailures.set(list);
+        this.syncAssetsWithFailures(list);
+      } else {
+        this.seedDatabase();
+      }
+    });
+
+    const kioskRef = ref(this.db!, 'settings/kioskMode');
+    onValue(kioskRef, snapshot => {
+      const val = snapshot.val();
+      if (val !== null && this.isKioskMode() !== val) this.isKioskMode.set(val);
+    });
+  }
+
+  private seedDatabase() {
+    if (!this.db) return;
+    const updates: any = {};
+    const initialFailures = this.forkliftFailures();
+    initialFailures.forEach(f => {
+      updates['failures/' + f.id] = f;
+    });
+    updates['settings/kioskMode'] = false;
+    update(ref(this.db!), updates).catch(() => {});
+  }
+
+  toggleKioskMode() {
+    if (!this.db) return;
+    const newValue = !this.isKioskMode();
+    this.isKioskMode.set(newValue);
+    if (this.connectionStatus() === 'online') {
+      set(ref(this.db!, 'settings/kioskMode'), newValue).catch(() => {});
+    }
+  }
+
+  private startKioskRotation() {
+    if (this.kioskInterval) clearInterval(this.kioskInterval);
+    this.kioskInterval = setInterval(() => {
+      this.activeSlide.update(current => (current + 1) % 3);
+    }, 15000);
+  }
+
+  private stopKioskRotation() {
+    if (this.kioskInterval) clearInterval(this.kioskInterval);
+    this.activeSlide.set(0);
+  }
+
+  togglePlantMode() {
+    this.plantMode.update(v => !v);
+  }
+
+  getAsset(id: string): Asset | undefined {
+    return this.assetsSignal().find(a => a.id === id);
+  }
+
+  getAssetHistory(assetId: string): FailureReport[] {
+    return this.reportsSignal()
+      .filter(r => r.assetId === assetId)
+      .sort((a, b) => new Date(b.entryDate).getTime() - new Date(a.entryDate).getTime());
+  }
+
+  addLiveFailure(entry: Omit<ForkliftFailureEntry, 'id' | 'fechaIngreso' | 'seguimiento'>) {
+    const newEntry: ForkliftFailureEntry = {
+      ...entry,
+      id: 'F-' + Date.now(),
+      fechaIngreso: new Date().toISOString(),
+      seguimiento: []
+    };
+    const wasOffline = this.connectionStatus() === 'offline';
+    this.connectionStatus.set('syncing');
+    this.forkliftFailures.update(list => [newEntry, ...list]);
+    this.syncAssetsWithFailures(this.forkliftFailures());
+    if (!wasOffline && this.db) {
+      set(ref(this.db!, 'failures/' + newEntry.id), newEntry)
+        .then(() => this.connectionStatus.set('online'))
+        .catch(() => this.connectionStatus.set('offline'));
+    }
+  }
+
+  addFailureUpdate(failureId: string, message: string, user: string) {
+    const failure = this.forkliftFailures().find(f => f.id === failureId);
+    if (!failure) return;
+    const updatedFailure = {
+      ...failure,
+      estatus: 'En Proceso' as const,
+      seguimiento: [
+        ...failure.seguimiento,
+        { usuario: user, mensaje: message, fecha: new Date().toISOString() }
+      ]
+    };
+    this.forkliftFailures.update(list => list.map(f => (f.id === failureId ? updatedFailure : f)));
+    if (this.connectionStatus() !== 'offline' && this.db) {
+      update(ref(this.db!, 'failures/' + failureId), updatedFailure).catch(console.error);
+    }
+  }
+
+  updateToyotaLogistics(failureId: string, po: string, statusRef: ForkliftFailureEntry['estatusRefaccion'], promiseDate?: string) {
+    const updates = {
+      ordenCompra: po,
+      estatusRefaccion: statusRef,
+      fechaPromesa: promiseDate,
+      estatus: 'En Proceso'
+    };
+    this.forkliftFailures.update(list => list.map(f => (f.id === failureId ? { ...f, ...updates } : f)));
+    if (this.connectionStatus() !== 'offline' && this.db) {
+      update(ref(this.db!, 'failures/' + failureId), updates).catch(console.error);
+    }
+  }
+
+  closeLiveFailure(id: string) {
+    const failure = this.forkliftFailures().find(f => f.id === id);
+    if (!failure) return;
+    const updatedFailure = {
+      ...failure,
+      estatus: 'Cerrada' as const,
+      fechaSalida: new Date().toISOString()
+    };
+    this.forkliftFailures.update(list => list.map(f => (f.id === id ? updatedFailure : f)));
+    this.syncAssetsWithFailures(this.forkliftFailures());
+    if (this.connectionStatus() !== 'offline' && this.db) {
+      update(ref(this.db!, 'failures/' + id), updatedFailure).catch(console.error);
+    }
+  }
+
+  reportFailure(assetId: string, description: string) {
+    this.addLiveFailure({
+      economico: assetId,
+      falla: description,
+      prioridad: 'Media',
+      reporta: 'Operador (App)',
+      estatus: 'Abierta'
+    });
+  }
+
+  private syncAssetsWithFailures(failures: ForkliftFailureEntry[]) {
+    const activeFailures = failures.filter(f => f.estatus !== 'Cerrada');
+    const activeIds = new Set(activeFailures.map(f => f.economico));
+    const activeFailureMap = new Map(activeFailures.map(f => [f.economico, f]));
+    const tallerStatus = this.statuses.find(s => s.name === 'Taller')!;
+    const opStatus = this.statuses.find(s => s.name === 'Operativo')!;
+
+    this.assetsSignal.update(assets =>
+      assets.map(a => {
+        if (activeIds.has(a.id)) {
+          return {
+            ...a,
+            status: tallerStatus,
+            statusSince: activeFailureMap.get(a.id)?.fechaIngreso || new Date().toISOString(),
+            lastFailure: activeFailureMap.get(a.id)?.falla
+          };
+        } else if (a.status.name === 'Taller') {
+          return {
+            ...a,
+            status: opStatus,
+            statusSince: new Date().toISOString(),
+            lastFailure: undefined
+          };
+        }
+        return a;
+      })
+    );
+  }
+
+  private loadRealFleet(): Asset[] {
+    const realAssets = hydrateRealAssets(this.statuses);
+    return realAssets;
+  }
+
+  private generateRealReports(): FailureReport[] {
+    return [];
+  }
+
+  private generateRealLiveFailures(): ForkliftFailureEntry[] {
+    return [
+      {
+        id: 'FAIL-2026-0001',
+        economico: '35526',
+        falla: 'Fuga de aceite hidráulico en cilindro de elevación principal.',
+        reporta: 'Carlos Eduardo Vazquez Calderon',
+        fechaIngreso: new Date().toISOString(),
+        prioridad: 'Alta',
+        estatus: 'Abierta',
+        seguimiento: [],
+        estatusRefaccion: EstadoRefaccion.NO_APLICA
+      }
+    ];
+  }
+
+  private evaluateStatus(date: string): 'Programado' | 'Vencido' | 'Completado' {
+    const today = new Date();
+    const scheduledDate = new Date(date);
+    if (scheduledDate < today) return 'Vencido';
+    return 'Programado';
+  }
+
+  private generateMaintenanceSchedule(): MaintenanceSchedule[] {
+    const staticData = [
+      { model: "32-8FG30", serial: "66454", eco: "CUA-29440", smp: "REV", date: "2026-02-05", tech: "Maycol Martinez", ot: "MXOT184286" },
+      { model: "32-8FG30", serial: "92719", eco: "CUA-35526", smp: "Z", date: "2026-02-14", tech: "Ariel Alavez", ot: "MXOT184289" },
+      { model: "32-8FG30", serial: "92714", eco: "CUA-35482", smp: "X", date: "2026-02-05", tech: "Max Gonzalo", ot: "MXOT184291" },
+      { model: "32-8FG30", serial: "92730", eco: "CUA-35483", smp: "X", date: "2026-02-05", tech: "Ariel Alavez", ot: "MXOT184293" },
+      { model: "32-8FG30", serial: "92732", eco: "CUA-35494", smp: "X", date: "2026-02-08", tech: "Erick Ramon", ot: "MXOT184294" },
+      { model: "32-8FG30", serial: "95159", eco: "CUA-37191", smp: "X", date: "2026-02-07", tech: "Maycol Martinez", ot: "MXOT184296" },
+      { model: "32-8FG30", serial: "95162", eco: "CUA-37192", smp: "X", date: "2026-02-07", tech: "Ariel Alavez", ot: "MXOT184297" },
+      { model: "32-8FG30", serial: "95074", eco: "CUA-37193", smp: "X", date: "2026-02-07", tech: "Max Gonzalo", ot: "MXOT184298" },
+      { model: "32-8FG30", serial: "95056", eco: "CUA-37194", smp: "X", date: "2026-02-08", tech: "Erick Ramon", ot: "MXOT184299" },
+      { model: "32-8FG30", serial: "95049", eco: "CUA-37195", smp: "X", date: "2026-02-08", tech: "Ariel Alavez", ot: "MXOT184300" },
+      { model: "32-8FG30", serial: "97520", eco: "CUA-40019", smp: "REV", date: "2026-02-12", tech: "Max Gonzalo", ot: "MXOT184303" },
+      { model: "32-8FG30", serial: "97519", eco: "CUA-40020", smp: "Y", date: "2026-02-12", tech: "Ariel Alavez", ot: "MXOT184304" },
+      { model: "32-8FG30", serial: "97532", eco: "CUA-40021", smp: "Y", date: "2026-02-11", tech: "Erick Ramon", ot: "MXOT184307" },
+      { model: "32-8FG30", serial: "97518", eco: "CUA-40057", smp: "Y", date: "2026-02-07", tech: "Maycol Martinez", ot: "MXOT184310" },
+      { model: "32-8FG30", serial: "97529", eco: "CUA-40060", smp: "Y", date: "2026-02-07", tech: "Ariel Alavez", ot: "MXOT184313" },
+      { model: "32-8FG30", serial: "97560", eco: "CUA-40065", smp: "REV", date: "2026-02-09", tech: "Max Gonzalo", ot: "MXOT184314" },
+      { model: "32-8FG30", serial: "97562", eco: "CUA-40327", smp: "REV", date: "2026-02-09", tech: "Erick Ramon", ot: "MXOT184315" },
+      { model: "32-8FG30", serial: "97584", eco: "CUA-40328", smp: "REV", date: "2026-02-09", tech: "Ariel Alavez", ot: "MXOT184318" },
+      { model: "32-8FG30", serial: "97781", eco: "CUA-40338", smp: "Z", date: "2026-02-14", tech: "Maycol Martinez", ot: "MXOT184321" },
+      { model: "32-8FG30", serial: "97788", eco: "CUA-40066", smp: "X", date: "2026-02-10", tech: "Erick Ramon", ot: "MXOT184322" },
+      { model: "32-8FG30", serial: "97796", eco: "CUA-40067", smp: "REV", date: "2026-02-14", tech: "Ariel Alavez", ot: "MXOT184324" },
+      { model: "8FGU30", serial: "35540", eco: "BACK-UP", smp: "REV", date: "2026-02-12", tech: "Maycol Martinez", ot: "MXOT184326" },
+      { model: "8FBCU30", serial: "67022", eco: "RENTA", smp: "REV", date: "2026-02-05", tech: "Erick Ramon", ot: "MXOT184327" }
+    ];
+
+    return staticData.map((item, index) => {
+      const scheduledIso = new Date(item.date).toISOString();
+      const status = this.evaluateStatus(scheduledIso);
+      return {
+        id: `SCH-${index}`,
+        model: item.model,
+        serial: item.serial,
+        economico: item.eco,
+        supervisor: "AARON VELAZQUEZ",
+        smpType: item.smp as any,
+        scheduledDate: scheduledIso,
+        realDate: undefined,
+        duration: "2hrs",
+        otFolio: item.ot,
+        serviceOrder: `OS-${237000 + index}`,
+        hourMeter: undefined,
+        technician: item.tech,
+        status: status,
+        history: [],
+        comments: '' 
+      };
+    });
+  }
+}
