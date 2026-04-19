@@ -4,7 +4,7 @@ import angular from '@analogjs/vite-plugin-angular';
 export default defineConfig({
   cacheDir: 'C:/temp/.vite-assetguard',
   plugins: [angular({ tsconfig: './tsconfig.json' })],
-  base: '/',
+  base: '/ASSET-GUARD-Corporate-Edition-Advanced/',
   server: {
     host: '0.0.0.0',
     port: 3000,
