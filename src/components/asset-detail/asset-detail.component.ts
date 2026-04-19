@@ -91,7 +91,7 @@ import { GeminiService } from '../../services/gemini.service';
                     </div>
                     <p class="text-slate-600 dark:text-slate-300">{{ report.failureDescription }}</p>
                     <p class="text-slate-400 mt-1">Técnico: {{ report.technician }}</p>
-                    <p class="text-emerald-600 font-bold">${{ report.estimatedCost | number }}</p>
+                    <p class="text-emerald-600 font-bold">$ {{ report.estimatedCost | number }}</p>
                   </div>
                 }
               </div>
