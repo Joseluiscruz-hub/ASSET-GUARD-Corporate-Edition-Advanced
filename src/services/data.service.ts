@@ -7,9 +7,11 @@ import {
   ForkliftFailureEntry,
   MaintenanceTask,
   MaintenanceSchedule,
-  EstadoRefaccion
+  MaintenanceSchedule,
+  EstadoRefaccion,
+  AIInspectionResponse
 } from '../types';
-import { firebaseApp } from '../firebase-init';
+import { firebaseApp, db as firestore } from '../firebase-init';
 import {
   getDatabase,
   ref,
@@ -17,6 +19,15 @@ import {
   set,
   update
 } from 'firebase/database';
+import { 
+  collection, 
+  addDoc, 
+  query, 
+  where, 
+  getDocs, 
+  orderBy, 
+  limit 
+} from 'firebase/firestore';
 import { hydrateRealAssets } from '../data/real-fleet';
 import { environment } from '../environments/environment';
 
@@ -26,6 +37,7 @@ import { environment } from '../environments/environment';
 export class DataService {
   private app = firebaseApp;
   private db: ReturnType<typeof getDatabase> | null = null;
+  private fs = firestore;
   private firebaseConfig = environment.firebase;
 
   // --- System State Signals ---
@@ -58,10 +70,12 @@ export class DataService {
   private assetsSignal = signal<Asset[]>([]);
   private reportsSignal = signal<FailureReport[]>([]);
   readonly forkliftFailures = signal<ForkliftFailureEntry[]>([]);
+  private workOrdersSignal = signal<any[]>([]);
 
   // --- Public Read-Only Signals ---
   readonly assets = this.assetsSignal.asReadonly();
   readonly reports = this.reportsSignal.asReadonly();
+  readonly workOrders = this.workOrdersSignal.asReadonly();
 
   // --- Computed KPIs ---
   readonly kpiData = computed<KPIData>(() => {
@@ -171,6 +185,38 @@ export class DataService {
       refacciones: f.refacciones || []
     }));
     this.forkliftFailures.set(failures);
+    this.refreshWorkOrders();
+  }
+
+  private refreshWorkOrders() {
+    const failures = this.forkliftFailures();
+    const schedule = this.maintenanceSchedule();
+    
+    const woFromFailures = failures.map(f => ({
+      id: f.id.replace('FAIL-', '').substring(0, 4),
+      titulo: f.falla.substring(0, 40) + (f.falla.length > 40 ? '...' : ''),
+      descripcion: f.falla,
+      unidad: f.economico,
+      tecnico: 'Sin Asignar', // O mapear si hay seguimiento
+      prioridad: f.prioridad,
+      tipo: 'Correctivo',
+      estatus: f.estatus === 'Abierta' ? 'pending' : f.estatus === 'En Proceso' ? 'progress' : 'completed',
+      fecha: new Date(f.fechaIngreso)
+    }));
+
+    const woFromSchedule = schedule.filter(s => s.status !== 'Completado').map(s => ({
+      id: s.otFolio.replace('MXOT', ''),
+      titulo: `Mantenimiento SMP ${s.smpType}`,
+      descripcion: `Servicio programado tipo ${s.smpType} para unidad ${s.economico}`,
+      unidad: s.economico,
+      tecnico: s.technician,
+      prioridad: 'Media',
+      tipo: 'Preventivo',
+      estatus: s.status === 'Programado' ? 'pending' : 'progress',
+      fecha: new Date(s.scheduledDate)
+    }));
+
+    this.workOrdersSignal.set([...woFromFailures, ...woFromSchedule]);
   }
 
   private initFirebase() {
@@ -211,6 +257,7 @@ export class DataService {
         list.sort((a, b) => new Date(b.fechaIngreso).getTime() - new Date(a.fechaIngreso).getTime());
         this.forkliftFailures.set(list);
         this.syncAssetsWithFailures(list);
+        this.refreshWorkOrders();
       } else {
         this.seedDatabase();
       }
@@ -329,6 +376,37 @@ export class DataService {
     this.syncAssetsWithFailures(this.forkliftFailures());
     if (this.connectionStatus() !== 'offline' && this.db) {
       update(ref(this.db!, 'failures/' + id), updatedFailure).catch(console.error);
+    }
+  }
+
+  // --- AI History Persistence (Firestore) ---
+  async saveAIResult(assetId: string, type: string, result: any) {
+    try {
+      const aiRef = collection(this.fs, 'ai_history');
+      await addDoc(aiRef, {
+        assetId,
+        type,
+        result,
+        timestamp: new Date().toISOString(),
+        user: 'system'
+      });
+    } catch (err) {
+      console.error('Error saving AI result:', err);
+    }
+  }
+
+  async getAIHistory(assetId: string, type?: string) {
+    try {
+      const aiRef = collection(this.fs, 'ai_history');
+      let q = query(aiRef, where('assetId', '==', assetId), orderBy('timestamp', 'desc'), limit(10));
+      if (type) {
+        q = query(aiRef, where('assetId', '==', assetId), where('type', '==', type), orderBy('timestamp', 'desc'), limit(5));
+      }
+      const snap = await getDocs(q);
+      return snap.docs.map(doc => doc.data());
+    } catch (err) {
+      console.error('Error fetching AI history:', err);
+      return [];
     }
   }
 

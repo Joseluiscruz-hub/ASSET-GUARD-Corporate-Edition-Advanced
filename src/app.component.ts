@@ -3,11 +3,9 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
-
 import { DataService } from './services/data.service';
 import { GeminiService } from './services/gemini.service';
 import { AuthService } from './services/auth.service';
-import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
 import DOMPurify from 'dompurify';
 import template from './app.component.html?raw';
 
@@ -17,10 +15,9 @@ type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'setting
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,
+    CommonModule, 
     DatePipe,
-    RouterModule,
-    AssetDetailComponent
+    RouterModule
   ],
   template,
   styles: [`
@@ -84,7 +81,7 @@ export class AppComponent {
     ).subscribe((event: any) => {
       this.currentUrl.set(event.urlAfterRedirects);
       this.selectedAssetId.set(null);
-
+      
       // Auto-switch plant mode for dashboard
       const isDashboard = event.urlAfterRedirects.includes('dashboard');
       if (isDashboard && !this.plantMode()) this.dataService.togglePlantMode();
@@ -134,8 +131,8 @@ export class AppComponent {
   }
 
   playAlert(critical: boolean) {
-    const audio = new Audio(critical
-      ? 'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3'
+    const audio = new Audio(critical 
+      ? 'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3' 
       : 'https://assets.mixkit.co/active_storage/sfx/2345/2345-preview.mp3');
     audio.play().catch(() => {});
   }

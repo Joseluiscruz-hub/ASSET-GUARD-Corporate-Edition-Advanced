@@ -108,22 +108,18 @@ export class WorkOrdersComponent {
   private dataService = inject(DataService);
   
   activeTab = signal('all');
-  tabs = [
-    { id: 'all', label: 'Todas', count: 12 },
-    { id: 'pending', label: 'Pendientes', count: 5 },
-    { id: 'progress', label: 'En Proceso', count: 3 },
-    { id: 'completed', label: 'Completadas', count: 4 },
-  ];
-
-  orders = signal<any[]>([
-    { id: '4550', titulo: 'Fuga de aceite en mástil', descripcion: 'El operador reporta goteo persistente después de 2 horas de uso intenso.', unidad: 'CUA-35526', tecnico: 'Maycol Martinez', prioridad: 'Alta', tipo: 'Correctivo', estatus: 'pending', fecha: new Date() },
-    { id: '4551', titulo: 'Mantenimiento SMP 250h', descripcion: 'Cambio de filtros y revisión de sistema eléctrico según programa.', unidad: 'CUA-35528', tecnico: 'Ariel Alavez', prioridad: 'Media', tipo: 'Preventivo', estatus: 'progress', fecha: new Date(Date.now() - 3600000) },
-    { id: '4552', titulo: 'Cambio de neumáticos traseros', descripcion: 'Desgaste excesivo detectado en checklist matutino.', unidad: 'CUA-35530', tecnico: 'Sin Asignar', prioridad: 'Baja', tipo: 'Correctivo', estatus: 'pending', fecha: new Date(Date.now() - 7200000) },
+  
+  tabs = computed(() => [
+    { id: 'all', label: 'Todas', count: this.dataService.workOrders().length },
+    { id: 'pending', label: 'Pendientes', count: this.dataService.workOrders().filter(o => o.estatus === 'pending').length },
+    { id: 'progress', label: 'En Proceso', count: this.dataService.workOrders().filter(o => o.estatus === 'progress').length },
+    { id: 'completed', label: 'Completadas', count: this.dataService.workOrders().filter(o => o.estatus === 'completed').length },
   ]);
 
   filteredOrders = computed(() => {
-    if (this.activeTab() === 'all') return this.orders();
-    return this.orders().filter(o => o.estatus === this.activeTab());
+    const orders = this.dataService.workOrders();
+    if (this.activeTab() === 'all') return orders;
+    return orders.filter(o => o.estatus === this.activeTab());
   });
 
   getPriorityClass(p: string): string {

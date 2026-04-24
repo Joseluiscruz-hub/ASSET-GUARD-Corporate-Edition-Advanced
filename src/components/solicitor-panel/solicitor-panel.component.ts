@@ -35,7 +35,7 @@ import { GeminiService } from '../../services/gemini.service';
           </div>
           <div>
             <label class="text-xs font-bold uppercase text-slate-500 block mb-1">Descripción de la Falla *</label>
-            <textarea [(ngModel)]="form.descripcion" rows="3" placeholder="Describe qué observas..."
+            <textarea [(ngModel)]="form.descripcion" (blur)="getQuickAdvice()" rows="3" placeholder="Describe qué observas..."
               class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl text-sm bg-white dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"></textarea>
           </div>
           <div>
@@ -44,10 +44,22 @@ import { GeminiService } from '../../services/gemini.service';
               class="w-full px-4 py-3 border border-slate-200 dark:border-slate-600 rounded-xl text-sm bg-white dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-red-500">
           </div>
 
+          @if (loadingAdvice()) {
+            <div class="flex items-center gap-2 text-xs text-slate-400 animate-pulse">
+              <span class="material-symbols-outlined text-sm">sync</span>
+              Analizando falla para tu seguridad...
+            </div>
+          }
+
           @if (aiAdvice()) {
-            <div class="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
-              <p class="text-xs font-bold text-amber-700 dark:text-amber-400 mb-1"><i class="fas fa-robot mr-1"></i> Consejo IA:</p>
-              <p class="text-sm text-amber-800 dark:text-amber-300">{{ aiAdvice() }}</p>
+            <div class="p-4 bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-xl animate-in fade-in slide-in-from-top-2">
+              <div class="flex items-start gap-3">
+                <span class="material-symbols-outlined text-amber-600 dark:text-amber-400">info</span>
+                <div>
+                  <p class="text-[10px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider mb-0.5">Asistente de Seguridad IA</p>
+                  <p class="text-sm text-amber-900 dark:text-amber-200 leading-snug">{{ aiAdvice() }}</p>
+                </div>
+              </div>
             </div>
           }
 
@@ -78,6 +90,7 @@ export class SolicitorPanelComponent {
 
   form = { economico: '', categoria: '', descripcion: '', operador: '' };
   submitting      = signal(false);
+  loadingAdvice   = signal(false);
   reportSubmitted = signal(false);
   lastReportId    = signal('');
   aiAdvice        = signal('');
@@ -86,12 +99,30 @@ export class SolicitorPanelComponent {
     return this.form.economico && this.form.categoria && this.form.descripcion && this.form.operador;
   }
 
+  async getQuickAdvice() {
+    if (!this.form.categoria || this.form.descripcion.length < 10 || this.aiAdvice()) return;
+    
+    this.loadingAdvice.set(true);
+    try {
+      const advice = await this.geminiService.getOperatorAdvice(this.form.categoria, this.form.descripcion);
+      this.aiAdvice.set(advice);
+    } catch (err) {
+      console.error('Advice Error:', err);
+    } finally {
+      this.loadingAdvice.set(false);
+    }
+  }
+
   async submitReport() {
     if (!this.isFormValid()) return;
     this.submitting.set(true);
     try {
-      const advice = await this.geminiService.getOperatorAdvice(this.form.categoria, this.form.descripcion);
-      this.aiAdvice.set(advice);
+      // Si no hay consejo previo, pedir uno final
+      if (!this.aiAdvice()) {
+        const advice = await this.geminiService.getOperatorAdvice(this.form.categoria, this.form.descripcion);
+        this.aiAdvice.set(advice);
+      }
+
       this.dataService.addLiveFailure({
         economico: this.form.economico,
         falla: `[${this.form.categoria}] ${this.form.descripcion}`,
