@@ -4,6 +4,16 @@ import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadComponent: () => import('./components/home-step1/home-step1.component').then(m => m.HomeStep1Component),
+    canActivate: [authGuard]
+  },
+  {
+    path: 'dashboard',
     loadComponent: () => import('./components/dashboard/dashboard.component').then(m => m.DashboardComponent),
     canActivate: [authGuard]
   },

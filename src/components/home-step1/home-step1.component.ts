@@ -1,6 +1,7 @@
 import { Component, inject, computed, signal, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../../services/data.service';
+import { Router } from '@angular/router';
 
 const FEMSA_RED = '#ce1126';
 
@@ -149,6 +150,7 @@ export interface ZoneSelection {
 export class HomeStep1Component {
   readonly FEMSA_RED = FEMSA_RED;
   private dataService = inject(DataService);
+  private router = inject(Router);
 
   selectedZones = signal<string[]>([]);
   compareSelected = output<ZoneSelection>();
@@ -214,6 +216,6 @@ export class HomeStep1Component {
 
   compareZones(): void {
     if (this.selectedZones().length === 0) return;
-    this.compareSelected.emit({ zones: this.selectedZones() });
+    this.router.navigate(['/dashboard']);
   }
 }

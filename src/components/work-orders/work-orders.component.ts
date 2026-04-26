@@ -1,132 +1,161 @@
-// =======================================================================================
-// work-orders.component.ts — AssetGuard Corporate Edition Advanced
-// Gestión de órdenes de trabajo (OT) para mantenimiento correctivo y preventivo.
-// =======================================================================================
-
-import { Component, inject, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, computed, signal } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-work-orders',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, DatePipe, FormsModule],
   template: `
-    <div class="p-6 bg-slate-50 min-h-screen">
-      <!-- Header -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div class="p-4 md:p-6 max-w-[1600px] mx-auto h-[calc(100vh-80px)] flex flex-col">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <div>
-          <h1 class="text-2xl font-bold text-slate-900 flex items-center gap-2">
-            <span class="material-symbols-outlined text-amber-600">engineering</span>
-            Órdenes de Trabajo
-          </h1>
-          <p class="text-slate-500">Programación y seguimiento de reparaciones</p>
+          <h2 class="text-2xl font-black text-slate-800 flex items-center gap-2 uppercase tracking-tighter">
+            <i class="fas fa-tasks text-[#ce1126]"></i> Tablero Kanban OT
+          </h2>
+          <p class="text-slate-500 font-medium text-sm mt-1">Gestión visual de tareas de mantenimiento y asignaciones.</p>
         </div>
-        
-        <div class="flex items-center gap-3">
-          <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl flex items-center gap-2 shadow-sm transition-all active:scale-95">
-            <span class="material-symbols-outlined">add</span>
-            Crear OT Manual
+        <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+          <div class="relative w-full sm:w-auto">
+            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <input type="text" [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" placeholder="Buscar OT, Unidad o Técnico..." class="w-full sm:w-64 pl-10 pr-4 py-3 border border-slate-200 rounded-xl bg-white text-slate-800 focus:ring-2 focus:ring-[#ce1126] outline-none transition shadow-sm text-sm font-medium font-sans">
+          </div>
+          <button class="bg-slate-900 hover:bg-black text-white px-6 py-3 rounded-xl font-bold uppercase tracking-wider text-xs transition flex justify-center items-center gap-2 shadow-sm whitespace-nowrap">
+            <i class="fas fa-plus"></i> Nueva OT
           </button>
         </div>
       </div>
 
-      <!-- Filters -->
-      <div class="flex items-center gap-4 mb-6 overflow-x-auto pb-2">
-        <button 
-          *ngFor="let tab of tabs" 
-          (click)="activeTab.set(tab.id)"
-          [class]="activeTab() === tab.id ? 'bg-slate-900 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100'"
-          class="px-6 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all border border-transparent"
-        >
-          {{ tab.label }}
-          <span class="ml-1 opacity-60 text-xs">{{ tab.count }}</span>
-        </button>
+      <!-- Kanban Board -->
+      <div class="flex-1 flex flex-col md:flex-row gap-4 overflow-x-auto pb-4 custom-scroll snap-x">
+        
+        <!-- Column: Por Hacer (Pending) -->
+        <div class="flex-1 min-w-[300px] md:min-w-[350px] bg-slate-100 rounded-2xl border border-slate-200 flex flex-col max-h-full snap-center shadow-inner">
+          <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-white rounded-t-2xl shadow-sm">
+            <h3 class="font-black text-slate-800 flex items-center gap-2 uppercase tracking-widest text-xs">
+              <i class="fas fa-inbox text-slate-400 text-base"></i> Por Hacer
+            </h3>
+            <span class="bg-slate-100 text-slate-600 border border-slate-200 text-xs font-bold px-3 py-1 rounded-full shadow-inner">{{ pendingOrders().length }}</span>
+          </div>
+          <div class="p-4 flex-1 overflow-y-auto custom-scroll space-y-4">
+            @for (wo of pendingOrders(); track wo.id) {
+              <ng-container *ngTemplateOutlet="woCard; context: { $implicit: wo }"></ng-container>
+            }
+          </div>
+        </div>
+
+        <!-- Column: En Proceso (Progress) -->
+        <div class="flex-1 min-w-[300px] md:min-w-[350px] bg-slate-100 rounded-2xl border border-slate-200 flex flex-col max-h-full snap-center shadow-inner">
+          <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-white rounded-t-2xl shadow-sm">
+            <h3 class="font-black text-slate-800 flex items-center gap-2 uppercase tracking-widest text-xs">
+              <i class="fas fa-tools text-amber-500 text-base"></i> En Proceso
+            </h3>
+            <span class="bg-amber-100 border border-amber-200 text-amber-700 text-xs font-bold px-3 py-1 rounded-full shadow-inner">{{ inProgressOrders().length }}</span>
+          </div>
+          <div class="p-4 flex-1 overflow-y-auto custom-scroll space-y-4">
+            @for (wo of inProgressOrders(); track wo.id) {
+              <ng-container *ngTemplateOutlet="woCard; context: { $implicit: wo }"></ng-container>
+            }
+          </div>
+        </div>
+
+        <!-- Column: Completadas (Completed) -->
+        <div class="flex-1 min-w-[300px] md:min-w-[350px] bg-slate-100 rounded-2xl border border-slate-200 flex flex-col max-h-full snap-center shadow-inner">
+          <div class="p-4 border-b border-slate-200 flex justify-between items-center bg-white rounded-t-2xl shadow-sm">
+            <h3 class="font-black text-slate-800 flex items-center gap-2 uppercase tracking-widest text-xs">
+              <i class="fas fa-check-circle text-emerald-500 text-base"></i> Completadas
+            </h3>
+            <span class="bg-emerald-100 border border-emerald-200 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full shadow-inner">{{ completedOrders().length }}</span>
+          </div>
+          <div class="p-4 flex-1 overflow-y-auto custom-scroll space-y-4">
+            @for (wo of completedOrders(); track wo.id) {
+              <ng-container *ngTemplateOutlet="woCard; context: { $implicit: wo }"></ng-container>
+            }
+          </div>
+        </div>
+
       </div>
+    </div>
 
-      <!-- List -->
-      <div class="grid grid-cols-1 gap-4">
-        <div 
-          *ngFor="let ot of filteredOrders()" 
-          class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-indigo-300 transition-all group"
-        >
-          <div class="flex flex-col md:flex-row gap-6">
-            <!-- OT ID & Icon -->
-            <div class="flex-shrink-0 flex md:flex-col items-center justify-center gap-3 bg-slate-50 rounded-xl px-6 py-4 border border-slate-100">
-              <span class="material-symbols-outlined text-3xl" [class.text-amber-500]="ot.tipo === 'Correctivo'" [class.text-indigo-500]="ot.tipo === 'Preventivo'">
-                {{ ot.tipo === 'Correctivo' ? 'warning' : 'event_available' }}
-              </span>
-              <div class="text-center">
-                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Folio</div>
-                <div class="text-lg font-black text-slate-900 leading-none">#{{ ot.id }}</div>
+    <!-- Reusable Card Template -->
+    <ng-template #woCard let-wo>
+      <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 cursor-grab hover:shadow-md hover:border-[#ce1126]/30 transition-all group active:scale-95">
+        <div class="flex justify-between items-start mb-3">
+          <span class="text-xs font-mono font-black text-slate-500 bg-slate-100 px-3 py-1 rounded-lg border border-slate-200">#{{ wo.id }}</span>
+          <span class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border shadow-sm"
+            [ngClass]="{
+              'bg-red-50 text-red-700 border-red-200': wo.prioridad === 'Alta' || wo.prioridad === 'Urgente',
+              'bg-amber-50 text-amber-700 border-amber-200': wo.prioridad === 'Media',
+              'bg-emerald-50 text-emerald-700 border-emerald-200': wo.prioridad === 'Baja'
+            }">
+            {{ wo.prioridad }}
+          </span>
+        </div>
+        
+        <h4 class="font-black text-slate-800 text-sm mb-2 line-clamp-2 leading-tight group-hover:text-[#ce1126] transition-colors">{{ wo.titulo }}</h4>
+        <p class="text-xs text-slate-500 font-medium mb-4 line-clamp-2 leading-relaxed">{{ wo.descripcion }}</p>
+        
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-slate-50 text-slate-600 border border-slate-100 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-2">
+            <i class="fas fa-truck-loading text-slate-400"></i> {{ wo.unidad }}
+          </span>
+          <span class="bg-slate-50 text-slate-600 border border-slate-100 text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg flex items-center gap-2">
+            <i class="fas fa-tag text-slate-400"></i> {{ wo.tipo }}
+          </span>
+        </div>
+
+        <div class="flex justify-between items-center pt-4 border-t border-slate-100">
+          <div class="flex items-center gap-2">
+            @if (wo.tecnico !== 'Sin Asignar') {
+              <div class="w-7 h-7 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 text-xs font-black border border-indigo-200 shadow-sm" title="Asignado a: {{ wo.tecnico }}">
+                {{ wo.tecnico.charAt(0) }}
               </div>
-            </div>
-
-            <!-- Content -->
-            <div class="flex-1">
-              <div class="flex flex-wrap items-center gap-2 mb-2">
-                <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-[10px] font-bold uppercase">{{ ot.tipo }}</span>
-                <span [class]="getPriorityClass(ot.prioridad)" class="px-3 py-1 rounded-full text-[10px] font-bold uppercase">{{ ot.prioridad }}</span>
-                <span class="text-slate-400 text-sm ml-auto font-mono">{{ ot.fecha | date:'short' }}</span>
+              <span class="text-[10px] font-bold text-slate-600 truncate max-w-[80px]">{{ wo.tecnico }}</span>
+            } @else {
+              <div class="w-7 h-7 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 text-xs border border-slate-200 border-dashed" title="Sin asignar">
+                <i class="fas fa-user-plus"></i>
               </div>
-              
-              <h3 class="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{{ ot.titulo }}</h3>
-              <p class="text-slate-500 text-sm mb-4">{{ ot.descripcion }}</p>
-
-              <div class="flex flex-wrap items-center gap-6 pt-4 border-t border-slate-50">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-slate-400 text-lg">forklift</span>
-                  <span class="text-sm font-bold text-slate-700">{{ ot.unidad }}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-slate-400 text-lg">person</span>
-                  <span class="text-sm text-slate-600">{{ ot.tecnico }}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-slate-400 text-lg">history</span>
-                  <span class="text-sm text-slate-600">{{ ot.tiempoEstimado }} est.</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Actions -->
-            <div class="flex md:flex-col justify-end gap-2">
-              <button class="bg-slate-100 hover:bg-indigo-600 hover:text-white text-slate-600 px-4 py-2 rounded-xl text-sm font-bold transition-all">Ver Detalle</button>
-              <button class="bg-slate-900 hover:bg-black text-white px-4 py-2 rounded-xl text-sm font-bold transition-all shadow-sm">Atender</button>
-            </div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sin asignar</span>
+            }
+          </div>
+          <div class="text-[10px] font-bold text-slate-500 bg-slate-50 px-2 py-1 rounded border border-slate-100 flex items-center gap-1.5 uppercase tracking-wider" [ngClass]="{'text-red-600 bg-red-50 border-red-100': isOverdue(wo.fecha)}">
+            <i class="far fa-calendar-alt"></i> {{ wo.fecha | date:'dd MMM' }}
           </div>
         </div>
       </div>
-    </div>
+    </ng-template>
   `,
   styles: [`
-    :host { display: block; }
+    .custom-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
+    .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+    .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scroll:hover::-webkit-scrollbar-thumb { background: #94a3b8; }
   `]
 })
 export class WorkOrdersComponent {
-  private dataService = inject(DataService);
-  
-  activeTab = signal('all');
-  
-  tabs = computed(() => [
-    { id: 'all', label: 'Todas', count: this.dataService.workOrders().length },
-    { id: 'pending', label: 'Pendientes', count: this.dataService.workOrders().filter(o => o.estatus === 'pending').length },
-    { id: 'progress', label: 'En Proceso', count: this.dataService.workOrders().filter(o => o.estatus === 'progress').length },
-    { id: 'completed', label: 'Completadas', count: this.dataService.workOrders().filter(o => o.estatus === 'completed').length },
-  ]);
+  dataService = inject(DataService);
+  searchTerm = signal('');
+
+  workOrders = this.dataService.workOrders;
 
   filteredOrders = computed(() => {
-    const orders = this.dataService.workOrders();
-    if (this.activeTab() === 'all') return orders;
-    return orders.filter(o => o.estatus === this.activeTab());
+    const term = this.searchTerm().toLowerCase();
+    if (!term) return this.workOrders();
+    return this.workOrders().filter(wo => 
+      wo.titulo.toLowerCase().includes(term) || 
+      wo.id.toLowerCase().includes(term) ||
+      wo.unidad.toLowerCase().includes(term) ||
+      wo.tecnico.toLowerCase().includes(term)
+    );
   });
 
-  getPriorityClass(p: string): string {
-    switch (p) {
-      case 'Alta': return 'bg-rose-100 text-rose-700';
-      case 'Media': return 'bg-amber-100 text-amber-700';
-      default: return 'bg-slate-100 text-slate-700';
-    }
+  pendingOrders = computed(() => this.filteredOrders().filter(wo => wo.estatus === 'pending'));
+  inProgressOrders = computed(() => this.filteredOrders().filter(wo => wo.estatus === 'progress'));
+  completedOrders = computed(() => this.filteredOrders().filter(wo => wo.estatus === 'completed'));
+
+  isOverdue(dateStr: string): boolean {
+    const diff = new Date().getTime() - new Date(dateStr).getTime();
+    return diff > (1000 * 60 * 60 * 24 * 3); // Overdue if older than 3 days
   }
 }

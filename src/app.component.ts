@@ -8,6 +8,7 @@ import { GeminiService } from './services/gemini.service';
 import { AuthService } from './services/auth.service';
 import DOMPurify from 'dompurify';
 import template from './app.component.html?raw';
+import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
 
 type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'settings' | 'compliance' | 'inventory' | 'work-orders';
 
@@ -17,7 +18,8 @@ type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'setting
   imports: [
     CommonModule, 
     DatePipe,
-    RouterModule
+    RouterModule,
+    AssetDetailComponent
   ],
   template,
   styles: [`

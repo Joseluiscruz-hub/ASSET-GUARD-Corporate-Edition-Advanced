@@ -146,7 +146,8 @@ export class DataService {
     { rank: 3, name: 'Turno 3 (Nocturno)', score: 89.8, pallets: 1105 }
   ]);
 
-  readonly maintenanceSchedule = computed<MaintenanceSchedule[]>(() => this.generateMaintenanceSchedule());
+  private maintenanceScheduleSignal = signal<MaintenanceSchedule[]>([]);
+  readonly maintenanceSchedule = this.maintenanceScheduleSignal.asReadonly();
 
   readonly complianceStats = computed(() => {
     const schedule = this.maintenanceSchedule();
@@ -185,6 +186,7 @@ export class DataService {
       refacciones: f.refacciones || []
     }));
     this.forkliftFailures.set(failures);
+    this.maintenanceScheduleSignal.set(this.generateMaintenanceSchedule());
     this.refreshWorkOrders();
   }
 
@@ -556,6 +558,87 @@ export class DataService {
         history: [],
         comments: '' 
       };
+    });
+  }
+
+  async updateMaintenanceDate(id: string, newDate: string) {
+    this.maintenanceScheduleSignal.update(list => list.map(item => {
+      if (item.id === id) {
+        return { ...item, realDate: newDate, status: 'Completado' as Status['name'] };
+      }
+      return item;
+    }));
+    this.refreshWorkOrders();
+  }
+
+  async updateMaintenanceComments(id: string, comments: string) {
+    this.maintenanceScheduleSignal.update(list => list.map(item => {
+      if (item.id === id) {
+        return { ...item, comments };
+      }
+      return item;
+    }));
+  }
+
+  async updateMaintenanceScheduleFromExcel(data: any[]) {
+    let success = 0;
+    let errors: string[] = [];
+    
+    this.maintenanceScheduleSignal.update(list => {
+      const newList = [...list];
+      data.forEach((row, idx) => {
+        try {
+          const eco = row['Economico'] || row['economico'] || row['ECONOMICO'] || row['Unidad'];
+          if (eco) {
+            const existingIdx = newList.findIndex(item => item.economico === eco);
+            if (existingIdx >= 0) {
+              // Basic mapping for demo purposes
+              newList[existingIdx] = { 
+                ...newList[existingIdx], 
+                realDate: row['Fecha Real'] || newList[existingIdx].realDate,
+                technician: row['Técnico Real'] || row['Tecnico Real'] || newList[existingIdx].technician,
+                hourMeter: row['Horómetro'] || row['Horometro'] || newList[existingIdx].hourMeter,
+                status: row['Fecha Real'] ? 'Completado' : newList[existingIdx].status
+              } as any;
+              success++;
+            } else {
+              errors.push(`Unidad ${eco} no encontrada en el programa base.`);
+            }
+          }
+        } catch (e) {
+          errors.push(`Error en fila ${idx + 2}`);
+        }
+      });
+      return newList;
+    });
+
+    this.refreshWorkOrders();
+    return { success, errors };
+  }
+
+  // --- Excel Bulk Updates ---
+  async updateAssetsFromExcel(data: any[]) {
+    this.assetsSignal.update(current => {
+      let updated = [...current];
+      data.forEach(row => {
+        const eco = row['Economico'] || row['economico'] || row['ID'];
+        if (eco) {
+          const idx = updated.findIndex(a => a.id === eco);
+          if (idx !== -1) {
+             updated[idx] = {
+               ...updated[idx],
+               brand: row['Marca'] || updated[idx].brand,
+               model: row['Modelo'] || updated[idx].model,
+               serial: row['Serie'] || updated[idx].serial,
+               status: {
+                 name: row['Estatus'] || updated[idx].status.name,
+                 color: row['Estatus'] === 'Operativo' ? 'bg-green-100 text-green-700 border-green-200' : 'bg-red-100 text-red-700 border-red-200'
+               } as any
+             };
+          }
+        }
+      });
+      return updated;
     });
   }
 }
