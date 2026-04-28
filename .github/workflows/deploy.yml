@@ -19,14 +19,16 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm install
-      - name: Build
-        run: npm run build
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+      - name: Build (Angular CLI)
+        run: ng build --configuration production
         env:
           VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/
+          path: dist/asset-guard-advanced/
   deploy:
     needs: build_site
     runs-on: ubuntu-latest
