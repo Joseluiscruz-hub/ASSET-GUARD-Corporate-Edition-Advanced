@@ -1,5 +1,5 @@
 
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { DataService } from '../../services/data.service';
 import { Asset } from '../../types';
@@ -11,8 +11,13 @@ import autoTable from 'jspdf-autotable';
   standalone: true,
   imports: [CommonModule, DatePipe],
   template: `
-    <div class="space-y-6 relative">
-       
+      <div class="space-y-6 relative">
+         <!-- Subida de imagen y registro de activo -->
+         <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4 mb-4">
+            <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" [disabled]="uploading()">
+            <span *ngIf="uploading()" class="text-blue-600 animate-pulse">Subiendo imagen...</span>
+         </div>
+
        <!-- Summary Header -->
        <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
           <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
@@ -40,17 +45,17 @@ import autoTable from 'jspdf-autotable';
        <!-- Toolbar -->
        <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
           <h2 class="font-bold text-slate-700">Inventario Detallado</h2>
-          
+
           <div class="flex gap-3 w-full md:w-auto">
              <div class="relative flex-1 md:w-64">
                 <i class="fas fa-search absolute left-3 top-3 text-slate-400 text-xs"></i>
-                <input type="text" 
-                       placeholder="Buscar por ID, Serie o Marca..." 
+                <input type="text"
+                       placeholder="Buscar por ID, Serie o Marca..."
                        (input)="filter.set($any($event.target).value)"
                        class="w-full pl-8 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
              </div>
-             
-             <button (click)="generateExecutiveReport()" 
+
+             <button (click)="generateExecutiveReport()"
                      [disabled]="isGenerating()"
                      class="px-4 py-2 bg-[#ce1126] hover:bg-[#a30d1d] text-white text-xs font-bold uppercase rounded-lg shadow-sm flex items-center gap-2 transition-transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70 disabled:cursor-wait">
                 @if(isGenerating()) {
@@ -78,7 +83,7 @@ import autoTable from 'jspdf-autotable';
                 </thead>
                 <tbody class="divide-y divide-slate-100">
                    @for (asset of filteredAssets(); track asset.id) {
-                      <tr class="transition-colors group cursor-pointer border-l-4 relative" 
+                      <tr class="transition-colors group cursor-pointer border-l-4 relative"
                           [ngClass]="{'hover:bg-slate-50 border-transparent': !isCriticalMaintenance(asset), 'border-red-500 bg-red-50': isCriticalMaintenance(asset)}"
                           (click)="selectAsset(asset)"
                           (mouseenter)="showTooltip($event, asset)"
@@ -118,7 +123,7 @@ import autoTable from 'jspdf-autotable';
                                    </span>
                                 }
                             </div>
-                            
+
                             @if (asset.status.name !== 'Operativo') {
                                <div class="flex items-center gap-1.5 text-[10px] text-slate-500 mt-1.5 font-medium pl-1">
                                   <i class="fas fa-history text-[8px] opacity-70"></i>
@@ -155,16 +160,16 @@ import autoTable from 'jspdf-autotable';
                 <div class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Información Adicional</div>
             </div>
             <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5">
-               <span class="text-slate-400 font-medium">SAP:</span> 
+               <span class="text-slate-400 font-medium">SAP:</span>
                <span class="font-mono text-emerald-400 font-bold">{{ hoveredAsset()?.sapCode || 'N/A' }}</span>
-               
-               <span class="text-slate-400 font-medium">Combustible:</span> 
+
+               <span class="text-slate-400 font-medium">Combustible:</span>
                <span class="font-bold">{{ hoveredAsset()?.fuelType }}</span>
-               
-               <span class="text-slate-400 font-medium">Adquisición:</span> 
+
+               <span class="text-slate-400 font-medium">Adquisición:</span>
                <span>{{ hoveredAsset()?.acquisitionDate | date:'MMMM yyyy' }}</span>
 
-               <span class="text-slate-400 font-medium">Hrs Uso:</span> 
+               <span class="text-slate-400 font-medium">Hrs Uso:</span>
                <span>{{ hoveredAsset()?.operatingHours | number }} hrs</span>
             </div>
          </div>
@@ -173,38 +178,68 @@ import autoTable from 'jspdf-autotable';
   `
 })
 export class AssetListComponent {
-  dataService = inject(DataService);
-  filter = signal('');
-  isGenerating = signal(false);
-  
-  // Tooltip State
-  hoveredAsset = signal<Asset | null>(null);
-  tooltipPos = signal({ x: 0, y: 0 });
-  
-  filteredAssets = computed(() => {
-     const text = this.filter().toLowerCase();
-     return this.dataService.assets().filter(a => 
-        a.id.toLowerCase().includes(text) || 
-        a.brand.toLowerCase().includes(text) ||
-        a.serial.toLowerCase().includes(text)
-     );
-  });
+   dataService = inject(DataService);
+   filter = signal('');
+   isGenerating = signal(false);
+   uploading = signal(false);
+   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  stats = computed(() => {
-     // Now uses filteredAssets for dynamic updates
-     const assets = this.filteredAssets();
-     return {
-        total: assets.length,
-        operative: assets.filter(a => a.status.name === 'Operativo').length,
-        maintenance: assets.filter(a => a.status.name === 'Taller').length,
-        preventive: assets.filter(a => a.status.name === 'Preventivo').length,
-        critical: assets.filter(a => a.critical).length
-     };
-  });
+   // Tooltip State
+   hoveredAsset = signal<Asset | null>(null);
+   tooltipPos = signal({ x: 0, y: 0 });
 
-  selectAsset(asset: Asset) {
-    window.dispatchEvent(new CustomEvent('asset-selected', { detail: asset.id }));
-  }
+   filteredAssets = computed(() => {
+       const text = this.filter().toLowerCase();
+       return this.dataService.assets().filter(a =>
+            a.id.toLowerCase().includes(text) ||
+            a.brand.toLowerCase().includes(text) ||
+            a.serial.toLowerCase().includes(text)
+       );
+   });
+
+   stats = computed(() => {
+       // Now uses filteredAssets for dynamic updates
+       const assets = this.filteredAssets();
+       return {
+            total: assets.length,
+            operative: assets.filter(a => a.status.name === 'Operativo').length,
+            maintenance: assets.filter(a => a.status.name === 'Taller').length,
+            preventive: assets.filter(a => a.status.name === 'Preventivo').length,
+            critical: assets.filter(a => a.critical).length
+       };
+   });
+
+   selectAsset(asset: Asset) {
+      window.dispatchEvent(new CustomEvent('asset-selected', { detail: asset.id }));
+   }
+
+   // --- SUBIDA DE IMAGEN Y REGISTRO DE ACTIVO ---
+   async onFileSelected(event: Event) {
+      const input = event.target as HTMLInputElement;
+      if (!input.files || input.files.length === 0) return;
+      const file = input.files[0];
+      // Ejemplo de datos del activo (puedes adaptar a tu formulario real)
+      const assetData = {
+         id: 'ID-' + Date.now(),
+         brand: 'Marca Demo',
+         model: 'Modelo Demo',
+         serial: 'SN-' + Math.floor(Math.random() * 100000),
+         status: { name: 'Operativo', color: '', hex: '' },
+         location: 'Ubicación Demo',
+         supervisor: 'Supervisor Demo',
+         critical: false
+      };
+      this.uploading.set(true);
+      try {
+         await this.dataService.uploadAssetImage(file, assetData);
+         alert('Imagen y activo subidos correctamente');
+         if (this.fileInput) this.fileInput.nativeElement.value = '';
+      } catch (e) {
+         alert('Error al subir la imagen o guardar el activo');
+      } finally {
+         this.uploading.set(false);
+      }
+   }
 
   isCriticalMaintenance(asset: Asset): boolean {
     if (asset.status.name !== 'Taller' || !asset.statusSince) return false;
@@ -240,27 +275,27 @@ export class AssetListComponent {
             const stats = this.stats();
             // Use filtered assets for report to match view
             const reportAssets = this.filteredAssets();
-            
+
             const dateStr = new Date().toLocaleDateString();
             const timeStr = new Date().toLocaleTimeString();
 
             // -- Header Band --
             doc.setFillColor(206, 17, 38); // Brand Red
             doc.rect(0, 0, 210, 24, 'F');
-            
+
             // Title
             doc.setTextColor(255, 255, 255);
             doc.setFontSize(16);
             doc.setFont('helvetica', 'bold');
             doc.text('ASSET GUARD | REPORTE EJECUTIVO DE FLOTA', 14, 15);
-            
+
             // Subtitle Info
             doc.setFontSize(9);
             doc.setFont('helvetica', 'normal');
             doc.text(`Planta: Cuautitlán Izcalli  |  Generado: ${dateStr} ${timeStr}`, 14, 28);
 
             // -- Executive Summary Cards (Simulated) --
-            
+
             // Background for summary
             doc.setFillColor(248, 250, 252); // Slate 50
             doc.setDrawColor(226, 232, 240); // Slate 200
@@ -268,33 +303,33 @@ export class AssetListComponent {
 
             const startY = 42;
             const colWidth = 45;
-            
+
             // Metric 1: Total
-            doc.setTextColor(100, 116, 139); doc.setFontSize(8); doc.setFont('helvetica', 'bold'); 
+            doc.setTextColor(100, 116, 139); doc.setFontSize(8); doc.setFont('helvetica', 'bold');
             doc.text('TOTAL ACTIVOS', 20, startY);
-            doc.setTextColor(30, 41, 59); doc.setFontSize(14); 
+            doc.setTextColor(30, 41, 59); doc.setFontSize(14);
             doc.text(stats.total.toString(), 20, startY + 8);
 
             // Metric 2: Operative
-            doc.setTextColor(100, 116, 139); doc.setFontSize(8); 
+            doc.setTextColor(100, 116, 139); doc.setFontSize(8);
             doc.text('OPERATIVOS', 20 + colWidth, startY);
             doc.setTextColor(22, 163, 74); // Green
-            doc.setFontSize(14); 
+            doc.setFontSize(14);
             doc.text(stats.operative.toString(), 20 + colWidth, startY + 8);
 
             // Metric 3: Maintenance
-            doc.setTextColor(100, 116, 139); doc.setFontSize(8); 
+            doc.setTextColor(100, 116, 139); doc.setFontSize(8);
             doc.text('EN TALLER', 20 + colWidth * 2, startY);
             doc.setTextColor(220, 38, 38); // Red
-            doc.setFontSize(14); 
+            doc.setFontSize(14);
             doc.text(stats.maintenance.toString(), 20 + colWidth * 2, startY + 8);
 
             // Metric 4: Availability
             const availability = stats.total > 0 ? ((stats.operative / stats.total) * 100).toFixed(1) + '%' : '0%';
-            doc.setTextColor(100, 116, 139); doc.setFontSize(8); 
+            doc.setTextColor(100, 116, 139); doc.setFontSize(8);
             doc.text('DISPONIBILIDAD', 20 + colWidth * 3, startY);
             doc.setTextColor(15, 23, 42); // Slate 900
-            doc.setFontSize(14); 
+            doc.setFontSize(14);
             doc.text(availability, 20 + colWidth * 3, startY + 8);
 
             // -- Detailed Table --
@@ -312,7 +347,7 @@ export class AssetListComponent {
               head: [['ID', 'Marca / Modelo', 'Serie', 'Estatus', 'Ubicación', 'Supervisor']],
               body: tableData,
               theme: 'grid', // 'striped' | 'grid' | 'plain'
-              headStyles: { 
+              headStyles: {
                 fillColor: [30, 41, 59], // Slate 800
                 textColor: [255, 255, 255],
                 fontStyle: 'bold',

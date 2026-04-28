@@ -19,17 +19,21 @@ import {
   set,
   update
 } from 'firebase/database';
-import { 
-  collection, 
-  addDoc, 
-  query, 
-  where, 
-  getDocs, 
-  orderBy, 
-  limit 
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  orderBy,
+  limit
 } from 'firebase/firestore';
 import { hydrateRealAssets } from '../data/real-fleet';
 import { environment } from '../environments/environment';
+
+// Importaciones para Firebase Storage
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { addDoc, collection } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -123,13 +127,13 @@ export class DataService {
       'Juan Pablo Ortega': 100,
       'Ariel Alavez': 100
     };
-    
+
     failures.forEach(f => {
       if (f.reporta && basePoints[f.reporta] !== undefined) {
         basePoints[f.reporta] -= 10; // Penalización por fallas reportadas (menos confiabilidad)
       }
     });
-    
+
     return Object.entries(basePoints)
       .map(([name, points]) => ({ name, points: Math.max(0, points) }))
       .sort((a, b) => b.points - a.points)
@@ -162,7 +166,7 @@ export class DataService {
   constructor() {
     this.initFirebase();
     this.initializeData();
-    
+
     effect(() => {
       this.syncAssetsWithFailures(this.forkliftFailures());
     });
@@ -174,6 +178,26 @@ export class DataService {
 
     window.addEventListener('online', () => this.updateConnectionStatus());
     window.addEventListener('offline', () => this.updateConnectionStatus());
+  }
+
+  /**
+   * Sube una imagen a Firebase Storage y guarda la URL en Firestore junto con los datos del activo.
+   * @param file Archivo de imagen a subir
+   * @param assetData Datos del activo a guardar junto con la imagen
+   */
+  async uploadAssetImage(file: File, assetData: any) {
+    const storage = getStorage();
+    const fileRef = storageRef(storage, `assets/${file.name}`);
+    await uploadBytes(fileRef, file);
+    const url = await getDownloadURL(fileRef);
+
+    // Guarda la URL en Firestore junto con los datos del activo
+    await addDoc(collection(this.fs, 'assets'), {
+      ...assetData,
+      imageUrl: url,
+      createdAt: new Date()
+    });
+    return url;
   }
 
   private initializeData() {
@@ -195,7 +219,7 @@ export class DataService {
   private refreshWorkOrders() {
     const failures = this.forkliftFailures();
     const schedule = this.maintenanceSchedule();
-    
+
     const woFromFailures = failures.map(f => ({
       id: f.id.replace('FAIL-', '').substring(0, 4),
       titulo: f.falla.substring(0, 40) + (f.falla.length > 40 ? '...' : ''),
@@ -407,7 +431,7 @@ export class DataService {
   }
 
   updateRefurbishment(id: string, updates: Partial<RefurbishmentRecord>) {
-    this.refurbishmentsSignal.update(list => 
+    this.refurbishmentsSignal.update(list =>
       list.map(r => r.id === id ? { ...r, ...updates } : r)
     );
     if (this.db) {
@@ -418,7 +442,7 @@ export class DataService {
   finishRefurbishment(id: string, finalPhoto: string) {
     const refurb = this.refurbishmentsSignal().find(r => r.id === id);
     if (!refurb) return;
-    
+
     const updates = {
       status: 'Finalizado' as const,
       completionPercentage: 100,
@@ -518,7 +542,7 @@ export class DataService {
     assets.slice(0, 5).forEach((asset, idx) => {
       const entryDate = new Date();
       entryDate.setDate(entryDate.getDate() - (idx + 5));
-      
+
       const exitDate = new Date(entryDate);
       exitDate.setHours(exitDate.getHours() + 4);
 
@@ -606,7 +630,7 @@ export class DataService {
         technician: item.tech,
         status: status,
         history: [],
-        comments: '' 
+        comments: ''
       };
     });
   }
@@ -633,7 +657,7 @@ export class DataService {
   async updateMaintenanceScheduleFromExcel(data: any[]) {
     let success = 0;
     let errors: string[] = [];
-    
+
     this.maintenanceScheduleSignal.update(list => {
       const newList = [...list];
       data.forEach((row, idx) => {
@@ -643,8 +667,8 @@ export class DataService {
             const existingIdx = newList.findIndex(item => item.economico === eco);
             if (existingIdx >= 0) {
               // Basic mapping for demo purposes
-              newList[existingIdx] = { 
-                ...newList[existingIdx], 
+              newList[existingIdx] = {
+                ...newList[existingIdx],
                 realDate: row['Fecha Real'] || newList[existingIdx].realDate,
                 technician: row['Técnico Real'] || row['Tecnico Real'] || newList[existingIdx].technician,
                 hourMeter: row['Horómetro'] || row['Horometro'] || newList[existingIdx].hourMeter,
