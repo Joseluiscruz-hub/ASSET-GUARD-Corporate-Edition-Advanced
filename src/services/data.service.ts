@@ -9,7 +9,8 @@ import {
   MaintenanceSchedule,
   MaintenanceSchedule,
   EstadoRefaccion,
-  AIInspectionResponse
+  AIInspectionResponse,
+  RefurbishmentRecord
 } from '../types';
 import { firebaseApp, db as firestore } from '../firebase-init';
 import {
@@ -71,11 +72,13 @@ export class DataService {
   private reportsSignal = signal<FailureReport[]>([]);
   readonly forkliftFailures = signal<ForkliftFailureEntry[]>([]);
   private workOrdersSignal = signal<any[]>([]);
+  private refurbishmentsSignal = signal<RefurbishmentRecord[]>([]);
 
   // --- Public Read-Only Signals ---
   readonly assets = this.assetsSignal.asReadonly();
   readonly reports = this.reportsSignal.asReadonly();
   readonly workOrders = this.workOrdersSignal.asReadonly();
+  readonly refurbishments = this.refurbishmentsSignal.asReadonly();
 
   // --- Computed KPIs ---
   readonly kpiData = computed<KPIData>(() => {
@@ -265,10 +268,17 @@ export class DataService {
       }
     });
 
-    const kioskRef = ref(this.db!, 'settings/kioskMode');
-    onValue(kioskRef, snapshot => {
-      const val = snapshot.val();
       if (val !== null && this.isKioskMode() !== val) this.isKioskMode.set(val);
+    });
+
+    const refurbRef = ref(this.db!, 'refurbishments');
+    onValue(refurbRef, snapshot => {
+      const data = snapshot.val();
+      if (data) {
+        const list = Object.values(data) as RefurbishmentRecord[];
+        list.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
+        this.refurbishmentsSignal.set(list);
+      }
     });
   }
 
@@ -379,6 +389,37 @@ export class DataService {
     if (this.connectionStatus() !== 'offline' && this.db) {
       update(ref(this.db!, 'failures/' + id), updatedFailure).catch(console.error);
     }
+  }
+
+  // --- Refurbishment Methods ---
+  addRefurbishment(record: Omit<RefurbishmentRecord, 'id' | 'startDate'>) {
+    const newRecord: RefurbishmentRecord = {
+      ...record,
+      id: 'REF-' + Date.now(),
+      startDate: new Date().toISOString()
+    };
+    this.refurbishmentsSignal.update(list => [newRecord, ...list]);
+    if (this.db) {
+      set(ref(this.db, 'refurbishments/' + newRecord.id), newRecord).catch(console.error);
+    }
+  }
+
+  updateRefurbishment(id: string, updates: Partial<RefurbishmentRecord>) {
+    this.refurbishmentsSignal.update(list => 
+      list.map(r => r.id === id ? { ...r, ...updates } : r)
+    );
+    if (this.db) {
+      update(ref(this.db, 'refurbishments/' + id), updates).catch(console.error);
+    }
+  }
+
+  finishRefurbishment(id: string, photoAfter: string) {
+    const updates = {
+      status: 'Finalizado' as const,
+      endDate: new Date().toISOString(),
+      photoAfter
+    };
+    this.updateRefurbishment(id, updates);
   }
 
   // --- AI History Persistence (Firestore) ---

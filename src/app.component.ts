@@ -149,6 +149,7 @@ export class AppComponent {
     if (url.includes('report')) return 'App Operador (Solicitante)';
     if (url.includes('inventory')) return 'Inventario y Refacciones';
     if (url.includes('work-orders')) return 'Órdenes de Trabajo';
+    if (url.includes('refurbishment')) return 'Remozamiento y Estética';
     if (url.includes('admin')) return 'Configuración';
     return 'AssetGuard Advanced';
   }
@@ -162,6 +163,7 @@ export class AppComponent {
     if (url.includes('service')) return 'Administración de órdenes de trabajo y técnicos.';
     if (url.includes('inventory')) return 'Control de stock y alertas de reabastecimiento.';
     if (url.includes('work-orders')) return 'Gestión visual de tareas de mantenimiento.';
+    if (url.includes('refurbishment')) return 'Trazabilidad de pintura y restauración de activos.';
     if (url.includes('admin')) return 'Administración del sistema y conexiones.';
     return '';
   }

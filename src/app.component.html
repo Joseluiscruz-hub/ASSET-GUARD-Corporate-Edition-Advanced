@@ -95,6 +95,13 @@
           <span class="ml-3 text-sm font-bold hidden lg:block">Órdenes Trabajo</span>
         </a>
 
+        <a routerLink="/refurbishment" 
+          class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
+          [ngClass]="{'border-indigo-500 bg-slate-800/60 text-white': currentUrl().includes('refurbishment'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('refurbishment')}">
+          <i class="fas fa-paint-roller w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-indigo-400]="currentUrl().includes('refurbishment')"></i>
+          <span class="ml-3 text-sm font-bold hidden lg:block">Remozamiento</span>
+        </a>
+
         <a routerLink="/inventory" 
           class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
           [ngClass]="{'border-purple-500 bg-slate-800/60 text-white': currentUrl().includes('inventory'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('inventory')}">

@@ -195,3 +195,34 @@ export interface MaintenanceSchedule {
   history: string[];
   comments: string;
 }
+
+// --- REMOZAMIENTO (Pintura y Estética) ---
+
+export interface RefurbishmentRecord {
+  id: string;
+  assetId: string;
+  startDate: string;        // ISO Date
+  endDate?: string;         // ISO Date
+  status: 'Programado' | 'En Proceso' | 'Pintura' | 'Secado' | 'Finalizado';
+  technician: string;
+  
+  // Fotos de evidencia (Base64 para persistencia simple en este demo)
+  photoBefore?: string;     
+  photoAfter?: string;      
+  
+  // Checklist de partes (Trazabilidad de desarmado)
+  checklist: Array<{
+    part: string;
+    removed: boolean;
+    condition: 'Bueno' | 'Regular' | 'Dañado';
+    notes?: string;
+  }>;
+  
+  paintDetails: {
+    color: string;
+    brand: string;
+    batch?: string;
+  };
+  
+  observations: string;
+}
