@@ -8,14 +8,14 @@
 // =======================================================================================
 
 import { Injectable } from '@angular/core';
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { FailureReport, Asset, KPIData, AIInspectionResponse, ForkliftFailureEntry } from '../types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeminiService {
-  private ai: GoogleGenAI | null;
+  private ai: GoogleGenerativeAI | null;
 
   private defaultSummaryKpi: KPIData = {
     availability: 0,
@@ -27,11 +27,11 @@ export class GeminiService {
   constructor() {
     // Soporte para Vite (import.meta.env) y fallback a environment.ts
     const apiKey = (import.meta?.env?.['VITE_GEMINI_API_KEY'] as string | undefined)?.trim() || '';
-    this.ai = apiKey ? new GoogleGenAI({ apiKey }) : null;
+    this.ai = apiKey ? new GoogleGenerativeAI(apiKey) : null;
   }
 
   // Helper seguro (de Edithion) — lanza error explícito si falta la API key
-  private getAi(): GoogleGenAI {
+  private getAi(): GoogleGenerativeAI {
     if (!this.ai) {
       throw new Error('⚠️ Falta VITE_GEMINI_API_KEY en .env.local o environment.ts');
     }
@@ -69,12 +69,10 @@ export class GeminiService {
       </div>
       `;
 
-      const response = await this.getAi().models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: prompt,
-      });
-
-      return response.text || '<p>Datos insuficientes para predicción.</p>';
+      const model = this.getAi().getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      return response.text() || '<p>Datos insuficientes para predicción.</p>';
     } catch (error) {
       console.error('Gemini Error:', error);
       return '<p class="text-red-500">Error conectando con el servicio de IA.</p>';
@@ -116,12 +114,10 @@ export class GeminiService {
       TONO: Profesional, directo, español mexicano empresarial. Sin saludos.
       `;
 
-      const response = await this.getAi().models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: prompt,
-      });
-
-      return response.text || 'No se pudo generar el reporte ejecutivo.';
+      const model = this.getAi().getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      return response.text() || 'No se pudo generar el reporte ejecutivo.';
     } catch (error) {
       console.error('Gemini Error:', error);
       return 'Error conectando con IA para el reporte.';
@@ -156,12 +152,10 @@ export class GeminiService {
       Resalta ADVERTENCIAS DE SEGURIDAD en negritas.
       `;
 
-      const response = await this.getAi().models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: prompt,
-      });
-
-      return response.text || 'Error generando LOTO.';
+      const model = this.getAi().getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      return response.text() || 'Error generando LOTO.';
     } catch {
       return '<p>No disponible.</p>';
     }
@@ -225,17 +219,14 @@ export class GeminiService {
       5. NUNCA uses el valor \`undefined\` en el JSON. Usa \`null\` si un valor es desconocido.
       `;
 
-      const response = await this.getAi().models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: {
-          parts: [
-            { text: prompt },
-            { inlineData: { data: base64Image, mimeType } }
-          ]
-        },
-      });
+      const model = this.getAi().getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const result = await model.generateContent([
+        prompt,
+        { inlineData: { data: base64Image, mimeType } }
+      ]);
+      const response = await result.response;
+      const text = response.text();
 
-      const text = response.text;
       if (!text) {
         throw new Error('La IA no devolvió ninguna respuesta de texto.');
       }
@@ -274,12 +265,10 @@ export class GeminiService {
       Tono: Directo, empático, español mexicano. Sin saludos.
       `;
 
-      const response = await this.getAi().models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: prompt,
-      });
-
-      return response.text || 'Reporte recibido. Proceda con precaución.';
+      const model = this.getAi().getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      return response.text() || 'Reporte recibido. Proceda con precaución.';
     } catch (error) {
       return 'Reporte recibido. Proceda con precaución.';
     }
