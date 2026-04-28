@@ -204,17 +204,22 @@ export interface RefurbishmentRecord {
   startDate: string;        // ISO Date
   endDate?: string;         // ISO Date
   status: 'Programado' | 'En Proceso' | 'Pintura' | 'Secado' | 'Finalizado';
+  completionPercentage: number; // 0 to 100
   technician: string;
   
-  // Fotos de evidencia (Base64 para persistencia simple en este demo)
-  photoBefore?: string;     
-  photoAfter?: string;      
+  // Evidencias Fotográficas
+  photos: {
+    before: string[];       // Array of Base64
+    process: string[];      // Array of Base64
+    after: string[];        // Array of Base64
+  };
   
   // Checklist de partes (Trazabilidad de desarmado)
   checklist: Array<{
     part: string;
     removed: boolean;
     condition: 'Bueno' | 'Regular' | 'Dañado';
+    reinstalled?: boolean;
     notes?: string;
   }>;
   
@@ -222,7 +227,13 @@ export interface RefurbishmentRecord {
     color: string;
     brand: string;
     batch?: string;
+    layers: number;
   };
   
   observations: string;
+  qualityCheck: {
+    glossLevel: 'Bajo' | 'Medio' | 'Alto';
+    adhesionTest: boolean;
+    textureUniformity: boolean;
+  };
 }

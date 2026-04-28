@@ -7,7 +7,6 @@ import {
   ForkliftFailureEntry,
   MaintenanceTask,
   MaintenanceSchedule,
-  MaintenanceSchedule,
   EstadoRefaccion,
   AIInspectionResponse,
   RefurbishmentRecord
@@ -268,6 +267,9 @@ export class DataService {
       }
     });
 
+    const kioskRef = ref(this.db!, 'settings/kioskMode');
+    onValue(kioskRef, snapshot => {
+      const val = snapshot.val();
       if (val !== null && this.isKioskMode() !== val) this.isKioskMode.set(val);
     });
 
@@ -413,11 +415,18 @@ export class DataService {
     }
   }
 
-  finishRefurbishment(id: string, photoAfter: string) {
+  finishRefurbishment(id: string, finalPhoto: string) {
+    const refurb = this.refurbishmentsSignal().find(r => r.id === id);
+    if (!refurb) return;
+    
     const updates = {
       status: 'Finalizado' as const,
+      completionPercentage: 100,
       endDate: new Date().toISOString(),
-      photoAfter
+      photos: {
+        ...refurb.photos,
+        after: [...refurb.photos.after, finalPhoto]
+      }
     };
     this.updateRefurbishment(id, updates);
   }
