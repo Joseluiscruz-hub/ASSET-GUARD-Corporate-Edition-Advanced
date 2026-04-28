@@ -26,4 +26,22 @@ export default defineConfig({
   test: {
     include: ['src/**/*.spec.ts'],
   },
+  build: {
+    rollupOptions: {},
+  },
+  // Hook para forzar base href correcto en el HTML generado
+  plugins: [
+    angular({ tsconfig: './tsconfig.json' }),
+    {
+      name: 'fix-base-href',
+      enforce: 'post',
+      generateBundle(_, bundle) {
+        for (const file of Object.values(bundle)) {
+          if (file.type === 'asset' && file.fileName === 'index.html') {
+            file.source = file.source.replace('<base href="./">', '<base href="/ASSET-GUARD-Corporate-Edition-Advanced/">');
+          }
+        }
+      }
+    }
+  ]
 });
