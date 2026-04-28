@@ -38,7 +38,6 @@ import { Asset, RefurbishmentRecord } from '../../types';
         
         <!-- SIDEBAR / HISTORIAL -->
         <div class="lg:col-span-1 space-y-6">
-          <!-- KPI de Cumplimiento General -->
           <div class="bg-slate-800/50 backdrop-blur-xl rounded-3xl p-6 border border-slate-700/50 shadow-lg">
             <div class="flex justify-between items-center mb-4">
               <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest">Cumplimiento</h3>
@@ -53,7 +52,6 @@ import { Asset, RefurbishmentRecord } from '../../types';
             </div>
           </div>
 
-          <!-- Filtro de Búsqueda -->
           <div class="relative group">
             <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-indigo-400 transition-colors"></i>
             <input 
@@ -63,16 +61,12 @@ import { Asset, RefurbishmentRecord } from '../../types';
               class="w-full bg-slate-800/80 border border-slate-700 rounded-2xl pl-12 pr-4 py-4 focus:ring-2 focus:ring-indigo-500 outline-none transition-all placeholder:text-slate-600 text-sm">
           </div>
 
-          <!-- Lista de Registros -->
           <div class="space-y-3 overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
             @for (item of filteredRefurbishments(); track item.id) {
               <div 
                 (click)="selectedRecord.set(item)"
-                [class.ring-2]="selectedRecord()?.id === item.id"
-                [class.ring-indigo-500]="selectedRecord()?.id === item.id"
-                [class.bg-slate-800]="selectedRecord()?.id === item.id"
-                [class.bg-slate-800/40]="selectedRecord()?.id !== item.id"
-                class="p-4 rounded-2xl border border-slate-700/50 cursor-pointer hover:border-indigo-500/50 transition-all group">
+                class="p-4 rounded-2xl border border-slate-700/50 cursor-pointer hover:border-indigo-500/50 transition-all group"
+                [ngClass]="selectedRecord()?.id === item.id ? 'bg-slate-800 ring-2 ring-indigo-500' : 'bg-slate-800/40'">
                 <div class="flex justify-between items-start mb-3">
                   <div>
                     <span class="text-xs font-bold text-indigo-400 block mb-1">#{{ item.assetId }}</span>
@@ -82,7 +76,6 @@ import { Asset, RefurbishmentRecord } from '../../types';
                     {{ item.status }}
                   </div>
                 </div>
-                
                 <div class="flex items-center justify-between text-xs text-slate-500">
                   <div class="flex items-center gap-2">
                     <i class="fas fa-spinner animate-spin text-[10px]" *ngIf="item.status !== 'Finalizado'"></i>
@@ -90,13 +83,8 @@ import { Asset, RefurbishmentRecord } from '../../types';
                   </div>
                   <span>{{ item.startDate | date:'dd/MM' }}</span>
                 </div>
-                
                 <div class="mt-3 w-full bg-slate-700/50 rounded-full h-1 overflow-hidden">
-                  <div 
-                    class="h-full transition-all duration-1000" 
-                    [class.bg-emerald-500]="item.completionPercentage === 100"
-                    [class.bg-indigo-500]="item.completionPercentage < 100"
-                    [style.width.%]="item.completionPercentage"></div>
+                  <div class="h-full transition-all duration-1000" [ngClass]="item.completionPercentage === 100 ? 'bg-emerald-500' : 'bg-indigo-500'" [style.width.%]="item.completionPercentage"></div>
                 </div>
               </div>
             } @empty {
@@ -110,9 +98,7 @@ import { Asset, RefurbishmentRecord } from '../../types';
 
         <!-- MAIN CONTENT AREA -->
         <div class="lg:col-span-3">
-          
           @if (showNewForm()) {
-            <!-- INNOVATIVE ASSET CATALOG SELECTION -->
             <div class="bg-slate-800/40 backdrop-blur-2xl rounded-[2.5rem] border border-slate-700/50 p-8 shadow-2xl animate-slideUp">
               <div class="flex items-center justify-between mb-8">
                 <div>
@@ -133,32 +119,25 @@ import { Asset, RefurbishmentRecord } from '../../types';
                       <img [src]="asset.image || 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=400'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                       <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
                       <div class="absolute bottom-4 left-4">
-                        <span class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-black text-white uppercase tracking-widest">
-                          {{ asset.id }}
-                        </span>
+                        <span class="px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] font-black text-white uppercase tracking-widest">{{ asset.id }}</span>
                       </div>
                     </div>
                     <div class="p-4">
                       <h3 class="text-lg font-black text-white mb-1">{{ asset.brand }}</h3>
                       <p class="text-xs text-slate-500 font-bold uppercase tracking-wider mb-3">{{ asset.model }}</p>
                       <div class="flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full" [class]="asset.status.name === 'Operativo' ? 'bg-emerald-500' : 'bg-red-500'"></span>
+                        <span class="w-2 h-2 rounded-full" [ngClass]="asset.status.name === 'Operativo' ? 'bg-emerald-500' : 'bg-red-500'"></span>
                         <span class="text-[10px] font-black text-slate-400 uppercase">{{ asset.status.name }}</span>
                       </div>
                     </div>
-                    
-                    <!-- Overlay selection -->
                     <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-indigo-600/20 backdrop-blur-[2px] rounded-3xl pointer-events-none">
-                      <div class="bg-white text-slate-900 font-black px-6 py-2 rounded-xl shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform">
-                        SELECCIONAR
-                      </div>
+                      <div class="bg-white text-slate-900 font-black px-6 py-2 rounded-xl shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform">SELECCIONAR</div>
                     </div>
                   </div>
                 }
               </div>
             </div>
 
-            <!-- FORMULARIO DETALLADO (Overlay when asset selected) -->
             @if (tempSelectedAsset()) {
               <div class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8 backdrop-blur-md bg-slate-900/80 animate-fadeIn">
                 <div class="bg-slate-800 w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[3rem] border border-slate-700 shadow-2xl p-8 custom-scrollbar">
@@ -172,65 +151,47 @@ import { Asset, RefurbishmentRecord } from '../../types';
                         <p class="text-indigo-400 font-bold uppercase tracking-widest text-xs">Unidad: {{ tempSelectedAsset()?.id }}</p>
                       </div>
                     </div>
-                    <button (click)="tempSelectedAsset.set(null)" class="text-slate-500 hover:text-white transition-colors">
-                      <i class="fas fa-times text-2xl"></i>
-                    </button>
+                    <button (click)="tempSelectedAsset.set(null)" class="text-slate-500 hover:text-white transition-colors"><i class="fas fa-times text-2xl"></i></button>
                   </div>
-
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Columna 1: Checklist & Info -->
                     <div class="space-y-6">
                       <div>
                         <label class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 block">Técnico Responsable</label>
                         <input [(ngModel)]="newRecord.technician" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-2xl px-5 py-4 focus:ring-2 focus:ring-indigo-500 outline-none text-white font-bold transition-all">
                       </div>
-
                       <div>
-                        <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2">
-                          <i class="fas fa-tools text-indigo-400"></i>
-                          Checklist de Desarmado
-                        </h3>
+                        <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-4 flex items-center gap-2"><i class="fas fa-tools text-indigo-400"></i> Checklist de Desarmado</h3>
                         <div class="space-y-3">
                           @for (item of newRecord.checklist; track item.part) {
                             <div class="flex items-center justify-between p-4 bg-slate-900/50 rounded-2xl border border-slate-700/30">
                               <span class="text-sm font-bold text-slate-200">{{ item.part }}</span>
-                              <div class="flex items-center gap-4">
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                  <input type="checkbox" [(ngModel)]="item.removed" class="sr-only peer">
-                                  <div class="w-10 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500 shadow-inner"></div>
-                                </label>
-                              </div>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" [(ngModel)]="item.removed" class="sr-only peer">
+                                <div class="w-10 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500 shadow-inner"></div>
+                              </label>
                             </div>
                           }
                         </div>
                       </div>
                     </div>
-
-                    <!-- Columna 2: Pintura & Multimedia -->
                     <div class="space-y-6">
                       <div class="p-6 rounded-[2rem] bg-indigo-500/5 border border-indigo-500/20 space-y-4">
-                        <h3 class="text-xs font-black text-indigo-400 uppercase tracking-widest flex items-center gap-2">
-                          <i class="fas fa-brush"></i>
-                          Detalles de Pintura
-                        </h3>
+                        <h3 class="text-xs font-black text-indigo-400 uppercase tracking-widest flex items-center gap-2"><i class="fas fa-brush"></i> Detalles de Pintura</h3>
                         <div class="grid grid-cols-2 gap-4">
                           <div class="col-span-2">
-                            <input [(ngModel)]="newRecord.paintDetails.color" placeholder="Código de Color (e.g. RAL 2004)" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                            <input [(ngModel)]="newRecord.paintDetails.color" placeholder="Código de Color" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
                           </div>
                           <input [(ngModel)]="newRecord.paintDetails.brand" placeholder="Marca" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
                           <input [(ngModel)]="newRecord.paintDetails.layers" type="number" placeholder="Capas" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
                         </div>
                       </div>
-
                       <div>
-                        <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Evidencia Inicial (Galería)</h3>
+                        <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Evidencia Inicial</h3>
                         <div class="grid grid-cols-2 gap-3">
                           @for (img of newRecord.photos.before; track $index) {
                             <div class="aspect-square rounded-2xl overflow-hidden border-2 border-indigo-500/30 group relative">
                               <img [src]="img" class="w-full h-full object-cover">
-                              <button (click)="removePhoto('before', $index)" class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">
-                                <i class="fas fa-times"></i>
-                              </button>
+                              <button (click)="removePhoto('before', $index)" class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-times"></i></button>
                             </div>
                           }
                           <label class="aspect-square rounded-2xl border-2 border-dashed border-slate-700 bg-slate-900/50 flex flex-col items-center justify-center cursor-pointer hover:border-indigo-500/50 hover:bg-slate-800 transition-all">
@@ -242,205 +203,91 @@ import { Asset, RefurbishmentRecord } from '../../types';
                       </div>
                     </div>
                   </div>
-
                   <div class="mt-10 flex gap-4">
                     <button 
                       (click)="saveNewRecord()"
                       [disabled]="!newRecord.technician || newRecord.photos.before.length === 0"
-                      class="flex-1 bg-white text-slate-900 py-5 rounded-2xl font-black text-lg shadow-2xl shadow-indigo-500/20 hover:bg-indigo-400 hover:text-white transition-all disabled:opacity-30 disabled:grayscale">
-                      INICIAR PROYECTO DE RESTAURACIÓN
-                    </button>
-                    <button (click)="tempSelectedAsset.set(null)" class="px-8 bg-slate-700 text-white font-black rounded-2xl hover:bg-slate-600 transition-all uppercase tracking-widest text-sm">
-                      Volver
-                    </button>
+                      class="flex-1 bg-white text-slate-900 py-5 rounded-2xl font-black text-lg shadow-2xl shadow-indigo-500/20 hover:bg-indigo-400 hover:text-white transition-all disabled:opacity-30 disabled:grayscale">INICIAR PROYECTO</button>
+                    <button (click)="tempSelectedAsset.set(null)" class="px-8 bg-slate-700 text-white font-black rounded-2xl hover:bg-slate-600 transition-all uppercase tracking-widest text-sm">Volver</button>
                   </div>
                 </div>
               </div>
             }
-
           } @else if (selectedRecord()) {
-            <!-- PROFESSIONAL DASHBOARD FOR SELECTED RECORD -->
             <div class="space-y-6 animate-fadeIn">
-              
-              <!-- Top Info Card -->
               <div class="bg-slate-800/40 backdrop-blur-2xl rounded-[2.5rem] border border-slate-700/50 overflow-hidden shadow-2xl">
                 <div class="p-8 border-b border-slate-700/50 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                   <div class="flex items-center gap-6">
-                    <div class="relative group">
-                      <div class="w-20 h-20 rounded-3xl bg-indigo-600 flex items-center justify-center text-3xl font-black text-white shadow-2xl shadow-indigo-500/40">
-                        #{{ selectedRecord()?.assetId?.toString()?.substring(0, 2) }}
-                      </div>
-                      <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-emerald-500 border-4 border-slate-800 flex items-center justify-center text-[10px] text-white font-black">
-                        <i class="fas fa-check"></i>
-                      </div>
-                    </div>
+                    <div class="w-20 h-20 rounded-3xl bg-indigo-600 flex items-center justify-center text-3xl font-black text-white shadow-2xl shadow-indigo-500/40">#{{ selectedRecord()?.assetId?.toString()?.substring(0, 2) }}</div>
                     <div>
                       <div class="flex items-center gap-3 mb-1">
                         <h2 class="text-4xl font-black text-white tracking-tighter">Unidad {{ selectedRecord()?.assetId }}</h2>
-                        <span [class]="getStatusBg(selectedRecord()!.status)" class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-current opacity-80">
-                          {{ selectedRecord()?.status }}
-                        </span>
+                        <span [class]="getStatusBg(selectedRecord()!.status)" class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-widest border border-current opacity-80">{{ selectedRecord()?.status }}</span>
                       </div>
-                      <p class="text-slate-400 font-bold tracking-widest text-xs uppercase flex items-center gap-2">
-                        <i class="fas fa-user-gear text-indigo-400"></i>
-                        {{ selectedRecord()?.technician }} • {{ selectedRecord()?.startDate | date:'fullDate' }}
-                      </p>
+                      <p class="text-slate-400 font-bold tracking-widest text-xs uppercase flex items-center gap-2"><i class="fas fa-user-gear text-indigo-400"></i> {{ selectedRecord()?.technician }} • {{ selectedRecord()?.startDate | date:'fullDate' }}</p>
                     </div>
                   </div>
-                  
-                  <div class="flex items-center gap-8">
-                    <div class="text-center">
-                      <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-2 block">Avance del Proyecto</span>
-                      <div class="relative w-24 h-24">
-                        <svg class="w-full h-full" viewBox="0 0 36 36">
-                          <path class="text-slate-700" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                          <path class="text-indigo-500" stroke-width="3" stroke-dasharray="{{ selectedRecord()?.completionPercentage }}, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                        </svg>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                          <span class="text-xl font-black text-white">{{ selectedRecord()?.completionPercentage }}%</span>
-                        </div>
-                      </div>
+                  <div class="text-center">
+                    <span class="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-2 block">Avance</span>
+                    <div class="relative w-20 h-20">
+                      <svg class="w-full h-full" viewBox="0 0 36 36">
+                        <path class="text-slate-700" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="text-indigo-500" stroke-width="3" stroke-linecap="round" stroke="currentColor" fill="none" [attr.stroke-dasharray]="selectedRecord()?.completionPercentage + ', 100'" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                      </svg>
+                      <div class="absolute inset-0 flex items-center justify-center"><span class="text-sm font-black text-white">{{ selectedRecord()?.completionPercentage }}%</span></div>
                     </div>
                   </div>
                 </div>
-
                 <div class="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <!-- COL 1: Evidencias Visuales -->
                   <div class="md:col-span-2 space-y-8">
-                    
-                    <!-- Galería Progresiva -->
                     <div>
                       <div class="flex items-center justify-between mb-6">
-                        <h3 class="text-xl font-black text-white flex items-center gap-3">
-                          <i class="fas fa-images text-indigo-400"></i>
-                          Evidencia del Proceso
-                        </h3>
+                        <h3 class="text-xl font-black text-white flex items-center gap-3"><i class="fas fa-images text-indigo-400"></i> Evidencias</h3>
                         <div class="flex gap-2">
-                          <button (click)="activeStage.set('before')" [class.bg-indigo-600]="activeStage() === 'before'" class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest bg-slate-700 transition-all">Antes</button>
-                          <button (click)="activeStage.set('process')" [class.bg-indigo-600]="activeStage() === 'process'" class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest bg-slate-700 transition-all">Proceso</button>
-                          <button (click)="activeStage.set('after')" [class.bg-indigo-600]="activeStage() === 'after'" class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest bg-slate-700 transition-all">Después</button>
+                          <button (click)="activeStage.set('before')" [ngClass]="activeStage() === 'before' ? 'bg-indigo-600' : 'bg-slate-700'" class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Antes</button>
+                          <button (click)="activeStage.set('process')" [ngClass]="activeStage() === 'process' ? 'bg-indigo-600' : 'bg-slate-700'" class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Proceso</button>
+                          <button (click)="activeStage.set('after')" [ngClass]="activeStage() === 'after' ? 'bg-indigo-600' : 'bg-slate-700'" class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">Después</button>
                         </div>
                       </div>
-
                       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                         @for (img of getCurrentPhotos(); track $index) {
                           <div class="aspect-video rounded-3xl overflow-hidden border-2 border-slate-700 group relative">
                             <img [src]="img" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
-                            <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity cursor-pointer">
-                              <i class="fas fa-expand-alt text-2xl text-white"></i>
-                            </div>
                           </div>
                         }
-                        
                         @if (selectedRecord()?.status !== 'Finalizado') {
                           <label class="aspect-video rounded-3xl border-2 border-dashed border-slate-700 flex flex-col items-center justify-center cursor-pointer hover:bg-slate-800 transition-all">
                             <i class="fas fa-camera-retro text-slate-500 text-3xl mb-2"></i>
-                            <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Añadir Evidencia</span>
                             <input type="file" (change)="onFileSelected($event, activeStage())" class="hidden" accept="image/*">
                           </label>
                         }
-
-                        @if (getCurrentPhotos().length === 0) {
-                          <div class="col-span-full py-20 text-center bg-slate-900/30 rounded-[3rem] border border-slate-800/50">
-                            <i class="fas fa-camera text-5xl text-slate-800 mb-4"></i>
-                            <p class="text-slate-600 font-bold italic">Sin evidencias capturadas en esta etapa.</p>
-                          </div>
-                        }
-                      </div>
-                    </div>
-
-                    <!-- Especificaciones y Observaciones -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div class="p-6 rounded-[2rem] bg-slate-900/50 border border-slate-700/50">
-                        <h4 class="text-xs font-black text-indigo-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                          <i class="fas fa-vial"></i>
-                          Control de Calidad
-                        </h4>
-                        <div class="space-y-4">
-                          <div class="flex justify-between items-center text-sm">
-                            <span class="text-slate-400">Nivel de Brillo</span>
-                            <span class="font-black text-white px-2 py-1 bg-indigo-500/20 rounded-lg text-xs">{{ selectedRecord()?.qualityCheck?.glossLevel }}</span>
-                          </div>
-                          <div class="flex justify-between items-center text-sm">
-                            <span class="text-slate-400">Prueba de Adherencia</span>
-                            <i [class]="selectedRecord()?.qualityCheck?.adhesionTest ? 'fas fa-check-circle text-emerald-500' : 'fas fa-times-circle text-red-500'"></i>
-                          </div>
-                          <div class="flex justify-between items-center text-sm">
-                            <span class="text-slate-400">Uniformidad de Textura</span>
-                            <i [class]="selectedRecord()?.qualityCheck?.textureUniformity ? 'fas fa-check-circle text-emerald-500' : 'fas fa-times-circle text-red-500'"></i>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div class="p-6 rounded-[2rem] bg-slate-900/50 border border-slate-700/50">
-                        <h4 class="text-xs font-black text-indigo-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                          <i class="fas fa-pen-nib"></i>
-                          Observaciones Técnicas
-                        </h4>
-                        <p class="text-sm text-slate-300 italic leading-relaxed">
-                          {{ selectedRecord()?.observations || 'Sin observaciones adicionales registradas para este proceso.' }}
-                        </p>
                       </div>
                     </div>
                   </div>
-
-                  <!-- COL 2: Checklist y Gestión -->
                   <div class="space-y-8">
-                    <div class="bg-indigo-600 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-indigo-600/30">
-                      <h3 class="text-xl font-black mb-6 flex items-center gap-3">
-                        <i class="fas fa-clipboard-check"></i>
-                        Trazabilidad
-                      </h3>
+                    <div class="bg-indigo-600 rounded-[2.5rem] p-8 text-white">
+                      <h3 class="text-xl font-black mb-6">Trazabilidad</h3>
                       <div class="space-y-4">
                         @for (check of selectedRecord()?.checklist; track check.part) {
-                          <div class="flex items-center justify-between group">
+                          <div class="flex items-center justify-between">
                             <div>
                               <p class="text-sm font-black">{{ check.part }}</p>
-                              <span class="text-[10px] font-bold text-white/60 uppercase tracking-wider">{{ check.condition }}</span>
+                              <span class="text-[10px] font-bold text-white/60 uppercase">{{ check.condition }}</span>
                             </div>
-                            <div class="flex items-center gap-3">
-                              @if (selectedRecord()?.status !== 'Finalizado') {
-                                <button 
-                                  (click)="toggleReinstall(check)"
-                                  [class.bg-emerald-400]="check.reinstalled"
-                                  [class.bg-white/20]="!check.reinstalled"
-                                  class="w-8 h-8 rounded-lg flex items-center justify-center transition-all">
-                                  <i class="fas fa-undo-alt text-[10px]" [class.text-indigo-900]="check.reinstalled"></i>
-                                </button>
-                              } @else {
-                                <i class="fas fa-check-circle text-emerald-300" *ngIf="check.reinstalled"></i>
-                              }
-                            </div>
+                            <button 
+                              *ngIf="selectedRecord()?.status !== 'Finalizado' && check.removed"
+                              (click)="toggleReinstall(check)"
+                              [ngClass]="check.reinstalled ? 'bg-emerald-400' : 'bg-white/20'"
+                              class="w-8 h-8 rounded-lg flex items-center justify-center transition-all">
+                              <i class="fas fa-undo-alt text-[10px]"></i>
+                            </button>
                           </div>
                         }
                       </div>
                     </div>
-
-                    <!-- Botón de Acción Final -->
                     @if (selectedRecord()?.status !== 'Finalizado') {
                       <div class="space-y-4">
-                        <label class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-2">Cambiar Estado</label>
-                        <div class="grid grid-cols-2 gap-2">
-                          @for (st of ['En Proceso', 'Pintura', 'Secado']; track st) {
-                            <button 
-                              (click)="updateStatus(st)"
-                              [class.bg-indigo-500]="selectedRecord()?.status === st"
-                              [class.bg-slate-800]="selectedRecord()?.status !== st"
-                              class="py-3 rounded-xl text-[10px] font-black uppercase transition-all hover:bg-indigo-400">
-                              {{ st }}
-                            </button>
-                          }
-                        </div>
-                        
-                        <button 
-                          (click)="finishSelected()"
-                          [disabled]="selectedRecord()?.completionPercentage! < 90"
-                          class="w-full bg-emerald-500 text-slate-900 py-6 rounded-[2rem] font-black text-lg shadow-2xl shadow-emerald-500/20 hover:bg-emerald-400 transition-all disabled:opacity-20 disabled:grayscale">
-                          FINALIZAR PROYECTO
-                        </button>
-                        <p class="text-center text-[10px] text-slate-600 font-bold uppercase tracking-widest">
-                          Requiere >90% de cumplimiento
-                        </p>
+                        <button (click)="finishSelected()" [disabled]="selectedRecord()?.completionPercentage! < 90" class="w-full bg-emerald-500 text-slate-900 py-6 rounded-[2rem] font-black text-lg shadow-2xl hover:bg-emerald-400 transition-all disabled:opacity-20">FINALIZAR</button>
                       </div>
                     }
                   </div>
@@ -448,58 +295,29 @@ import { Asset, RefurbishmentRecord } from '../../types';
               </div>
             </div>
           } @else {
-            <!-- Empty State / Landing -->
             <div class="h-full min-h-[600px] flex flex-col items-center justify-center bg-slate-800/20 border-4 border-dashed border-slate-800 rounded-[4rem] text-slate-700 animate-fadeIn">
-              <div class="relative mb-10">
-                <i class="fas fa-palette text-9xl opacity-5"></i>
-                <i class="fas fa-paint-brush absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-6xl text-slate-800 animate-pulse"></i>
-              </div>
-              <h3 class="text-3xl font-black text-slate-400 mb-2 tracking-tight">Centro de Estética Industrial</h3>
-              <p class="text-slate-600 max-w-sm text-center font-medium">Selecciona un registro del historial o inicia un nuevo protocolo de remozamiento innovador.</p>
-              
-              <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-2xl px-8">
-                <div class="p-6 bg-slate-800/40 rounded-3xl border border-slate-700/50 text-center">
-                  <i class="fas fa-camera-retro text-indigo-400 text-2xl mb-3"></i>
-                  <p class="text-xs font-black text-slate-400 uppercase tracking-widest">Evidencias AI</p>
-                </div>
-                <div class="p-6 bg-slate-800/40 rounded-3xl border border-slate-700/50 text-center">
-                  <i class="fas fa-shield-halved text-emerald-400 text-2xl mb-3"></i>
-                  <p class="text-xs font-black text-slate-400 uppercase tracking-widest">Control Calidad</p>
-                </div>
-                <div class="p-6 bg-slate-800/40 rounded-3xl border border-slate-700/50 text-center">
-                  <i class="fas fa-barcode text-purple-400 text-2xl mb-3"></i>
-                  <p class="text-xs font-black text-slate-400 uppercase tracking-widest">Trazabilidad</p>
-                </div>
-              </div>
+              <i class="fas fa-palette text-9xl opacity-5 mb-10"></i>
+              <h3 class="text-3xl font-black text-slate-400 mb-2">Centro de Estética Industrial</h3>
+              <p class="text-slate-600">Selecciona un registro para comenzar.</p>
             </div>
           }
         </div>
-
       </div>
     </div>
   `,
   styles: [`
-    .animate-fadeIn { animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-    .animate-slideUp { animation: slideUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
-    
+    .animate-fadeIn { animation: fadeIn 0.6s ease-out; }
+    .animate-slideUp { animation: slideUp 0.8s ease-out; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideUp { 
-      from { opacity: 0; transform: translateY(40px) scale(0.95); } 
-      to { opacity: 1; transform: translateY(0) scale(1); } 
-    }
-
+    @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
   `]
 })
 export class RefurbishmentComponent {
   private dataService = inject(DataService);
-  
   assets = this.dataService.assets;
   refurbishments = this.dataService.refurbishments;
-  
   showNewForm = signal(false);
   selectedRecord = signal<RefurbishmentRecord | null>(null);
   tempSelectedAsset = signal<Asset | null>(null);
@@ -507,57 +325,31 @@ export class RefurbishmentComponent {
   activeStage = signal<'before' | 'process' | 'after'>('before');
 
   newRecord: Partial<RefurbishmentRecord> = {
-    technician: '',
-    status: 'En Proceso',
-    completionPercentage: 10,
+    technician: '', status: 'En Proceso', completionPercentage: 10,
     photos: { before: [], process: [], after: [] },
     checklist: [
       { part: 'Asiento', removed: true, condition: 'Bueno', reinstalled: false },
-      { part: 'Torreta / Estroboscópico', removed: true, condition: 'Bueno', reinstalled: false },
-      { part: 'Espejos Retrovisores', removed: true, condition: 'Bueno', reinstalled: false },
-      { part: 'Calcomanías / Emblemas', removed: true, condition: 'Bueno', reinstalled: false },
-      { part: 'Mangueras Hidráulicas (Enmascarado)', removed: false, condition: 'Bueno', reinstalled: true },
-      { part: 'Tablero de Instrumentos', removed: false, condition: 'Bueno', reinstalled: true }
+      { part: 'Torreta', removed: true, condition: 'Bueno', reinstalled: false },
+      { part: 'Espejos', removed: true, condition: 'Bueno', reinstalled: false },
+      { part: 'Calcomanías', removed: true, condition: 'Bueno', reinstalled: false }
     ],
-    paintDetails: {
-      color: '',
-      brand: '',
-      batch: '',
-      layers: 2
-    },
+    paintDetails: { color: '', brand: '', layers: 2 },
     observations: '',
-    qualityCheck: {
-      glossLevel: 'Medio',
-      adhesionTest: true,
-      textureUniformity: true
-    }
+    qualityCheck: { glossLevel: 'Medio', adhesionTest: true, textureUniformity: true }
   };
 
   filteredRefurbishments = computed(() => {
-    const query = this.searchQuery.toLowerCase();
-    return this.refurbishments().filter(r => 
-      r.assetId.toString().toLowerCase().includes(query) || 
-      r.technician.toLowerCase().includes(query)
-    );
+    const q = this.searchQuery.toLowerCase();
+    return this.refurbishments().filter(r => r.assetId.toString().includes(q) || r.technician.toLowerCase().includes(q));
   });
 
   averageCompliance = computed(() => {
     const list = this.refurbishments();
-    if (list.length === 0) return 0;
-    const sum = list.reduce((acc, r) => acc + r.completionPercentage, 0);
-    return Math.round(sum / list.length);
+    return list.length ? Math.round(list.reduce((a, r) => a + r.completionPercentage, 0) / list.length) : 0;
   });
 
-  toggleNewForm() {
-    this.showNewForm.update(v => !v);
-    this.selectedRecord.set(null);
-    this.tempSelectedAsset.set(null);
-  }
-
-  selectAssetForNew(asset: Asset) {
-    this.tempSelectedAsset.set(asset);
-    this.newRecord.assetId = asset.id;
-  }
+  toggleNewForm() { this.showNewForm.update(v => !v); this.selectedRecord.set(null); this.tempSelectedAsset.set(null); }
+  selectAssetForNew(asset: Asset) { this.tempSelectedAsset.set(asset); this.newRecord.assetId = asset.id; }
 
   onFileSelected(event: any, stage: 'before' | 'process' | 'after') {
     const file = event.target.files[0];
@@ -568,11 +360,10 @@ export class RefurbishmentComponent {
         if (this.tempSelectedAsset()) {
           this.newRecord.photos![stage].push(base64);
         } else if (this.selectedRecord()) {
-          const id = this.selectedRecord()!.id;
-          const updatedPhotos = { ...this.selectedRecord()!.photos };
-          updatedPhotos[stage] = [...updatedPhotos[stage], base64];
-          this.dataService.updateRefurbishment(id, { photos: updatedPhotos });
-          this.selectedRecord.update(r => r ? { ...r, photos: updatedPhotos } : null);
+          const updated = { ...this.selectedRecord()!.photos };
+          updated[stage] = [...updated[stage], base64];
+          this.dataService.updateRefurbishment(this.selectedRecord()!.id, { photos: updated });
+          this.selectedRecord.update(r => r ? { ...r, photos: updated } : null);
           this.calculateCompletion(this.selectedRecord()!);
         }
       };
@@ -580,111 +371,52 @@ export class RefurbishmentComponent {
     }
   }
 
-  removePhoto(stage: 'before' | 'process' | 'after', index: number) {
-    this.newRecord.photos![stage].splice(index, 1);
-  }
-
-  getCurrentPhotos(): string[] {
-    const record = this.selectedRecord();
-    if (!record) return [];
-    return record.photos[this.activeStage()] || [];
-  }
+  removePhoto(stage: 'before' | 'process' | 'after', index: number) { this.newRecord.photos![stage].splice(index, 1); }
+  getCurrentPhotos() { return this.selectedRecord()?.photos[this.activeStage()] || []; }
 
   toggleReinstall(item: any) {
     item.reinstalled = !item.reinstalled;
     if (this.selectedRecord()) {
-      const id = this.selectedRecord()!.id;
-      const updatedChecklist = [...this.selectedRecord()!.checklist];
-      this.dataService.updateRefurbishment(id, { checklist: updatedChecklist });
+      this.dataService.updateRefurbishment(this.selectedRecord()!.id, { checklist: [...this.selectedRecord()!.checklist] });
       this.calculateCompletion(this.selectedRecord()!);
     }
   }
 
   calculateCompletion(record: RefurbishmentRecord) {
-    let percentage = 0;
-    
-    // Basado en estatus (0-40%)
-    const stages = { 'Programado': 10, 'En Proceso': 30, 'Pintura': 60, 'Secado': 80, 'Finalizado': 100 };
-    percentage = stages[record.status] || 0;
-
-    // Basado en checklist (reinstalación)
-    if (record.status !== 'Finalizado') {
-      const itemsToReinstall = record.checklist.filter(c => c.removed).length;
-      const reinstalled = record.checklist.filter(c => c.removed && c.reinstalled).length;
-      if (itemsToReinstall > 0) {
-        percentage += (reinstalled / itemsToReinstall) * 20;
-      }
-    }
-
-    // Basado en fotos (evidencia)
-    if (record.photos.before.length > 0) percentage += 5;
-    if (record.photos.process.length > 0) percentage += 5;
-    if (record.photos.after.length > 0) percentage += 5;
-
-    const finalPercentage = Math.min(100, Math.round(percentage));
-    if (finalPercentage !== record.completionPercentage) {
-      this.dataService.updateRefurbishment(record.id, { completionPercentage: finalPercentage });
-      this.selectedRecord.update(r => r ? { ...r, completionPercentage: finalPercentage } : null);
+    let p = { 'Programado': 10, 'En Proceso': 30, 'Pintura': 60, 'Secado': 80, 'Finalizado': 100 }[record.status] || 0;
+    const items = record.checklist.filter(c => c.removed);
+    if (items.length) p += (items.filter(c => c.reinstalled).length / items.length) * 20;
+    if (record.photos.before.length) p += 5;
+    if (record.photos.after.length) p += 5;
+    const final = Math.min(100, Math.round(p));
+    if (final !== record.completionPercentage) {
+      this.dataService.updateRefurbishment(record.id, { completionPercentage: final });
+      this.selectedRecord.update(r => r ? { ...r, completionPercentage: final } : null);
     }
   }
 
   saveNewRecord() {
-    if (this.newRecord.assetId && this.newRecord.technician) {
-      this.dataService.addRefurbishment(this.newRecord as RefurbishmentRecord);
-      this.showNewForm.set(false);
-      this.tempSelectedAsset.set(null);
-      // Reset local newRecord
-      this.resetNewRecord();
-    }
-  }
-
-  resetNewRecord() {
-    this.newRecord = {
-      technician: '',
-      status: 'En Proceso',
-      completionPercentage: 10,
-      photos: { before: [], process: [], after: [] },
-      checklist: [
-        { part: 'Asiento', removed: true, condition: 'Bueno', reinstalled: false },
-        { part: 'Torreta / Estroboscópico', removed: true, condition: 'Bueno', reinstalled: false },
-        { part: 'Espejos Retrovisores', removed: true, condition: 'Bueno', reinstalled: false },
-        { part: 'Calcomanías / Emblemas', removed: true, condition: 'Bueno', reinstalled: false },
-        { part: 'Mangueras Hidráulicas (Enmascarado)', removed: false, condition: 'Bueno', reinstalled: true },
-        { part: 'Tablero de Instrumentos', removed: false, condition: 'Bueno', reinstalled: true }
-      ],
-      paintDetails: { color: '', brand: '', batch: '', layers: 2 },
-      observations: '',
-      qualityCheck: { glossLevel: 'Medio', adhesionTest: true, textureUniformity: true }
-    };
-  }
-
-  updateStatus(newStatus: string) {
-    if (this.selectedRecord()) {
-      const id = this.selectedRecord()!.id;
-      this.dataService.updateRefurbishment(id, { status: newStatus as any });
-      this.selectedRecord.update(r => r ? { ...r, status: newStatus as any } : null);
-      this.calculateCompletion(this.selectedRecord()!);
-    }
+    this.dataService.addRefurbishment(this.newRecord as RefurbishmentRecord);
+    this.showNewForm.set(false);
+    this.tempSelectedAsset.set(null);
+    this.newRecord.technician = '';
+    this.newRecord.photos = { before: [], process: [], after: [] };
   }
 
   finishSelected() {
     if (this.selectedRecord()) {
-      const id = this.selectedRecord()!.id;
-      // Añadimos una foto genérica si no hay después para el demo
-      const finalPhoto = this.selectedRecord()!.photos.after[0] || this.selectedRecord()!.photos.before[0];
-      this.dataService.finishRefurbishment(id, finalPhoto);
+      this.dataService.finishRefurbishment(this.selectedRecord()!.id, this.selectedRecord()!.photos.after[0] || '');
       this.selectedRecord.set(null);
     }
   }
 
-  getStatusBg(status: string) {
-    switch (status) {
-      case 'Programado': return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
-      case 'En Proceso': return 'bg-amber-500/20 text-amber-400 border-amber-500/30';
-      case 'Pintura': return 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30';
-      case 'Secado': return 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30';
-      case 'Finalizado': return 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
-      default: return 'bg-slate-500/20 text-slate-400 border-slate-500/30';
-    }
+  getStatusBg(s: string) {
+    return {
+      'Programado': 'bg-blue-500/20 text-blue-400',
+      'En Proceso': 'bg-amber-500/20 text-amber-400',
+      'Pintura': 'bg-indigo-500/20 text-indigo-400',
+      'Secado': 'bg-cyan-500/20 text-cyan-400',
+      'Finalizado': 'bg-emerald-500/20 text-emerald-400'
+    }[s] || 'bg-slate-500/20 text-slate-400';
   }
 }
