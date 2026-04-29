@@ -638,7 +638,7 @@ export class DataService {
   async updateMaintenanceDate(id: string, newDate: string) {
     this.maintenanceScheduleSignal.update(list => list.map(item => {
       if (item.id === id) {
-        return { ...item, realDate: newDate, status: 'Completado' as Status['name'] };
+        return { ...item, realDate: newDate, status: 'Completado' };
       }
       return item;
     }));

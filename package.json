@@ -5,12 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 3000",
-    "build": "vite build",
-    "watch": "vite build --watch",
+    "build": "ng build --configuration production",
+    "watch": "ng build --watch",
     "test": "vitest",
     "lint": "eslint src",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist/asset-guard-advanced -b gh-pages"
   },
   "dependencies": {
     "@angular/animations": "^19.0.0",

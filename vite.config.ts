@@ -3,7 +3,7 @@ import angular from '@analogjs/vite-plugin-angular';
 
 export default defineConfig({
   cacheDir: '.vite',
-  base: process.env.NODE_ENV === 'production' ? '/ASSET-GUARD-Corporate-Edition-Advanced/' : '/',
+  base: process.env['NODE_ENV'] === 'production' ? '/ASSET-GUARD-Corporate-Edition-Advanced/' : '/',
   server: {
     host: '0.0.0.0',
     port: 3000,
@@ -22,9 +22,6 @@ export default defineConfig({
       'dompurify'
     ]
   },
-  test: {
-    include: ['src/**/*.spec.ts'],
-  },
   build: {
     rollupOptions: {},
   },
@@ -37,7 +34,8 @@ export default defineConfig({
       generateBundle(_, bundle) {
         for (const file of Object.values(bundle)) {
           if (file.type === 'asset' && file.fileName === 'index.html') {
-            file.source = file.source.replace('<base href="./">', '<base href="/ASSET-GUARD-Corporate-Edition-Advanced/">');
+            const source = typeof file.source === 'string' ? file.source : file.source.toString();
+            file.source = source.replace('<base href="./">', '<base href="/ASSET-GUARD-Corporate-Edition-Advanced/">');
           }
         }
       }
