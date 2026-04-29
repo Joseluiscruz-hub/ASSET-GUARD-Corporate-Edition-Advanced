@@ -1,2 +1,5 @@
 node_modules
 .angular/cache/
+dist
+C:/temp/
+.vite-assetguard/

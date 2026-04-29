@@ -7,7 +7,6 @@ import { DataService } from './services/data.service';
 import { GeminiService } from './services/gemini.service';
 import { AuthService } from './services/auth.service';
 import DOMPurify from 'dompurify';
-import template from './app.component.html?raw';
 import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
 
 type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'settings' | 'compliance' | 'inventory' | 'work-orders';
@@ -16,12 +15,12 @@ type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'setting
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule, 
+    CommonModule,
     DatePipe,
     RouterModule,
     AssetDetailComponent
   ],
-  template,
+  templateUrl: './app.component.html',
   styles: [`
     .fade-enter { animation: fadeIn 0.3s ease-out forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
@@ -83,7 +82,7 @@ export class AppComponent {
     ).subscribe((event: any) => {
       this.currentUrl.set(event.urlAfterRedirects);
       this.selectedAssetId.set(null);
-      
+
       // Auto-switch plant mode for dashboard
       const isDashboard = event.urlAfterRedirects.includes('dashboard');
       if (isDashboard && !this.plantMode()) this.dataService.togglePlantMode();
@@ -133,8 +132,8 @@ export class AppComponent {
   }
 
   playAlert(critical: boolean) {
-    const audio = new Audio(critical 
-      ? 'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3' 
+    const audio = new Audio(critical
+      ? 'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3'
       : 'https://assets.mixkit.co/active_storage/sfx/2345/2345-preview.mp3');
     audio.play().catch(() => {});
   }
