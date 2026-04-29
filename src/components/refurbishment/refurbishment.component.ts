@@ -179,20 +179,22 @@ import { Asset, RefurbishmentRecord } from '../../types';
                         <h3 class="text-xs font-black text-indigo-400 uppercase tracking-widest flex items-center gap-2"><i class="fas fa-brush"></i> Detalles de Pintura</h3>
                         <div class="grid grid-cols-2 gap-4">
                           <div class="col-span-2">
-                            <input [(ngModel)]="newRecord.paintDetails.color" placeholder="Código de Color" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                            <input [(ngModel)]="newRecord.paintDetails!.color" placeholder="Código de Color" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
                           </div>
-                          <input [(ngModel)]="newRecord.paintDetails.brand" placeholder="Marca" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
-                          <input [(ngModel)]="newRecord.paintDetails.layers" type="number" placeholder="Capas" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                          <input [(ngModel)]="newRecord.paintDetails!.brand" placeholder="Marca" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+                          <input [(ngModel)]="newRecord.paintDetails!.layers" type="number" placeholder="Capas" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
                         </div>
                       </div>
                       <div>
                         <h3 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-3">Evidencia Inicial</h3>
                         <div class="grid grid-cols-2 gap-3">
-                          @for (img of newRecord.photos.before; track $index) {
-                            <div class="aspect-square rounded-2xl overflow-hidden border-2 border-indigo-500/30 group relative">
-                              <img [src]="img" class="w-full h-full object-cover">
-                              <button (click)="removePhoto('before', $index)" class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-times"></i></button>
-                            </div>
+                          @if (newRecord.photos) {
+                            @for (img of newRecord.photos.before; track $index) {
+                              <div class="aspect-square rounded-2xl overflow-hidden border-2 border-indigo-500/30 group relative">
+                                <img [src]="img" class="w-full h-full object-cover">
+                                <button (click)="removePhoto('before', $index)" class="absolute top-2 right-2 w-6 h-6 bg-red-500 text-white rounded-full text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"><i class="fas fa-times"></i></button>
+                              </div>
+                            }
                           }
                           <label class="aspect-square rounded-2xl border-2 border-dashed border-slate-700 bg-slate-900/50 flex flex-col items-center justify-center cursor-pointer hover:border-indigo-500/50 hover:bg-slate-800 transition-all">
                             <i class="fas fa-plus text-slate-600 text-xl mb-1"></i>
@@ -206,7 +208,7 @@ import { Asset, RefurbishmentRecord } from '../../types';
                   <div class="mt-10 flex gap-4">
                     <button 
                       (click)="saveNewRecord()"
-                      [disabled]="!newRecord.technician || newRecord.photos.before.length === 0"
+                      [disabled]="!newRecord.technician || (newRecord.photos?.before?.length === 0)"
                       class="flex-1 bg-white text-slate-900 py-5 rounded-2xl font-black text-lg shadow-2xl shadow-indigo-500/20 hover:bg-indigo-400 hover:text-white transition-all disabled:opacity-30 disabled:grayscale">INICIAR PROYECTO</button>
                     <button (click)="tempSelectedAsset.set(null)" class="px-8 bg-slate-700 text-white font-black rounded-2xl hover:bg-slate-600 transition-all uppercase tracking-widest text-sm">Volver</button>
                   </div>

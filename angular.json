@@ -5,12 +5,12 @@
   "projects": {
     "asset-guard-advanced": {
       "projectType": "application",
-      "root": "src",
+      "root": "",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
             "outputPath": "dist/asset-guard-advanced",
             "index": "src/index.html",
@@ -19,7 +19,9 @@
             "tsConfig": "tsconfig.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/404.html",
+              "src/.nojekyll"
             ],
             "styles": [
               "src/index.css"

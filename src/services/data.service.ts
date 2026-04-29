@@ -33,7 +33,6 @@ import { environment } from '../environments/environment';
 
 // Importaciones para Firebase Storage
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { addDoc, collection } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -390,7 +389,7 @@ export class DataService {
   }
 
   updateToyotaLogistics(failureId: string, po: string, statusRef: ForkliftFailureEntry['estatusRefaccion'], promiseDate?: string) {
-    const updates = {
+    const updates: Partial<ForkliftFailureEntry> = {
       ordenCompra: po,
       estatusRefaccion: statusRef,
       fechaPromesa: promiseDate,
@@ -551,10 +550,11 @@ export class DataService {
         assetId: asset.id,
         entryDate: entryDate.toISOString(),
         exitDate: exitDate.toISOString(),
-        description: issues[idx % issues.length],
+        failureDescription: issues[idx % issues.length],
+        type: 'Mecánico', // Default type for real history
         technician: technicians[idx % technicians.length],
+        partsUsed: [],
         estimatedCost: 1200 + (idx * 150),
-        status: 'Completado'
       });
     });
 

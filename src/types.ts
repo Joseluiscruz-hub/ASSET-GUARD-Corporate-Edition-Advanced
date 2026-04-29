@@ -116,6 +116,11 @@ export interface ForkliftFailureEntry {
   ordenCompra?: string;
   estatusRefaccion?: 'N/A' | 'En Stock' | 'Pedida' | 'Por Recibir';
   fechaPromesa?: string;          // ISO Date for expected parts
+
+  // Advanced Tracking
+  sla?: any;                      // SLA data
+  fechaEstimadaLlegada?: string;  // Estimated arrival
+  refacciones?: any[];            // List of parts
 }
 
 // --- AI INSPECTION RESPONSE (extendida — fusión main + Edithion) ---
@@ -175,6 +180,14 @@ export enum EstadoRefaccion {
   POR_RECIBIR = 'Por Recibir',
 }
 
+export interface HistoryEntry {
+  timestamp: string;
+  user: string;
+  action: string;
+  previousValue: string;
+  newValue: string;
+}
+
 // --- PROGRAMA DE MANTENIMIENTO SISTEMÁTICO ---
 
 export interface MaintenanceSchedule {
@@ -191,8 +204,8 @@ export interface MaintenanceSchedule {
   serviceOrder: string;      // Orden de servicio interna
   hourMeter?: number;        // Horómetro al momento del servicio
   technician: string;
-  status: 'Programado' | 'Completado' | 'Vencido';
-  history: string[];
+  status: 'Programado' | 'En Proceso' | 'Completado' | 'Vencido';
+  history: HistoryEntry[];
   comments: string;
 }
 

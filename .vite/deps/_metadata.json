@@ -1,121 +1,121 @@
 {
-  "hash": "337e99c0",
-  "configHash": "5a3130bb",
-  "lockfileHash": "f1e3cb1b",
-  "browserHash": "1026f13b",
+  "hash": "0312aba2",
+  "configHash": "5ed3e578",
+  "lockfileHash": "53e1be83",
+  "browserHash": "2014d8ae",
   "optimized": {
     "@angular/common": {
       "src": "../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "91d07297",
+      "fileHash": "88becd2a",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "c0ad50b7",
+      "fileHash": "e3f6d01f",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "b3cd93ae",
+      "fileHash": "980b7886",
       "needsInterop": false
     },
     "rxjs": {
       "src": "../../node_modules/rxjs/dist/esm5/index.js",
       "file": "rxjs.js",
-      "fileHash": "5e526387",
+      "fileHash": "99ee6839",
       "needsInterop": false
     },
     "dompurify": {
       "src": "../../node_modules/dompurify/dist/purify.es.mjs",
       "file": "dompurify.js",
-      "fileHash": "7b17f683",
+      "fileHash": "fc7c0259",
       "needsInterop": false
     },
     "rxjs/operators": {
       "src": "../../node_modules/rxjs/dist/esm5/operators/index.js",
       "file": "rxjs_operators.js",
-      "fileHash": "f8c243c7",
+      "fileHash": "e3a472de",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "8b0e15a7",
+      "fileHash": "d0d182f2",
       "needsInterop": false
     },
     "@angular/core/rxjs-interop": {
       "src": "../../node_modules/@angular/core/fesm2022/rxjs-interop.mjs",
       "file": "@angular_core_rxjs-interop.js",
-      "fileHash": "1c5c4f65",
+      "fileHash": "482ad26f",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "e10b4d67",
+      "fileHash": "a7d6836c",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "8ef9e63b",
+      "fileHash": "421fded8",
       "needsInterop": false
     },
     "@google/generative-ai": {
       "src": "../../node_modules/@google/generative-ai/dist/index.mjs",
       "file": "@google_generative-ai.js",
-      "fileHash": "99c21fd6",
+      "fileHash": "296eccff",
       "needsInterop": false
     },
     "firebase/app": {
       "src": "../../node_modules/firebase/app/dist/esm/index.esm.js",
       "file": "firebase_app.js",
-      "fileHash": "eb10d06e",
+      "fileHash": "a76ed86c",
       "needsInterop": false
     },
     "firebase/auth": {
       "src": "../../node_modules/firebase/auth/dist/esm/index.esm.js",
       "file": "firebase_auth.js",
-      "fileHash": "0e90b12e",
+      "fileHash": "e9b8211e",
       "needsInterop": false
     },
     "firebase/database": {
       "src": "../../node_modules/firebase/database/dist/esm/index.esm.js",
       "file": "firebase_database.js",
-      "fileHash": "cb690e36",
+      "fileHash": "802e0161",
       "needsInterop": false
     },
     "firebase/firestore": {
       "src": "../../node_modules/firebase/firestore/dist/esm/index.esm.js",
       "file": "firebase_firestore.js",
-      "fileHash": "19af683d",
+      "fileHash": "7e18a9df",
       "needsInterop": false
     },
     "firebase/storage": {
       "src": "../../node_modules/firebase/storage/dist/esm/index.esm.js",
       "file": "firebase_storage.js",
-      "fileHash": "29deee5c",
+      "fileHash": "176efb79",
       "needsInterop": false
     },
     "jspdf": {
       "src": "../../node_modules/jspdf/dist/jspdf.es.min.js",
       "file": "jspdf.js",
-      "fileHash": "9677b0fd",
+      "fileHash": "e4573b63",
       "needsInterop": false
     },
     "jspdf-autotable": {
       "src": "../../node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js",
       "file": "jspdf-autotable.js",
-      "fileHash": "a6521b10",
+      "fileHash": "8ce280ac",
       "needsInterop": true
     },
     "xlsx": {
       "src": "../../node_modules/xlsx/xlsx.mjs",
       "file": "xlsx.js",
-      "fileHash": "8ca080f9",
+      "fileHash": "ef588adb",
       "needsInterop": false
     }
   },
