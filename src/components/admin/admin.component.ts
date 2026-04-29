@@ -178,7 +178,6 @@ export class AdminComponent implements OnInit {
   
   // KIOSK REMOTE STATE
   isKioskMode = this.dataService.isKioskMode;
-  isLoading = this.dataService.isLoading;
 
   ngOnInit() {
   }

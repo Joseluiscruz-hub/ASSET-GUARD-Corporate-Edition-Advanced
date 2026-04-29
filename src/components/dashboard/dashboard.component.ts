@@ -766,11 +766,11 @@ export class DashboardComponent {
     if (existingChart) {
       existingChart.data.labels = labels;
       existingChart.data.datasets[0].data = data;
-      if (existingChart.options.scales?.y) {
+      if (existingChart.options?.scales?.y) {
         existingChart.options.scales.y.grid!.color = gridColor;
         existingChart.options.scales.y.ticks!.color = textColor;
       }
-      if (existingChart.options.scales?.x) {
+      if (existingChart.options?.scales?.x) {
         existingChart.options.scales.x.ticks!.color = textColor;
       }
       existingChart.update();
