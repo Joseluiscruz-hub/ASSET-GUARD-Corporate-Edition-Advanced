@@ -28,28 +28,38 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
-      # ✅ PASO CLAVE: genera environment.prod.ts con los secretos reales
       - name: Generate environment.prod.ts
-        env:
-          GEMINI_API_KEY:            ${{ secrets.VITE_GEMINI_API_KEY }}
-          FIREBASE_API_KEY:          ${{ secrets.VITE_FIREBASE_API_KEY }}
-          FIREBASE_AUTH_DOMAIN:      ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
-          FIREBASE_DATABASE_URL:     ${{ secrets.VITE_FIREBASE_DATABASE_URL }}
-          FIREBASE_PROJECT_ID:       ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
-          FIREBASE_STORAGE_BUCKET:   ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
-          FIREBASE_MESSAGING_SENDER: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
-          FIREBASE_APP_ID:           ${{ secrets.VITE_FIREBASE_APP_ID }}
         run: |
-          sed -i \
-            -e "s|__GEMINI_API_KEY__|${GEMINI_API_KEY}|g" \
-            -e "s|__FIREBASE_API_KEY__|${FIREBASE_API_KEY}|g" \
-            -e "s|__FIREBASE_AUTH_DOMAIN__|${FIREBASE_AUTH_DOMAIN}|g" \
-            -e "s|__FIREBASE_DATABASE_URL__|${FIREBASE_DATABASE_URL}|g" \
-            -e "s|__FIREBASE_PROJECT_ID__|${FIREBASE_PROJECT_ID}|g" \
-            -e "s|__FIREBASE_STORAGE_BUCKET__|${FIREBASE_STORAGE_BUCKET}|g" \
-            -e "s|__FIREBASE_MESSAGING_SENDER_ID__|${FIREBASE_MESSAGING_SENDER}|g" \
-            -e "s|__FIREBASE_APP_ID__|${FIREBASE_APP_ID}|g" \
-            src/environments/environment.prod.ts
+          mkdir -p src/environments
+          python3 - <<PYEOF
+          import os
+          content = f"""export const environment = {{
+            production: true,
+            geminiApiKey: '{os.environ.get('VITE_GEMINI_API_KEY', '')}',
+            firebase: {{
+              apiKey: '{os.environ.get('VITE_FIREBASE_API_KEY', 'demo-key')}',
+              authDomain: '{os.environ.get('VITE_FIREBASE_AUTH_DOMAIN', 'demo.firebaseapp.com')}',
+              databaseURL: '{os.environ.get('VITE_FIREBASE_DATABASE_URL', 'https://demo-rtdb.firebaseio.com')}',
+              projectId: '{os.environ.get('VITE_FIREBASE_PROJECT_ID', 'demo-project')}',
+              storageBucket: '{os.environ.get('VITE_FIREBASE_STORAGE_BUCKET', 'demo.appspot.com')}',
+              messagingSenderId: '{os.environ.get('VITE_FIREBASE_MESSAGING_SENDER_ID', '123456789')}',
+              appId: '{os.environ.get('VITE_FIREBASE_APP_ID', '1:123:web:abc')}'
+            }}
+          }};
+          """
+          with open('src/environments/environment.prod.ts', 'w') as f:
+              f.write(content)
+          print('environment.prod.ts generated OK')
+          PYEOF
+        env:
+          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_DATABASE_URL: ${{ secrets.VITE_FIREBASE_DATABASE_URL }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
 
       - name: Build (Angular CLI)
         run: ng build --configuration production
