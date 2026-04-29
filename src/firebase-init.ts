@@ -8,35 +8,22 @@ import { getFirestore, Firestore } from 'firebase/firestore';
 import { getDatabase, Database } from 'firebase/database';
 import { environment } from './environments/environment';
 
-const isRealFirebaseConfig = (
-  environment.firebase.apiKey &&
-  environment.firebase.apiKey !== 'demo-api-key' &&
-  environment.firebase.projectId &&
-  environment.firebase.projectId !== 'demo-project'
-);
-
-let firebaseApp: FirebaseApp;
-let auth: Auth;
-let db: Firestore | null = null;
-let rtdb: Database | null = null;
+// Inicializacion segura: si Firebase falla (config demo/invalida), la app sigue funcionando
+let firebaseApp: FirebaseApp = {} as FirebaseApp;
+let auth: Auth = {} as Auth;
+let db: Firestore = {} as Firestore;
+let rtdb: Database = {} as Database;
 
 try {
-  firebaseApp = getApps().length === 0
+  const app = getApps().length === 0
     ? initializeApp(environment.firebase)
     : getApps()[0];
-
-  auth = getAuth(firebaseApp);
-
-  if (isRealFirebaseConfig) {
-    db = getFirestore(firebaseApp);
-    rtdb = getDatabase(firebaseApp);
-  } else {
-    console.warn('[AssetGuard] Firebase en modo DEMO. Configura los secretos de Firebase en GitHub Actions para activar persistencia real.');
-  }
+  firebaseApp = app;
+  auth = getAuth(app);
+  db = getFirestore(app);
+  rtdb = getDatabase(app);
 } catch (e) {
-  console.error('[AssetGuard] Error inicializando Firebase:', e);
-  firebaseApp = getApps()[0];
-  auth = getAuth(firebaseApp);
+  console.warn('[AssetGuard] Firebase inicializado en modo DEMO. Para activar persistencia real, agrega los secretos de Firebase en GitHub Actions → Settings → Secrets.');
 }
 
 export { firebaseApp, auth, db, rtdb };
