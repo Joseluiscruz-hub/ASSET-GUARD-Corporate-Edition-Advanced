@@ -244,3 +244,8 @@ Sistema CMMS (Computerized Maintenance Management System) para gestión de monta
 ---
 
 *Desarrollado por **Joseluiscruz-hub** — AssetGuard Corporate Edition Advanced 2026*
+
+<!-- Deploy trigger: added Firebase secrets -->
+
+
+<!-- Deploy trigger: added Firebase secrets -->
