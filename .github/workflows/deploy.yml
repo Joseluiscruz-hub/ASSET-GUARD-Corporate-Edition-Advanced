@@ -29,28 +29,6 @@ jobs:
         run: npm install -g @angular/cli
 
       - name: Generate environment.prod.ts
-        run: |
-          mkdir -p src/environments
-          python3 - <<PYEOF
-          import os
-          content = f"""export const environment = {{
-            production: true,
-            geminiApiKey: '{os.environ.get('VITE_GEMINI_API_KEY', '')}',
-            firebase: {{
-              apiKey: '{os.environ.get('VITE_FIREBASE_API_KEY', 'demo-key')}',
-              authDomain: '{os.environ.get('VITE_FIREBASE_AUTH_DOMAIN', 'demo.firebaseapp.com')}',
-              databaseURL: '{os.environ.get('VITE_FIREBASE_DATABASE_URL', 'https://demo-rtdb.firebaseio.com')}',
-              projectId: '{os.environ.get('VITE_FIREBASE_PROJECT_ID', 'demo-project')}',
-              storageBucket: '{os.environ.get('VITE_FIREBASE_STORAGE_BUCKET', 'demo.appspot.com')}',
-              messagingSenderId: '{os.environ.get('VITE_FIREBASE_MESSAGING_SENDER_ID', '123456789')}',
-              appId: '{os.environ.get('VITE_FIREBASE_APP_ID', '1:123:web:abc')}'
-            }}
-          }};
-          """
-          with open('src/environments/environment.prod.ts', 'w') as f:
-              f.write(content)
-          print('environment.prod.ts generated OK')
-          PYEOF
         env:
           VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
@@ -60,6 +38,30 @@ jobs:
           VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+        run: |
+          node -e "
+          const fs = require('fs');
+          const e = process.env;
+          const content = [
+            'export const environment = {',
+            '  production: true,',
+            '  geminiApiKey: \"' + (e.VITE_GEMINI_API_KEY||'') + '\",',
+            '  firebase: {',
+            '    apiKey: \"' + (e.VITE_FIREBASE_API_KEY||'demo-key') + '\",',
+            '    authDomain: \"' + (e.VITE_FIREBASE_AUTH_DOMAIN||'demo.firebaseapp.com') + '\",',
+            '    databaseURL: \"' + (e.VITE_FIREBASE_DATABASE_URL||'https://demo-rtdb.firebaseio.com') + '\",',
+            '    projectId: \"' + (e.VITE_FIREBASE_PROJECT_ID||'demo-project') + '\",',
+            '    storageBucket: \"' + (e.VITE_FIREBASE_STORAGE_BUCKET||'demo.appspot.com') + '\",',
+            '    messagingSenderId: \"' + (e.VITE_FIREBASE_MESSAGING_SENDER_ID||'123456789') + '\",',
+            '    appId: \"' + (e.VITE_FIREBASE_APP_ID||'1:123:web:abc') + '\"',
+            '  }',
+            '};'
+          ].join('\\n');
+          fs.mkdirSync('src/environments', {recursive:true});
+          fs.writeFileSync('src/environments/environment.prod.ts', content);
+          console.log('Generated environment.prod.ts OK');
+          console.log(content);
+          "
 
       - name: Build (Angular CLI)
         run: ng build --configuration production
