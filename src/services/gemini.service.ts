@@ -10,6 +10,7 @@
 import { Injectable } from '@angular/core';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { FailureReport, Asset, KPIData, AIInspectionResponse, ForkliftFailureEntry } from '../types';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +26,15 @@ export class GeminiService {
   };
 
   constructor() {
-    // Soporte para Vite (import.meta.env) y fallback a environment.ts
-    const apiKey = (import.meta?.env?.['VITE_GEMINI_API_KEY'] as string | undefined)?.trim() || '';
+    // Lee del environment de Angular (no de import.meta.env)
+    const apiKey = environment.geminiApiKey?.trim() ?? '';
     this.ai = apiKey ? new GoogleGenerativeAI(apiKey) : null;
   }
 
   // Helper seguro (de Edithion) — lanza error explícito si falta la API key
   private getAi(): GoogleGenerativeAI {
     if (!this.ai) {
-      throw new Error('⚠️ Falta VITE_GEMINI_API_KEY en .env.local o environment.ts');
+      throw new Error('⚠️ Gemini API Key no configurada. Verifique secretos en GitHub o environment.ts');
     }
     return this.ai;
   }

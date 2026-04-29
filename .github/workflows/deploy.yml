@@ -1,40 +1,73 @@
 name: Deploy to GitHub Pages
+
 on:
   push:
     branches:
       - main
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 jobs:
   build_site:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
       - name: Install dependencies
         run: npm install
+
       - name: Install Angular CLI
         run: npm install -g @angular/cli
+
+      # ✅ PASO CLAVE: genera environment.prod.ts con los secretos reales
+      - name: Generate environment.prod.ts
+        env:
+          GEMINI_API_KEY:            ${{ secrets.VITE_GEMINI_API_KEY }}
+          FIREBASE_API_KEY:          ${{ secrets.VITE_FIREBASE_API_KEY }}
+          FIREBASE_AUTH_DOMAIN:      ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          FIREBASE_DATABASE_URL:     ${{ secrets.VITE_FIREBASE_DATABASE_URL }}
+          FIREBASE_PROJECT_ID:       ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          FIREBASE_STORAGE_BUCKET:   ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          FIREBASE_MESSAGING_SENDER: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          FIREBASE_APP_ID:           ${{ secrets.VITE_FIREBASE_APP_ID }}
+        run: |
+          sed -i \
+            -e "s|__GEMINI_API_KEY__|${GEMINI_API_KEY}|g" \
+            -e "s|__FIREBASE_API_KEY__|${FIREBASE_API_KEY}|g" \
+            -e "s|__FIREBASE_AUTH_DOMAIN__|${FIREBASE_AUTH_DOMAIN}|g" \
+            -e "s|__FIREBASE_DATABASE_URL__|${FIREBASE_DATABASE_URL}|g" \
+            -e "s|__FIREBASE_PROJECT_ID__|${FIREBASE_PROJECT_ID}|g" \
+            -e "s|__FIREBASE_STORAGE_BUCKET__|${FIREBASE_STORAGE_BUCKET}|g" \
+            -e "s|__FIREBASE_MESSAGING_SENDER_ID__|${FIREBASE_MESSAGING_SENDER}|g" \
+            -e "s|__FIREBASE_APP_ID__|${FIREBASE_APP_ID}|g" \
+            src/environments/environment.prod.ts
+
       - name: Build (Angular CLI)
         run: ng build --configuration production
-        env:
-          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/asset-guard-advanced/
+
   deploy:
     needs: build_site
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - name: Deploy
         id: deployment
