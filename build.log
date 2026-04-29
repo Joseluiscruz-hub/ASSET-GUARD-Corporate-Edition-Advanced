@@ -1,2 +1,4 @@
 Workspace extension with invalid name (defaultProject) found.
 - Generating browser application bundles (phase: setup)...
+    [webpack.cache.PackFileCacheStrategy] No pack exists at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/.angular/cache/19.2.24/angular-webpack/3727fbc8a7826e690e369b617f3ed117654d9b41.pack: Error: ENOENT: no such file or directory, stat '/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/.angular/cache/19.2.24/angular-webpack/3727fbc8a7826e690e369b617f3ed117654d9b41/index.pack'
+<t> [webpack.cache.PackFileCacheStrategy] restore cache container: 5767.47516 ms
