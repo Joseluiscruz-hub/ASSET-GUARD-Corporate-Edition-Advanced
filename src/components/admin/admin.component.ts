@@ -12,7 +12,7 @@ import * as XLSX from 'xlsx';
   imports: [CommonModule, FormsModule],
   template: `
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8 max-w-5xl mx-auto">
-      
+
       <!-- SECTION 0: MASTER CONTROL (KIOSK REMOTE) -->
       <div class="bg-indigo-50 p-6 rounded-xl shadow-sm border border-indigo-100 mb-8 flex flex-col md:flex-row items-center justify-between gap-4 animate-fade-in relative overflow-hidden">
          <!-- Decorative Background -->
@@ -29,23 +29,23 @@ import * as XLSX from 'xlsx';
                Activa remotamente el <strong>Modo Quiosco</strong> en las Smart TVs de la planta. Esto iniciará la rotación automática de KPIs, Mejores Tripulaciones y Seguridad.
             </p>
          </div>
-         
+
          <div class="flex items-center gap-4 relative z-10 bg-white px-6 py-3 rounded-2xl shadow-sm border border-indigo-100">
             <div class="text-right">
                <p class="text-[10px] font-bold uppercase tracking-wider text-gray-500">Estatus Transmisión</p>
-               <p class="text-sm font-black transition-colors" 
-                  [class.text-green-500]="isKioskMode()" 
+               <p class="text-sm font-black transition-colors"
+                  [class.text-green-500]="isKioskMode()"
                   [class.text-gray-400]="!isKioskMode()">
                   {{ isKioskMode() ? 'EN VIVO (ON AIR)' : 'OFFLINE' }}
                </p>
             </div>
-            
-            <button (click)="toggleKiosk()" 
+
+            <button (click)="toggleKiosk()"
                     class="relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer"
-                    [class.bg-indigo-600]="isKioskMode()" 
+                    [class.bg-indigo-600]="isKioskMode()"
                     [class.bg-gray-300]="!isKioskMode()">
                <span class="inline-block h-6 w-6 transform rounded-full bg-white transition-transform shadow-md"
-                     [class.translate-x-7]="isKioskMode()" 
+                     [class.translate-x-7]="isKioskMode()"
                      [class.translate-x-1]="!isKioskMode()"></span>
             </button>
          </div>
@@ -56,7 +56,7 @@ import * as XLSX from 'xlsx';
         <div class="absolute top-0 right-0 p-8 opacity-10">
           <i class="fas fa-brain text-9xl text-white"></i>
         </div>
-        
+
         <div class="relative z-10">
           <h3 class="text-xl font-bold flex items-center gap-2 mb-2">
             <span class="bg-[#ce1126] p-1.5 rounded text-xs"><i class="fas fa-robot"></i> GEMINI 2.0</span>
@@ -67,7 +67,7 @@ import * as XLSX from 'xlsx';
           </p>
 
           @if (!aiReport()) {
-            <button (click)="generateDailyReport()" 
+            <button (click)="generateDailyReport()"
                     [disabled]="isAnalyzing()"
                     class="bg-white text-gray-900 px-6 py-3 rounded-lg font-bold shadow hover:bg-gray-100 transition flex items-center gap-2 disabled:opacity-50">
               @if (isAnalyzing()) {
@@ -93,13 +93,13 @@ import * as XLSX from 'xlsx';
         <h3 class="text-lg font-bold mb-4 flex items-center gap-2 text-gray-800">
           <span class="text-[#ce1126]"><i class="fas fa-broadcast-tower"></i></span> Registro de Falla (Torre de Control)
         </h3>
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
           <div>
             <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Unidad (ID)</label>
             <input [(ngModel)]="failureForm.economico" type="text" class="w-full p-2.5 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-[#ce1126] focus:outline-none" placeholder="Ej: M-105">
           </div>
-          
+
           <div class="lg:col-span-2">
             <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Descripción de Falla</label>
             <input [(ngModel)]="failureForm.falla" type="text" class="w-full p-2.5 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-[#ce1126] focus:outline-none" placeholder="Describe el problema...">
@@ -114,13 +114,13 @@ import * as XLSX from 'xlsx';
             </select>
           </div>
         </div>
-        
+
         <div class="flex justify-between items-center">
           <div class="w-1/3">
              <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Reporta</label>
              <input [(ngModel)]="failureForm.reporta" type="text" class="w-full p-2.5 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-[#ce1126] focus:outline-none" placeholder="Nombre Supervisor">
           </div>
-          <button (click)="registerFailure()" 
+          <button (click)="registerFailure()"
                   class="bg-[#ce1126] hover:bg-[#a30d1d] text-white px-8 py-3 rounded-lg font-bold shadow-md transition transform hover:scale-105 flex items-center gap-2">
              <i class="fas fa-paper-plane"></i> ENVIAR ALERTA
           </button>
@@ -175,7 +175,7 @@ export class AdminComponent implements OnInit {
   // AI State
   isAnalyzing = signal(false);
   aiReport = signal<string | null>(null);
-  
+
   // KIOSK REMOTE STATE
   isKioskMode = this.dataService.isKioskMode;
 
@@ -210,19 +210,19 @@ export class AdminComponent implements OnInit {
       prioridad: 'Media',
       reporta: ''
     };
-    
+
     // Optional: Visual confirmation could be added here
   }
 
   async generateDailyReport() {
     this.isAnalyzing.set(true);
-    
+
     const fleetData = this.dataService.fleetAvailability();
     const activeFailures = this.dataService.forkliftFailures().filter(f => f.estatus !== 'Cerrada');
     const history = this.dataService.forkliftFailures().slice(0, 10);
 
     const reportHtml = await this.geminiService.generateDailySummary(fleetData, activeFailures, history);
-    
+
     this.aiReport.set(reportHtml);
     this.isAnalyzing.set(false);
   }
@@ -233,7 +233,7 @@ export class AdminComponent implements OnInit {
       // For email/chat, rich text is better.
       const el = document.createElement('div');
       el.innerHTML = this.aiReport()!;
-      
+
       const blob = new Blob([el.innerText], { type: 'text/plain' });
       const item = new ClipboardItem({ 'text/plain': blob });
       navigator.clipboard.write([item]).then(() => console.warn('ALERT:', 'Reporte copiado al portapapeles!'));
@@ -253,7 +253,7 @@ export class AdminComponent implements OnInit {
       const wsname = wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
       const data = XLSX.utils.sheet_to_json(ws);
-      
+
       // Send to Service
       await this.dataService.updateAssetsFromExcel(data);
       console.warn('ALERT:', `Se procesaron ${data.length} registros exitosamente.`);
