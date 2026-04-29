@@ -381,7 +381,7 @@ declare const Chart: any;
                 </h3>
                 
                 <div class="relative pl-4 border-l-2 border-slate-200 dark:border-slate-700 space-y-6">
-                   @for (log of (selectedSchedule()!.history || []).reverse(); track log.timestamp) {
+                   @for (log of (selectedSchedule()?.history || []).slice().reverse(); track $index) {
                       <div class="relative">
                          <div class="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-white border-2 border-slate-300 dark:border-slate-500"></div>
                          <div class="flex justify-between items-start">
@@ -441,11 +441,11 @@ export class MaintenanceComplianceComponent implements AfterViewInit, OnDestroy 
      const list = this.schedule();
      const total = list.length || 1;
      
-     const onTime = list.filter(r => r.status === 'Completado' && !this.isLateCompletion(r)).length;
+     const onTime = list.filter(r => (r.status as string) === 'Completado' && !this.isLateCompletion(r)).length;
      const late = list.filter(r => this.isLateCompletion(r)).length;
-     const overdue = list.filter(r => r.status === 'Vencido').length;
-     const inProcess = list.filter(r => r.status === 'En Proceso').length;
-     const scheduled = list.filter(r => r.status === 'Programado').length;
+     const overdue = list.filter(r => (r.status as string) === 'Vencido').length;
+     const inProcess = list.filter(r => (r.status as string) === 'En Proceso').length;
+     const scheduled = list.filter(r => (r.status as string) === 'Programado').length;
 
      return {
         onTime, onTimePct: Math.round((onTime/total)*100),

@@ -373,7 +373,11 @@ export class RefurbishmentComponent {
     }
   }
 
-  removePhoto(stage: 'before' | 'process' | 'after', index: number) { this.newRecord.photos![stage].splice(index, 1); }
+  removePhoto(stage: 'before' | 'process' | 'after', index: number) { 
+    if (this.newRecord.photos && this.newRecord.photos[stage]) {
+      this.newRecord.photos[stage].splice(index, 1); 
+    }
+  }
   getCurrentPhotos() { return this.selectedRecord()?.photos[this.activeStage()] || []; }
 
   toggleReinstall(item: any) {
