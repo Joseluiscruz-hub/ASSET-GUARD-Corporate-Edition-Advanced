@@ -26,3 +26,1233 @@ Workspace extension with invalid name (defaultProject) found.
 <t> [webpack.cache.PackFileCacheStrategy] restore cache content 1 (4.29 KiB): 118.454196 ms
     [webpack.cache.PackFileCacheStrategy] starting to restore cache content 2 (271 KiB) because of request to: ResolverCachePlugin|loader|default|path=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src|request=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/css-loader/dist/cjs.js
 <t> [webpack.cache.PackFileCacheStrategy] restore cache content 2 (271 KiB): 477.688496 ms
+    [IdleFileCachePlugin] Initial cache was generated and cache will be persisted in 5s.
+✔ Browser application bundle generation complete.
+    [webpack.cache.PackFileCacheStrategy] Pack got invalid because of write to: ResolverCachePlugin|normal|default|dependencyType=|esm|path=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced|request=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/dashboard/dashboard.component.ts
+    [webpack.cache.PackFileCacheStrategy] Pack 1 got empty and is removed
+asset main.a9e9fa804f6ccd04.js 908 KiB {792} [cached] [immutable] (name: main)
+asset 288.3b7149fd42c4c5e9.js 408 KiB {288} [cached] [immutable] (name: components-maintenance-compliance-maintenance-compliance-component) (id hint: default)
+asset 941.e425ec7a769c392b.js 387 KiB {941} [cached] [immutable] (name: components-admin-asset-list-component) (id hint: default)
+asset 239.e2d7fc10cfa84149.js 196 KiB {239} [cached] [immutable] (name: html2canvas)
+asset 147.ccc996779fa8bceb.js 153 KiB {147} [cached] [immutable] (name: canvg)
+asset 3rdpartylicenses.txt 80.6 KiB [cached]
+asset styles.82a40413cf597c08.css 65.1 KiB {869} [cached] [immutable] (name: styles)
+asset 633.18b1ab71255767b4.js 31.7 KiB {633} [cached] [immutable] (name: components-maintenance-compliance-maintenance-compliance-component)
+asset 801.013e170f574504a2.js 28.1 KiB {801} [cached] [immutable] (name: components-refurbishment-refurbishment-component)
+asset 341.ae06b368dd6ed2ac.js 27 KiB {341} [cached] [immutable] (name: components-service-panel-component) (id hint: default)
+asset 773.4994457ec7ba7757.js 24 KiB {773} [cached] [immutable] (name: components-dashboard-dashboard-component)
+asset 44.15b412ca0f9074a9.js 21.3 KiB {44} [cached] [immutable] (name: dompurify)
+asset 33.cf544b9856774097.js 14.2 KiB {33} [cached] [immutable] (name: components-admin-asset-list-component)
+asset 189.d6334a51c6714caf.js 12 KiB {189} [cached] [immutable] (name: components-admin-admin-component)
++ 6 assets
+Entrypoint main = runtime.b26c037d392b821b.js main.a9e9fa804f6ccd04.js
+Entrypoint styles = runtime.b26c037d392b821b.js styles.82a40413cf597c08.css
+chunk {21} (runtime: runtime) 21.ade30bcc886b6e33.js (components-home-step1-home-step1-component) 13.1 KiB
+  cached modules 13.1 KiB [cached] 1 module
+chunk {33} (runtime: runtime) 33.cf544b9856774097.js (components-admin-asset-list-component) 26.6 KiB
+  cached modules 26.6 KiB [cached] 1 module
+chunk {44} (runtime: runtime) 44.15b412ca0f9074a9.js (dompurify) 65.8 KiB
+  cached modules 65.8 KiB [cached] 1 module
+chunk {121} (runtime: runtime) runtime.b26c037d392b821b.js (runtime) 9.08 KiB [entry] [rendered]
+  runtime modules 9.08 KiB 15 modules
+chunk {147} (runtime: runtime) 147.ccc996779fa8bceb.js (canvg) 374 KiB
+  cached modules 374 KiB [cached] 167 modules
+chunk {161} (runtime: runtime) 161.ad16d1c3284683a0.js (components-inventory-inventory-component) 12.1 KiB
+  cached modules 12.1 KiB [cached] 1 module
+chunk {189} (runtime: runtime) 189.d6334a51c6714caf.js (components-admin-admin-component) 20.8 KiB [rendered]
+  ./src/components/admin/admin.component.ts [2189] 20.8 KiB {189} [built] [code generated]
+    [only some exports used: AdminComponent]
+    Dependency (harmony side effect evaluation) with side effects at 5:0-58
+    ModuleConcatenation bailout: Cannot concat with ./src/services/data.service.ts: Module ./src/services/data.service.ts is not in the same chunk(s) (expected in chunk(s) components-admin-admin-component, module is in chunk(s) )
+    ModuleConcatenation bailout: Cannot concat with ./src/services/gemini.service.ts: Module ./src/services/gemini.service.ts is not in the same chunk(s) (expected in chunk(s) components-admin-admin-component, module is in chunk(s) )
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/common/fesm2022/common_module-Dx7dWex5.mjs: Module ./node_modules/@angular/common/fesm2022/common_module-Dx7dWex5.mjs is not in the same chunk(s) (expected in chunk(s) components-admin-admin-component, module is in chunk(s) main)
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/core/fesm2022/core.mjs: Module ./node_modules/@angular/core/fesm2022/core.mjs is not in the same chunk(s) (expected in chunk(s) components-admin-admin-component, module is in chunk(s) )
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/forms/fesm2022/forms.mjs: Module ./node_modules/@angular/forms/fesm2022/forms.mjs is not in the same chunk(s) (expected in chunk(s) components-admin-admin-component, module is in chunk(s) )
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/xlsx/xlsx.mjs: Module ./node_modules/xlsx/xlsx.mjs is not in the same chunk(s) (expected in chunk(s) components-admin-admin-component, module is in chunk(s) components-maintenance-compliance-maintenance-compliance-component)
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js: Module ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js is not in the same chunk(s) (expected in chunk(s) components-admin-admin-component, module is in chunk(s) main)
+    import() ./components/admin/admin.component [9581] ./src/main.ts + 13 modules ./src/app.routes.ts 48:23-67
+chunk {239} (runtime: runtime) 239.e2d7fc10cfa84149.js (html2canvas) 378 KiB
+  cached modules 378 KiB [cached] 1 module
+chunk {288} (runtime: runtime) 288.3b7149fd42c4c5e9.js (components-maintenance-compliance-maintenance-compliance-component) (id hint: default) 972 KiB split chunk (cache group: default)
+  cached modules 972 KiB [cached] 1 module
+chunk {341} (runtime: runtime) 341.ae06b368dd6ed2ac.js (components-service-panel-component) (id hint: default) 270 KiB split chunk (cache group: default)
+  cached modules 270 KiB [cached] 1 module
+chunk {526} (runtime: runtime) 526.f9d470c7112f19b7.js (components-service-panel-component) 8.31 KiB
+  cached modules 8.31 KiB [cached] 1 module
+chunk {533} (runtime: runtime) 533.bcb0482fcaac7a8d.js (components-work-orders-work-orders-component) 15 KiB
+  cached modules 15 KiB [cached] 1 module
+chunk {633} (runtime: runtime) 633.18b1ab71255767b4.js (components-maintenance-compliance-maintenance-compliance-component) 55 KiB
+  cached modules 55 KiB [cached] 1 module
+chunk {773} (runtime: runtime) 773.4994457ec7ba7757.js (components-dashboard-dashboard-component) 38.7 KiB [rendered]
+  ./src/components/dashboard/dashboard.component.ts [6773] 38.7 KiB {773} [built] [code generated]
+    [only some exports used: DashboardComponent]
+    Dependency (harmony side effect evaluation) with side effects at 2:0-58
+    ModuleConcatenation bailout: Cannot concat with ./src/services/data.service.ts: Module ./src/services/data.service.ts is not in the same chunk(s) (expected in chunk(s) components-dashboard-dashboard-component, module is in chunk(s) )
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/common/fesm2022/common_module-Dx7dWex5.mjs: Module ./node_modules/@angular/common/fesm2022/common_module-Dx7dWex5.mjs is not in the same chunk(s) (expected in chunk(s) components-dashboard-dashboard-component, module is in chunk(s) main)
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/core/fesm2022/core.mjs: Module ./node_modules/@angular/core/fesm2022/core.mjs is not in the same chunk(s) (expected in chunk(s) components-dashboard-dashboard-component, module is in chunk(s) )
+    import() ./components/dashboard/dashboard.component [9581] ./src/main.ts + 13 modules ./src/app.routes.ts 12:23-75
+chunk {792} (runtime: runtime) main.a9e9fa804f6ccd04.js (main) 4.84 MiB [initial]
+  cached modules 4.48 MiB [cached] 65 modules
+  dependent modules 758 bytes [dependent] 1 module
+  ./src/main.ts + 13 modules [9581] 369 KiB {792} [built]
+    [no exports used]
+    ModuleConcatenation bailout: Cannot concat with ./src/components/asset-detail/asset-detail.component.ts: Module ./src/components/asset-detail/asset-detail.component.ts is referenced from these modules with unsupported syntax: ./src/app.routes.ts (referenced with import())
+    ModuleConcatenation bailout: Cannot concat with ./src/firebase-init.ts: Module ./src/services/data.service.ts is referenced from different chunks by these modules: ./src/components/admin/admin.component.ts, ./src/components/admin/asset-list.component.ts, ./src/components/dashboard/dashboard.component.ts, ./src/components/home-step1/home-step1.component.ts, ./src/components/inventory/inventory.component.ts, ./src/components/maintenance-compliance/maintenance-compliance.component.ts, ./src/components/refurbishment/refurbishment.component.ts, ./src/components/service-panel.component.ts, ./src/components/solicitor-panel/solicitor-panel.component.ts, ./src/components/work-orders/work-orders.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./src/services/data.service.ts: Module ./src/services/data.service.ts is referenced from different chunks by these modules: ./src/components/admin/admin.component.ts, ./src/components/admin/asset-list.component.ts, ./src/components/dashboard/dashboard.component.ts, ./src/components/home-step1/home-step1.component.ts, ./src/components/inventory/inventory.component.ts, ./src/components/maintenance-compliance/maintenance-compliance.component.ts, ./src/components/refurbishment/refurbishment.component.ts, ./src/components/service-panel.component.ts, ./src/components/solicitor-panel/solicitor-panel.component.ts, ./src/components/work-orders/work-orders.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./src/services/gemini.service.ts: Module ./src/services/gemini.service.ts is referenced from different chunks by these modules: ./src/components/admin/admin.component.ts, ./src/components/solicitor-panel/solicitor-panel.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/Observable.js: Module ./node_modules/rxjs/dist/esm/internal/Observable.js is referenced from different chunks by these modules: ./node_modules/rxjs/dist/esm/internal/observable/forkJoin.js
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/Subject.js: Module ./node_modules/rxjs/dist/esm/internal/Subject.js is referenced from different chunks by these modules: ./node_modules/@angular/forms/fesm2022/forms.mjs
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/observable/from.js: Module ./node_modules/rxjs/dist/esm/internal/observable/from.js is referenced from different chunks by these modules: ./node_modules/@angular/forms/fesm2022/forms.mjs
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/observable/of.js: Module ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs is referenced from different chunks by these modules: ./src/components/home-step1/home-step1.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/operators/concatMap.js: Module ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs is referenced from different chunks by these modules: ./src/components/home-step1/home-step1.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/operators/filter.js: Module ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs is referenced from different chunks by these modules: ./src/components/home-step1/home-step1.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/operators/finalize.js: Module ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs is referenced from different chunks by these modules: ./src/components/home-step1/home-step1.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/operators/map.js: Module ./node_modules/rxjs/dist/esm/internal/operators/map.js is referenced from different chunks by these modules: ./node_modules/@angular/forms/fesm2022/forms.mjs
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/operators/mergeAll.js: Module ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs is referenced from different chunks by these modules: ./src/components/home-step1/home-step1.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/operators/mergeMap.js: Module ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs is referenced from different chunks by these modules: ./src/components/home-step1/home-step1.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/operators/switchMap.js: Module ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs is referenced from different chunks by these modules: ./src/components/home-step1/home-step1.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/rxjs/dist/esm/internal/operators/take.js: Module ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs is referenced from different chunks by these modules: ./src/components/home-step1/home-step1.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./src/index.css?ngGlobalStyle: Module is not an ECMAScript module
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/common/fesm2022/common_module-Dx7dWex5.mjs: Module ./node_modules/@angular/common/fesm2022/common_module-Dx7dWex5.mjs is referenced from different chunks by these modules: ./src/components/admin/admin.component.ts, ./src/components/admin/asset-list.component.ts, ./src/components/dashboard/dashboard.component.ts, ./src/components/home-step1/home-step1.component.ts, ./src/components/inventory/inventory.component.ts, ./src/components/maintenance-compliance/maintenance-compliance.component.ts, ./src/components/refurbishment/refurbishment.component.ts, ./src/components/service-panel.component.ts, ./src/components/solicitor-panel/solicitor-panel.component.ts, ./src/components/work-orders/work-orders.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/common/fesm2022/dom_tokens-rA0ACyx7.mjs: Module ./node_modules/@angular/common/fesm2022/location-Dq4mJT-A.mjs is referenced from different chunks by these modules: ./node_modules/@angular/forms/fesm2022/forms.mjs
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/common/fesm2022/location-Dq4mJT-A.mjs: Module ./node_modules/@angular/common/fesm2022/location-Dq4mJT-A.mjs is referenced from different chunks by these modules: ./node_modules/@angular/forms/fesm2022/forms.mjs
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/core/fesm2022/core.mjs: Module ./node_modules/@angular/core/fesm2022/core.mjs is referenced from different chunks by these modules: ./node_modules/@angular/forms/fesm2022/forms.mjs, ./src/components/admin/admin.component.ts, ./src/components/admin/asset-list.component.ts, ./src/components/dashboard/dashboard.component.ts, ./src/components/home-step1/home-step1.component.ts, ./src/components/inventory/inventory.component.ts, ./src/components/maintenance-compliance/maintenance-compliance.component.ts, ./src/components/refurbishment/refurbishment.component.ts, ./src/components/service-panel.component.ts, ./src/components/solicitor-panel/solicitor-panel.component.ts, ./src/components/work-orders/work-orders.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs: Module ./src/components/asset-detail/asset-detail.component.ts is referenced from these modules with unsupported syntax: ./src/app.routes.ts (referenced with import())
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs: Module ./node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs is referenced from different chunks by these modules: ./src/components/home-step1/home-step1.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/dompurify/dist/purify.es.mjs: Module ./src/components/asset-detail/asset-detail.component.ts is referenced from these modules with unsupported syntax: ./src/app.routes.ts (referenced with import())
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/firebase/auth/dist/esm/index.esm.js: Module ./src/services/data.service.ts is referenced from different chunks by these modules: ./src/components/admin/admin.component.ts, ./src/components/admin/asset-list.component.ts, ./src/components/dashboard/dashboard.component.ts, ./src/components/home-step1/home-step1.component.ts, ./src/components/inventory/inventory.component.ts, ./src/components/maintenance-compliance/maintenance-compliance.component.ts, ./src/components/refurbishment/refurbishment.component.ts, ./src/components/service-panel.component.ts, ./src/components/solicitor-panel/solicitor-panel.component.ts, ./src/components/work-orders/work-orders.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/firebase/firestore/dist/esm/index.esm.js: Module ./src/services/data.service.ts is referenced from different chunks by these modules: ./src/components/admin/admin.component.ts, ./src/components/admin/asset-list.component.ts, ./src/components/dashboard/dashboard.component.ts, ./src/components/home-step1/home-step1.component.ts, ./src/components/inventory/inventory.component.ts, ./src/components/maintenance-compliance/maintenance-compliance.component.ts, ./src/components/refurbishment/refurbishment.component.ts, ./src/components/service-panel.component.ts, ./src/components/solicitor-panel/solicitor-panel.component.ts, ./src/components/work-orders/work-orders.component.ts
+    ModuleConcatenation bailout: Cannot concat with ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js: Module ./node_modules/@babel/runtime/helpers/esm/asyncToGenerator.js is referenced from different chunks by these modules: ./node_modules/canvg/lib/index.es.js, ./src/components/admin/admin.component.ts, ./src/components/admin/asset-list.component.ts, ./src/components/maintenance-compliance/maintenance-compliance.component.ts, ./src/components/solicitor-panel/solicitor-panel.component.ts
+    entry /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/main.ts main
+chunk {801} (runtime: runtime) 801.013e170f574504a2.js (components-refurbishment-refurbishment-component) 46.1 KiB
+  cached modules 46.1 KiB [cached] 1 module
+chunk {869} (runtime: runtime) styles.82a40413cf597c08.css (styles) 50 bytes (javascript) 80.5 KiB (css/mini-extract) [initial]
+  cached modules 80.5 KiB [cached] 1 module
+  ./src/index.css?ngGlobalStyle [3839] 50 bytes {869} [built]
+    [no exports used]
+    entry /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/index.css?ngGlobalStyle styles
+chunk {893} (runtime: runtime) 893.4c85d5b24a2ad1a3.js (components-solicitor-panel-solicitor-panel-component) 18.2 KiB
+  cached modules 18.2 KiB [cached] 1 module
+chunk {941} (runtime: runtime) 941.e425ec7a769c392b.js (components-admin-asset-list-component) (id hint: default) 670 KiB split chunk (cache group: default)
+  cached modules 670 KiB [cached] 3 modules
+  
+
+LOG from webpack.FileSystemInfo
+    9 new snapshots created
+    44% root snapshot uncached (1380 / 3105)
+    15% children snapshot uncached (549 / 3643)
+    3207 entries tested
+    File info in cache: 327 timestamps 10 hashes 10 timestamp hash combinations
+    File timestamp snapshot optimization: 24% (6/25) entries shared via 1 shared snapshots (1 times referenced)
+    File timestamp hash combination snapshot optimization: 56% (18/32) entries shared via 1 shared snapshots (2 times referenced)
+    Directory info in cache: 16 timestamps 0 hashes 0 timestamp hash combinations
+    Directory timestamp snapshot optimization: 0% (0/2) entries shared via 0 shared snapshots (0 times referenced)
+    Missing items snapshot optimization: 35% (12/34) entries shared via 2 shared snapshots (2 times referenced)
+    Managed items info in cache: 222 items
+    Managed items snapshot optimization: 55% (6/11) entries shared via 1 shared snapshots (1 times referenced)
+    Managed files snapshot optimization: 30% (6/20) entries shared via 1 shared snapshots (1 times referenced)
++ 5 hidden lines
+
+LOG from webpack.Compilation
+<t> runtime requirements.modules: 0.183913 ms
+<t> runtime requirements.chunks: 8.643291 ms
+<t> runtime requirements.entries: 1.335904 ms
+<t> compute affected modules: 0.004376 ms
+<t> finish modules: 1696.9298800000001 ms
+<t> report dependency errors and warnings: 34.391087 ms
+<t> optimize dependencies: 121.1959 ms
+<t> create chunks: 61.10655 ms
+<t> compute affected modules with chunk graph: 0.004818 ms
+<t> optimize: 279.451441 ms
+    253 modules hashed, 0 from cache (0.53 variants per module in average)
+<t> module hashing: 116.736003 ms
+    1% code generated (2 generated, 251 from cache)
+<t> code generation: 73.813029 ms
+<t> runtime requirements.modules: 0.746379 ms
+<t> runtime requirements.chunks: 11.573886 ms
+<t> runtime requirements.entries: 14.253978 ms
+<t> runtime requirements: 26.728412 ms
+<t> hashing: initialize hash: 0.014832 ms
+<t> hashing: hash warnings: 0.014812 ms
+<t> hashing: hash errors: 0.086419 ms
+<t> hashing: sort chunks: 0.131174 ms
+<t> hashing: hash runtime modules: 16.530792 ms
+<t> hashing: hash chunks: 16.633415 ms
+<t> hashing: hash digest: 0.051848 ms
+<t> hashing: process full hash modules: 0.001392 ms
+<t> hashing: 33.657457 ms
+    7% code generated (1 generated, 14 from cache)
+<t> module assets: 0.92913 ms
+<t> create chunk assets: 17.450036 ms
+<t> process assets: 7057.523557 ms
+
+LOG from webpack.Compiler
+<t> make hook: 6652.839129 ms
+<t> finish make hook: 0.224233 ms
+<t> finish compilation: 1731.370952 ms
+<t> seal compilation: 7793.546279 ms
+<t> afterCompile hook: 0.182341 ms
+
+LOG from webpack.ResolverCachePlugin
+    0% really resolved (4 real resolves with 4 cached but invalid, 2626 cached valid, 0 concurrent)
+
+LOG from webpack.FlagDependencyExportsPlugin
+<t> restore cached provided exports: 10.003362 ms
+<t> figure out provided exports: 86.336857 ms
+    4% of exports of modules have been determined (170 no declared exports, 18 not cached, 0 flagged uncacheable, 293 from cache, 0 from mem cache, 3 additional calculations due to dependencies)
+<t> store provided exports into cache: 0.287818 ms
+
+LOG from webpack.InnerGraphPlugin
+<t> infer dependency usage: 0.787039 ms
+
+LOG from webpack.SideEffectsFlagPlugin
+<t> update dependencies: 46.11755 ms
+
+LOG from webpack.FlagDependencyUsagePlugin
+<t> initialize exports usage: 0.84757 ms
+<t> trace exports usage in graph: 72.71671 ms
+
+LOG from webpack.buildChunkGraph
+<t> visitModules: prepare: 15.771921 ms
+<t> visitModules: visiting: 23.50953 ms
+<t> visitModules: calculating available modules: 0.222671 ms
+<t> visitModules: merging available modules: 0.455917 ms
+<t> visitModules: check modules for revisit: 0.609696 ms
+<t> visitModules: prepare: 11.952151 ms
+<t> visitModules: visiting: 15.63456 ms
+<t> visitModules: calculating available modules: 0.086368 ms
+<t> visitModules: merging available modules: 0.011938 ms
+<t> visitModules: check modules for revisit: 0.003485 ms
+<t> visitModules: prepare: 2.428001 ms
+<t> visitModules: visiting: 5.469947 ms
+    742 queue items processed (354 blocks)
+    17 chunk groups connected
+    17 chunk groups processed for merging (17 module sets, 0 forked, 0 + 0 modules forked, 0 + 0 modules merged into fork, 0 resulting modules)
+    14 chunk group info updated (0 already connected chunk groups reconnected)
+<t> visitModules: 47.410671 ms
+<t> connectChunkGroups: 5.530487 ms
+<t> cleanup: 0.284813 ms
+
+LOG from webpack.SplitChunksPlugin
+<t> prepare: 0.071446 ms
+<t> modules: 18.854604 ms
+<t> queue: 3.137262 ms
+<t> maxSize: 1.172192 ms
+
+LOG from webpack.ModuleConcatenationPlugin
+<t> select relevant modules: 6.134014 ms
+<t> sort relevant modules: 2.664389 ms
+<t> find modules to concatenate: 112.674128 ms
+<t> sort concat configurations: 0.065497 ms
+<t> create concatenated modules: 57.389628 ms
++ 3 hidden lines
+
+LOG from build-angular.JavaScriptOptimizerPlugin
+<t> optimize asset: runtime.1e74399406a0c4b5.js: 1104.845879 ms
+<t> optimize asset: 189.985e3df71cceff23.js: 1357.569918 ms
+<t> optimize asset: 773.70bb87ed093b3d9f.js: 1691.208209 ms
+<t> optimize js assets: 2004.560298 ms
++ 15 hidden lines
+
+LOG from build-angular.CssOptimizerPlugin
+<t> optimize css assets: 0.149111 ms
++ 1 hidden lines
+
+WARNING in [96msrc/app.component.ts[0m:[93m19[0m:[93m5[0m - [93mwarning[0m[90m NG8113: [0mDatePipe is not used within the template of AppComponent
+
+[7m19[0m     DatePipe,
+[7m  [0m [93m    ~~~~~~~~[0m
+Error: [96msrc/app.component.ts[0m:[93m19[0m:[93m5[0m - [93mwarning[0m[90m NG8113: [0mDatePipe is not used within the template of AppComponent
+
+[7m19[0m     DatePipe,
+[7m  [0m [93m    ~~~~~~~~[0m
+
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:28:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:22:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+WARNING in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m15[0m:[93m37[0m - [93mwarning[0m[90m NG8113: [0mPercentPipe is not used within the template of MaintenanceComplianceComponent
+
+[7m15[0m   imports: [CommonModule, DatePipe, PercentPipe, UpperCasePipe, DecimalPipe, FormsModule],
+[7m  [0m [93m                                    ~~~~~~~~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m15[0m:[93m37[0m - [93mwarning[0m[90m NG8113: [0mPercentPipe is not used within the template of MaintenanceComplianceComponent
+
+[7m15[0m   imports: [CommonModule, DatePipe, PercentPipe, UpperCasePipe, DecimalPipe, FormsModule],
+[7m  [0m [93m                                    ~~~~~~~~~~~[0m
+
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:28:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:22:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+WARNING in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m15[0m:[93m50[0m - [93mwarning[0m[90m NG8113: [0mUpperCasePipe is not used within the template of MaintenanceComplianceComponent
+
+[7m15[0m   imports: [CommonModule, DatePipe, PercentPipe, UpperCasePipe, DecimalPipe, FormsModule],
+[7m  [0m [93m                                                 ~~~~~~~~~~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m15[0m:[93m50[0m - [93mwarning[0m[90m NG8113: [0mUpperCasePipe is not used within the template of MaintenanceComplianceComponent
+
+[7m15[0m   imports: [CommonModule, DatePipe, PercentPipe, UpperCasePipe, DecimalPipe, FormsModule],
+[7m  [0m [93m                                                 ~~~~~~~~~~~~~[0m
+
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:28:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:22:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.index-of.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.index-of.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.iterator.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.iterator.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.reduce.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.reduce.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.reverse.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.reverse.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.promise.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.promise.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.regexp.to-string.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.regexp.to-string.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.ends-with.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.ends-with.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.includes.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.includes.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.match.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.match.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.replace.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.replace.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.split.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.split.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.starts-with.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.starts-with.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.trim.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.trim.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/web.dom-collections.iterator.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/web.dom-collections.iterator.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'raf'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'raf'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'rgbcolor'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'rgbcolor'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/maintenance-compliance/maintenance-compliance.component.ts depends on 'jspdf-autotable'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+Error: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/maintenance-compliance/maintenance-compliance.component.ts depends on 'jspdf-autotable'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/common-js-usage-warn-plugin.js:79:70
+    at _next0 (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:57:1)
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:100:1)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+
+WARNING in [DedupeModuleResolvePlugin]: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/index.css -> /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/index.css?ngGlobalStyle
+Error: [DedupeModuleResolvePlugin]: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/index.css -> /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/index.css?ngGlobalStyle
+    at addWarning (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/utils/webpack-diagnostics.js:13:31)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/webpack/plugins/dedupe-module-resolve-plugin.js:65:58
+    at Hook.eval [as callAsync] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:9:16)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModuleFactory.js:454:30
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:15:1)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModuleFactory.js:812:7
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModuleFactory.js:181:10
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModuleFactory.js:844:8
+    at NormalModuleFactory.resolveRequestArray (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModuleFactory.js:1278:34)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModuleFactory.js:836:11
+
+ERROR in ./src/index.css?ngGlobalStyle 1:0
+Module parse failed: Unexpected character '@' (1:0)
+You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+> @tailwind base;
+| @tailwind components;
+| @tailwind utilities;
+ModuleParseError: Module parse failed: Unexpected character '@' (1:0)
+You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+> @tailwind base;
+| @tailwind components;
+| @tailwind utilities;
+    at handleParseError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModule.js:1293:19)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModule.js:1437:5
+    at processResult (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModule.js:1011:11)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModule.js:1161:5
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/loader-runner/lib/LoaderRunner.js:506:3
+    at iterateNormalLoaders (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/loader-runner/lib/LoaderRunner.js:240:44)
+    at processResourceCallback (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/loader-runner/lib/LoaderRunner.js:282:5)
+    at Object.processResource (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/NormalModule.js:1114:14)
+ @ ./src/main.ts 4:0-21
+
+ERROR in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m384[0m:[93m90[0m - [91merror[0m[90m TS2339: [0mProperty 'timestamp' does not exist on type 'string'.
+
+[7m384[0m                    @for (log of (selectedSchedule()!.history || []).reverse(); track log.timestamp) {
+[7m   [0m [91m                                                                                         ~~~~~~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m384[0m:[93m90[0m - [91merror[0m[90m TS2339: [0mProperty 'timestamp' does not exist on type 'string'.
+
+[7m384[0m                    @for (log of (selectedSchedule()!.history || []).reverse(); track log.timestamp) {
+[7m   [0m [91m                                                                                         ~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m389[0m:[93m103[0m - [91merror[0m[90m TS2339: [0mProperty 'action' does not exist on type 'string'.
+
+[7m389[0m                                <p class="text-xs font-bold text-slate-700 dark:text-slate-200">{{ log.action }}</p>
+[7m   [0m [91m                                                                                                      ~~~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m389[0m:[93m103[0m - [91merror[0m[90m TS2339: [0mProperty 'action' does not exist on type 'string'.
+
+[7m389[0m                                <p class="text-xs font-bold text-slate-700 dark:text-slate-200">{{ log.action }}</p>
+[7m   [0m [91m                                                                                                      ~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m390[0m:[93m89[0m - [91merror[0m[90m TS2339: [0mProperty 'user' does not exist on type 'string'.
+
+[7m390[0m                                <p class="text-[10px] text-slate-400 mt-0.5">Por: {{ log.user }}</p>
+[7m   [0m [91m                                                                                        ~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m390[0m:[93m89[0m - [91merror[0m[90m TS2339: [0mProperty 'user' does not exist on type 'string'.
+
+[7m390[0m                                <p class="text-[10px] text-slate-400 mt-0.5">Por: {{ log.user }}</p>
+[7m   [0m [91m                                                                                        ~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m392[0m:[93m87[0m - [91merror[0m[90m TS2339: [0mProperty 'timestamp' does not exist on type 'string'.
+
+[7m392[0m                             <span class="text-[10px] font-mono text-slate-400">{{ log.timestamp | date:'short' }}</span>
+[7m   [0m [91m                                                                                      ~~~~~~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m392[0m:[93m87[0m - [91merror[0m[90m TS2339: [0mProperty 'timestamp' does not exist on type 'string'.
+
+[7m392[0m                             <span class="text-[10px] font-mono text-slate-400">{{ log.timestamp | date:'short' }}</span>
+[7m   [0m [91m                                                                                      ~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m395[0m:[93m74[0m - [91merror[0m[90m TS2339: [0mProperty 'previousValue' does not exist on type 'string'.
+
+[7m395[0m                             <span class="line-through opacity-60">{{ log.previousValue }}</span>
+[7m   [0m [91m                                                                         ~~~~~~~~~~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m395[0m:[93m74[0m - [91merror[0m[90m TS2339: [0mProperty 'previousValue' does not exist on type 'string'.
+
+[7m395[0m                             <span class="line-through opacity-60">{{ log.previousValue }}</span>
+[7m   [0m [91m                                                                         ~~~~~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m397[0m:[93m93[0m - [91merror[0m[90m TS2339: [0mProperty 'newValue' does not exist on type 'string'.
+
+[7m397[0m                             <span class="font-bold text-blue-600 dark:text-blue-400">{{ log.newValue }}</span>
+[7m   [0m [91m                                                                                            ~~~~~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m397[0m:[93m93[0m - [91merror[0m[90m TS2339: [0mProperty 'newValue' does not exist on type 'string'.
+
+[7m397[0m                             <span class="font-bold text-blue-600 dark:text-blue-400">{{ log.newValue }}</span>
+[7m   [0m [91m                                                                                            ~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m447[0m:[93m41[0m - [91merror[0m[90m TS2367: [0mThis comparison appears to be unintentional because the types '"Programado" | "Completado" | "Vencido"' and '"En Proceso"' have no overlap.
+
+[7m447[0m      const inProcess = list.filter(r => r.status === 'En Proceso').length;
+[7m   [0m [91m                                        ~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m447[0m:[93m41[0m - [91merror[0m[90m TS2367: [0mThis comparison appears to be unintentional because the types '"Programado" | "Completado" | "Vencido"' and '"En Proceso"' have no overlap.
+
+[7m447[0m      const inProcess = list.filter(r => r.status === 'En Proceso').length;
+[7m   [0m [91m                                        ~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m869[0m:[93m14[0m - [91merror[0m[90m TS2678: [0mType '"En Proceso"' is not comparable to type '"Programado" | "Completado" | "Vencido"'.
+
+[7m869[0m         case 'En Proceso': return 'bg-blue-50 text-blue-600 border-blue-200';
+[7m   [0m [91m             ~~~~~~~~~~~~[0m
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m869[0m:[93m14[0m - [91merror[0m[90m TS2678: [0mType '"En Proceso"' is not comparable to type '"Programado" | "Completado" | "Vencido"'.
+
+[7m869[0m         case 'En Proceso': return 'bg-blue-50 text-blue-600 border-blue-200';
+[7m   [0m [91m             ~~~~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m182[0m:[93m72[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m182[0m                             <input [(ngModel)]="newRecord.paintDetails.color" placeholder="Código de Color" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                       ~~~~~[0m
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m182[0m:[93m72[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m182[0m                             <input [(ngModel)]="newRecord.paintDetails.color" placeholder="Código de Color" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                       ~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m182[0m:[93m72[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m182[0m                             <input [(ngModel)]="newRecord.paintDetails.color" placeholder="Código de Color" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                       ~~~~~[0m
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m182[0m:[93m72[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m182[0m                             <input [(ngModel)]="newRecord.paintDetails.color" placeholder="Código de Color" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                       ~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m184[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m184[0m                           <input [(ngModel)]="newRecord.paintDetails.brand" placeholder="Marca" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~[0m
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m184[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m184[0m                           <input [(ngModel)]="newRecord.paintDetails.brand" placeholder="Marca" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m184[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m184[0m                           <input [(ngModel)]="newRecord.paintDetails.brand" placeholder="Marca" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~[0m
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m184[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m184[0m                           <input [(ngModel)]="newRecord.paintDetails.brand" placeholder="Marca" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m185[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m185[0m                           <input [(ngModel)]="newRecord.paintDetails.layers" type="number" placeholder="Capas" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~~[0m
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m185[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m185[0m                           <input [(ngModel)]="newRecord.paintDetails.layers" type="number" placeholder="Capas" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m185[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m185[0m                           <input [(ngModel)]="newRecord.paintDetails.layers" type="number" placeholder="Capas" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~~[0m
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m185[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m185[0m                           <input [(ngModel)]="newRecord.paintDetails.layers" type="number" placeholder="Capas" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m191[0m:[93m57[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m191[0m                           @for (img of newRecord.photos.before; track $index) {
+[7m   [0m [91m                                                        ~~~~~~[0m
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m191[0m:[93m57[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m191[0m                           @for (img of newRecord.photos.before; track $index) {
+[7m   [0m [91m                                                        ~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m209[0m:[93m77[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m209[0m                       [disabled]="!newRecord.technician || newRecord.photos.before.length === 0"
+[7m   [0m [91m                                                                            ~~~~~~[0m
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m209[0m:[93m77[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m209[0m                       [disabled]="!newRecord.technician || newRecord.photos.before.length === 0"
+[7m   [0m [91m                                                                            ~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:439:17
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async FileEmitterRegistration.analyzingFileEmitter (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:451:30)
+
+ERROR in [96msrc/services/data.service.ts[0m:[93m23[0m:[93m3[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'collection'.
+
+[7m23[0m   collection,
+[7m  [0m [91m  ~~~~~~~~~~[0m
+Error: [96msrc/services/data.service.ts[0m:[93m23[0m:[93m3[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'collection'.
+
+[7m23[0m   collection,
+[7m  [0m [91m  ~~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/services/data.service.ts[0m:[93m24[0m:[93m3[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'addDoc'.
+
+[7m24[0m   addDoc,
+[7m  [0m [91m  ~~~~~~[0m
+Error: [96msrc/services/data.service.ts[0m:[93m24[0m:[93m3[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'addDoc'.
+
+[7m24[0m   addDoc,
+[7m  [0m [91m  ~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/services/data.service.ts[0m:[93m36[0m:[93m10[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'addDoc'.
+
+[7m36[0m import { addDoc, collection } from 'firebase/firestore';
+[7m  [0m [91m         ~~~~~~[0m
+Error: [96msrc/services/data.service.ts[0m:[93m36[0m:[93m10[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'addDoc'.
+
+[7m36[0m import { addDoc, collection } from 'firebase/firestore';
+[7m  [0m [91m         ~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/services/data.service.ts[0m:[93m36[0m:[93m18[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'collection'.
+
+[7m36[0m import { addDoc, collection } from 'firebase/firestore';
+[7m  [0m [91m                 ~~~~~~~~~~[0m
+Error: [96msrc/services/data.service.ts[0m:[93m36[0m:[93m18[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'collection'.
+
+[7m36[0m import { addDoc, collection } from 'firebase/firestore';
+[7m  [0m [91m                 ~~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/services/data.service.ts[0m:[93m210[0m:[93m14[0m - [91merror[0m[90m TS2339: [0mProperty 'sla' does not exist on type 'ForkliftFailureEntry'.
+
+[7m210[0m       sla: f.sla || {},
+[7m   [0m [91m             ~~~[0m
+Error: [96msrc/services/data.service.ts[0m:[93m210[0m:[93m14[0m - [91merror[0m[90m TS2339: [0mProperty 'sla' does not exist on type 'ForkliftFailureEntry'.
+
+[7m210[0m       sla: f.sla || {},
+[7m   [0m [91m             ~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/services/data.service.ts[0m:[93m211[0m:[93m31[0m - [91merror[0m[90m TS2339: [0mProperty 'fechaEstimadaLlegada' does not exist on type 'ForkliftFailureEntry'.
+
+[7m211[0m       fechaEstimadaLlegada: f.fechaEstimadaLlegada || '',
+[7m   [0m [91m                              ~~~~~~~~~~~~~~~~~~~~[0m
+Error: [96msrc/services/data.service.ts[0m:[93m211[0m:[93m31[0m - [91merror[0m[90m TS2339: [0mProperty 'fechaEstimadaLlegada' does not exist on type 'ForkliftFailureEntry'.
+
+[7m211[0m       fechaEstimadaLlegada: f.fechaEstimadaLlegada || '',
+[7m   [0m [91m                              ~~~~~~~~~~~~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/services/data.service.ts[0m:[93m212[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'refacciones' does not exist on type 'ForkliftFailureEntry'.
+
+[7m212[0m       refacciones: f.refacciones || []
+[7m   [0m [91m                     ~~~~~~~~~~~[0m
+Error: [96msrc/services/data.service.ts[0m:[93m212[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'refacciones' does not exist on type 'ForkliftFailureEntry'.
+
+[7m212[0m       refacciones: f.refacciones || []
+[7m   [0m [91m                     ~~~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/services/data.service.ts[0m:[93m399[0m:[93m42[0m - [91merror[0m[90m TS2322: [0mType '(ForkliftFailureEntry | { ordenCompra: string; estatusRefaccion: "N/A" | "En Stock" | "Pedida" | "Por Recibir" | undefined; fechaPromesa: string | undefined; ... 8 more ...; seguimiento: FailureUpdate[]; })[]' is not assignable to type 'ForkliftFailureEntry[]'.
+  Type 'ForkliftFailureEntry | { ordenCompra: string; estatusRefaccion: "N/A" | "En Stock" | "Pedida" | "Por Recibir" | undefined; fechaPromesa: string | undefined; ... 8 more ...; seguimiento: FailureUpdate[]; }' is not assignable to type 'ForkliftFailureEntry'.
+    Type '{ ordenCompra: string; estatusRefaccion: "N/A" | "En Stock" | "Pedida" | "Por Recibir" | undefined; fechaPromesa: string | undefined; estatus: string; id: string; economico: string; ... 5 more ...; seguimiento: FailureUpdate[]; }' is not assignable to type 'ForkliftFailureEntry'.
+      Types of property 'estatus' are incompatible.
+        Type 'string' is not assignable to type '"Abierta" | "En Proceso" | "Cerrada"'.
+
+[7m399[0m     this.forkliftFailures.update(list => list.map(f => (f.id === failureId ? { ...f, ...updates } : f)));
+[7m   [0m [91m                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96mnode_modules/@angular/core/index.d.ts[0m:[93m274[0m:[93m22[0m
+    [7m274[0m     update(updateFn: (value: T) => T): void;
+    [7m   [0m [96m                     ~~~~~~~~~~~~~~~[0m
+    The expected type comes from the return type of this signature.
+Error: [96msrc/services/data.service.ts[0m:[93m399[0m:[93m42[0m - [91merror[0m[90m TS2322: [0mType '(ForkliftFailureEntry | { ordenCompra: string; estatusRefaccion: "N/A" | "En Stock" | "Pedida" | "Por Recibir" | undefined; fechaPromesa: string | undefined; ... 8 more ...; seguimiento: FailureUpdate[]; })[]' is not assignable to type 'ForkliftFailureEntry[]'.
+  Type 'ForkliftFailureEntry | { ordenCompra: string; estatusRefaccion: "N/A" | "En Stock" | "Pedida" | "Por Recibir" | undefined; fechaPromesa: string | undefined; ... 8 more ...; seguimiento: FailureUpdate[]; }' is not assignable to type 'ForkliftFailureEntry'.
+    Type '{ ordenCompra: string; estatusRefaccion: "N/A" | "En Stock" | "Pedida" | "Por Recibir" | undefined; fechaPromesa: string | undefined; estatus: string; id: string; economico: string; ... 5 more ...; seguimiento: FailureUpdate[]; }' is not assignable to type 'ForkliftFailureEntry'.
+      Types of property 'estatus' are incompatible.
+        Type 'string' is not assignable to type '"Abierta" | "En Proceso" | "Cerrada"'.
+
+[7m399[0m     this.forkliftFailures.update(list => list.map(f => (f.id === failureId ? { ...f, ...updates } : f)));
+[7m   [0m [91m                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96mnode_modules/@angular/core/index.d.ts[0m:[93m274[0m:[93m22[0m
+    [7m274[0m     update(updateFn: (value: T) => T): void;
+    [7m   [0m [96m                     ~~~~~~~~~~~~~~~[0m
+    The expected type comes from the return type of this signature.
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+ERROR in [96msrc/services/data.service.ts[0m:[93m554[0m:[93m9[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'description' does not exist in type 'FailureReport'.
+
+[7m554[0m         description: issues[idx % issues.length],
+[7m   [0m [91m        ~~~~~~~~~~~[0m
+Error: [96msrc/services/data.service.ts[0m:[93m554[0m:[93m9[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'description' does not exist in type 'FailureReport'.
+
+[7m554[0m         description: issues[idx % issues.length],
+[7m   [0m [91m        ~~~~~~~~~~~[0m
+
+    at addError (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:31:29)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/diagnostics.js:19:17
+    at AngularWebpackPlugin.updateAotProgram (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:390:17)
+    at AngularWebpackPlugin.setupCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:203:20)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/plugin.js:130:22
+    at Hook.eval [as call] (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:19:10), <anonymous>:24:1)
+    at Hook.CALL_DELEGATE [as _call] (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/Hook.js:16:14)
+    at Compiler.newCompilation (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1305:30)
+    at /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/webpack/lib/Compiler.js:1349:29
+    at eval (eval at create (/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/tapable/lib/HookCodeFactory.js:31:10), <anonymous>:31:1)
+
+2026-04-29 02:29:49: webpack 5.105.0 compiled in 25265 ms (f75923fa10f87965)
+    [webpack.cache.PackFileCacheStrategy] Storing pack...
+    [webpack.cache.PackFileCacheStrategy] 30 fresh items in cache put into pack 1
+    [webpack.cache.PackFileCacheStrategy] Split pack 0 into pack 0 with 2053 used items and pack 3 with 7 unused items
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/index.css': 5.043283 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/app.routes.ts': 3.174617 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].rules[0].oneOf[0].use[1]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].rules[0].oneOf[0].use[2]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/index.css?ngGlobalStyle': 2.130937 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/admin/admin.component.ts': 9.108683 ms
+<i> [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/dashboard/dashboard.component.ts': 26.415838 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'FlagDependencyExportsPlugin|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/admin/admin.component.ts': 1.62868 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/codeGeneration|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/dashboard/dashboard.component.ts|runtime': 2.598911 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/assets|chunk121': 1.064802 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/assets|chunk773': 2.07284 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'ResolverCachePlugin|normal|default|dependencyType=|esm|path=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced|request=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/app.component.ts': 1.707087 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'ResolverCachePlugin|loader|default|path=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced|request=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js': 1.012915 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'angular-compiler:resource|1|Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].rules[0].oneOf[1].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].rules[0].oneOf[1].use[1]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/loaders/inline-resource.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/solicitor-panel/solicitor-panel.component.ts': 9.331615 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/common/fesm2022/http.mjs': 2.649086 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/core/fesm2022/core.mjs': 7.336881 ms
+<i> [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/app.component.ts': 12.696114 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/router/fesm2022/router.mjs': 1.583282 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs': 1.811221 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'ResolverCachePlugin|normal|default|fullySpecified=|false|dependencyType=|esm|path=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/core/fesm2022|request=|@angular/core/primitives/signals': 2.02598 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'ResolverCachePlugin|normal|default|fullySpecified=|false|dependencyType=|esm|path=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/platform-browser/fesm2022|request=|@angular/common/http': 1.076189 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/common/fesm2022/module-JS82OH2B.mjs': 1.829338 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs': 7.821431 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/router/fesm2022/router_module-DTJgGWLd.mjs': 7.898265 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/platform-browser/fesm2022/dom_renderer-DGKzginR.mjs': 4.875594 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/common/fesm2022/common.mjs': 1.169187 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/rxjs/dist/esm/index.js': 2.034703 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/rxjs/dist/esm/operators/index.js': 1.070892 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/services/data.service.ts': 1.939932 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/asset-detail/asset-detail.component.ts': 5.433683 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/common/fesm2022/common_module-Dx7dWex5.mjs': 1.3259 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'ResolverCachePlugin|normal|default|fullySpecified=|false|dependencyType=|esm|path=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/rxjs/dist/esm|request=|./internal/operators/startWith': 1.047086 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/rxjs/dist/esm/internal/operators/map.js': 1.045744 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/rxjs/dist/esm/internal/operators/mergeMap.js': 3.00203 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/rxjs/dist/esm/internal/util/isFunction.js': 3.292252 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/refurbishment/refurbishment.component.ts': 8.037892 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/work-orders/work-orders.component.ts': 1.953733 ms
+<i> [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/inventory/inventory.component.ts': 14.311364 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/maintenance-compliance/maintenance-compliance.component.ts': 4.313068 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/solicitor-panel/solicitor-panel.component.ts': 3.869629 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@ngtools/webpack/src/ivy/index.js!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/admin/asset-list.component.ts': 4.227401 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@firebase/database/dist/index.esm2017.js': 1.1512 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@firebase/firestore/dist/index.esm2017.js': 1.330186 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/forms/fesm2022/forms.mjs': 1.89777 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@firebase/auth/dist/esm2017/index-35c79a8a.js': 1.551955 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js': 8.328664 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/modules|javascript/dynamic|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/core-js/internals/iterator-define.js': 8.026957 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'ResolverCachePlugin|normal|default|dependencyType=|commonjs|path=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/core-js/internals|request=|../internals/enum-bug-keys': 1.170659 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'ResolverCachePlugin|normal|default|dependencyType=|commonjs|path=|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/core-js/internals|request=|../internals/is-possible-prototype': 1.345269 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'FlagDependencyExportsPlugin|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/rxjs/dist/esm/internal/scheduled/scheduled.js': 2.108593 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/codeGeneration|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/rxjs/dist/esm/internal/util/lift.js|runtime': 1.807696 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/codeGeneration|javascript/dynamic|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/core-js/internals/weak-map-basic-detection.js|runtime': 2.619512 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/codeGeneration|javascript/dynamic|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/core-js/internals/whitespaces.js|runtime': 1.793314 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/codeGeneration|javascript/esm|/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular-devkit/build-angular/src/tools/babel/webpack-loader.js??ruleSet[1].rules[2].use[0]!/workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/@angular/router/fesm2022/router-Dwfin5Au.mjs|20770bcce08d5f47|runtime': 1.646266 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/assets|chunk792': 2.379956 ms
+    [webpack.cache.PackFileCacheStrategy] Serialization of 'Compilation/assets|chunk147': 1.293833 ms
+<t> [webpack.cache.PackFileCacheStrategy] store pack: 1198.413168 ms
+    [webpack.cache.PackFileCacheStrategy] Stored pack (2105 items, 4 files, 102 MiB)
+✔ Browser application bundle generation complete.
+
+Warning: [96msrc/app.component.ts[0m:[93m19[0m:[93m5[0m - [93mwarning[0m[90m NG8113: [0mDatePipe is not used within the template of AppComponent
+
+[7m19[0m     DatePipe,
+[7m  [0m [93m    ~~~~~~~~[0m
+
+
+Warning: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m15[0m:[93m37[0m - [93mwarning[0m[90m NG8113: [0mPercentPipe is not used within the template of MaintenanceComplianceComponent
+
+[7m15[0m   imports: [CommonModule, DatePipe, PercentPipe, UpperCasePipe, DecimalPipe, FormsModule],
+[7m  [0m [93m                                    ~~~~~~~~~~~[0m
+
+
+Warning: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m15[0m:[93m50[0m - [93mwarning[0m[90m NG8113: [0mUpperCasePipe is not used within the template of MaintenanceComplianceComponent
+
+[7m15[0m   imports: [CommonModule, DatePipe, PercentPipe, UpperCasePipe, DecimalPipe, FormsModule],
+[7m  [0m [93m                                                 ~~~~~~~~~~~~~[0m
+
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.index-of.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.iterator.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.reduce.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.array.reverse.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.promise.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.regexp.to-string.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.ends-with.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.includes.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.match.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.replace.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.split.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.starts-with.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/es.string.trim.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'core-js/modules/web.dom-collections.iterator.js'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'raf'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/node_modules/canvg/lib/index.es.js depends on 'rgbcolor'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/components/maintenance-compliance/maintenance-compliance.component.ts depends on 'jspdf-autotable'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.dev/tools/cli/build#configuring-commonjs-dependencies
+
+Warning: [DedupeModuleResolvePlugin]: /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/index.css -> /workspaces/ASSET-GUARD-Corporate-Edition-Advanced/src/index.css?ngGlobalStyle
+
+
+
+./src/index.css?ngGlobalStyle:1:0 - Error: Module parse failed: Unexpected character '@' (1:0)
+You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders
+> @tailwind base;
+| @tailwind components;
+| @tailwind utilities;
+
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m384[0m:[93m90[0m - [91merror[0m[90m TS2339: [0mProperty 'timestamp' does not exist on type 'string'.
+
+[7m384[0m                    @for (log of (selectedSchedule()!.history || []).reverse(); track log.timestamp) {
+[7m   [0m [91m                                                                                         ~~~~~~~~~[0m
+
+
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m389[0m:[93m103[0m - [91merror[0m[90m TS2339: [0mProperty 'action' does not exist on type 'string'.
+
+[7m389[0m                                <p class="text-xs font-bold text-slate-700 dark:text-slate-200">{{ log.action }}</p>
+[7m   [0m [91m                                                                                                      ~~~~~~[0m
+
+
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m390[0m:[93m89[0m - [91merror[0m[90m TS2339: [0mProperty 'user' does not exist on type 'string'.
+
+[7m390[0m                                <p class="text-[10px] text-slate-400 mt-0.5">Por: {{ log.user }}</p>
+[7m   [0m [91m                                                                                        ~~~~[0m
+
+
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m392[0m:[93m87[0m - [91merror[0m[90m TS2339: [0mProperty 'timestamp' does not exist on type 'string'.
+
+[7m392[0m                             <span class="text-[10px] font-mono text-slate-400">{{ log.timestamp | date:'short' }}</span>
+[7m   [0m [91m                                                                                      ~~~~~~~~~[0m
+
+
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m395[0m:[93m74[0m - [91merror[0m[90m TS2339: [0mProperty 'previousValue' does not exist on type 'string'.
+
+[7m395[0m                             <span class="line-through opacity-60">{{ log.previousValue }}</span>
+[7m   [0m [91m                                                                         ~~~~~~~~~~~~~[0m
+
+
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m397[0m:[93m93[0m - [91merror[0m[90m TS2339: [0mProperty 'newValue' does not exist on type 'string'.
+
+[7m397[0m                             <span class="font-bold text-blue-600 dark:text-blue-400">{{ log.newValue }}</span>
+[7m   [0m [91m                                                                                            ~~~~~~~~[0m
+
+
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m447[0m:[93m41[0m - [91merror[0m[90m TS2367: [0mThis comparison appears to be unintentional because the types '"Programado" | "Completado" | "Vencido"' and '"En Proceso"' have no overlap.
+
+[7m447[0m      const inProcess = list.filter(r => r.status === 'En Proceso').length;
+[7m   [0m [91m                                        ~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+
+Error: [96msrc/components/maintenance-compliance/maintenance-compliance.component.ts[0m:[93m869[0m:[93m14[0m - [91merror[0m[90m TS2678: [0mType '"En Proceso"' is not comparable to type '"Programado" | "Completado" | "Vencido"'.
+
+[7m869[0m         case 'En Proceso': return 'bg-blue-50 text-blue-600 border-blue-200';
+[7m   [0m [91m             ~~~~~~~~~~~~[0m
+
+
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m182[0m:[93m72[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m182[0m                             <input [(ngModel)]="newRecord.paintDetails.color" placeholder="Código de Color" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                       ~~~~~[0m
+
+
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m182[0m:[93m72[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m182[0m                             <input [(ngModel)]="newRecord.paintDetails.color" placeholder="Código de Color" class="w-full bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                       ~~~~~[0m
+
+
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m184[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m184[0m                           <input [(ngModel)]="newRecord.paintDetails.brand" placeholder="Marca" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~[0m
+
+
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m184[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m184[0m                           <input [(ngModel)]="newRecord.paintDetails.brand" placeholder="Marca" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~[0m
+
+
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m185[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m185[0m                           <input [(ngModel)]="newRecord.paintDetails.layers" type="number" placeholder="Capas" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~~[0m
+
+
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m185[0m:[93m70[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m185[0m                           <input [(ngModel)]="newRecord.paintDetails.layers" type="number" placeholder="Capas" class="bg-slate-900/80 border border-indigo-500/20 rounded-xl px-4 py-3 text-sm text-white focus:ring-2 focus:ring-indigo-500 outline-none">
+[7m   [0m [91m                                                                     ~~~~~~[0m
+
+
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m191[0m:[93m57[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m191[0m                           @for (img of newRecord.photos.before; track $index) {
+[7m   [0m [91m                                                        ~~~~~~[0m
+
+
+Error: [96msrc/components/refurbishment/refurbishment.component.ts[0m:[93m209[0m:[93m77[0m - [91merror[0m[90m TS2532: [0mObject is possibly 'undefined'.
+
+[7m209[0m                       [disabled]="!newRecord.technician || newRecord.photos.before.length === 0"
+[7m   [0m [91m                                                                            ~~~~~~[0m
+
+
+Error: [96msrc/services/data.service.ts[0m:[93m23[0m:[93m3[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'collection'.
+
+[7m23[0m   collection,
+[7m  [0m [91m  ~~~~~~~~~~[0m
+
+
+Error: [96msrc/services/data.service.ts[0m:[93m24[0m:[93m3[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'addDoc'.
+
+[7m24[0m   addDoc,
+[7m  [0m [91m  ~~~~~~[0m
+
+
+Error: [96msrc/services/data.service.ts[0m:[93m36[0m:[93m10[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'addDoc'.
+
+[7m36[0m import { addDoc, collection } from 'firebase/firestore';
+[7m  [0m [91m         ~~~~~~[0m
+
+
+Error: [96msrc/services/data.service.ts[0m:[93m36[0m:[93m18[0m - [91merror[0m[90m TS2300: [0mDuplicate identifier 'collection'.
+
+[7m36[0m import { addDoc, collection } from 'firebase/firestore';
+[7m  [0m [91m                 ~~~~~~~~~~[0m
+
+
+Error: [96msrc/services/data.service.ts[0m:[93m210[0m:[93m14[0m - [91merror[0m[90m TS2339: [0mProperty 'sla' does not exist on type 'ForkliftFailureEntry'.
+
+[7m210[0m       sla: f.sla || {},
+[7m   [0m [91m             ~~~[0m
+
+
+Error: [96msrc/services/data.service.ts[0m:[93m211[0m:[93m31[0m - [91merror[0m[90m TS2339: [0mProperty 'fechaEstimadaLlegada' does not exist on type 'ForkliftFailureEntry'.
+
+[7m211[0m       fechaEstimadaLlegada: f.fechaEstimadaLlegada || '',
+[7m   [0m [91m                              ~~~~~~~~~~~~~~~~~~~~[0m
+
+
+Error: [96msrc/services/data.service.ts[0m:[93m212[0m:[93m22[0m - [91merror[0m[90m TS2339: [0mProperty 'refacciones' does not exist on type 'ForkliftFailureEntry'.
+
+[7m212[0m       refacciones: f.refacciones || []
+[7m   [0m [91m                     ~~~~~~~~~~~[0m
+
+
+Error: [96msrc/services/data.service.ts[0m:[93m399[0m:[93m42[0m - [91merror[0m[90m TS2322: [0mType '(ForkliftFailureEntry | { ordenCompra: string; estatusRefaccion: "N/A" | "En Stock" | "Pedida" | "Por Recibir" | undefined; fechaPromesa: string | undefined; ... 8 more ...; seguimiento: FailureUpdate[]; })[]' is not assignable to type 'ForkliftFailureEntry[]'.
+  Type 'ForkliftFailureEntry | { ordenCompra: string; estatusRefaccion: "N/A" | "En Stock" | "Pedida" | "Por Recibir" | undefined; fechaPromesa: string | undefined; ... 8 more ...; seguimiento: FailureUpdate[]; }' is not assignable to type 'ForkliftFailureEntry'.
+    Type '{ ordenCompra: string; estatusRefaccion: "N/A" | "En Stock" | "Pedida" | "Por Recibir" | undefined; fechaPromesa: string | undefined; estatus: string; id: string; economico: string; ... 5 more ...; seguimiento: FailureUpdate[]; }' is not assignable to type 'ForkliftFailureEntry'.
+      Types of property 'estatus' are incompatible.
+        Type 'string' is not assignable to type '"Abierta" | "En Proceso" | "Cerrada"'.
+
+[7m399[0m     this.forkliftFailures.update(list => list.map(f => (f.id === failureId ? { ...f, ...updates } : f)));
+[7m   [0m [91m                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+
+  [96mnode_modules/@angular/core/index.d.ts[0m:[93m274[0m:[93m22[0m
+    [7m274[0m     update(updateFn: (value: T) => T): void;
+    [7m   [0m [96m                     ~~~~~~~~~~~~~~~[0m
+    The expected type comes from the return type of this signature.
+
+
+Error: [96msrc/services/data.service.ts[0m:[93m554[0m:[93m9[0m - [91merror[0m[90m TS2353: [0mObject literal may only specify known properties, and 'description' does not exist in type 'FailureReport'.
+
+[7m554[0m         description: issues[idx % issues.length],
+[7m   [0m [91m        ~~~~~~~~~~~[0m
+
+
+
