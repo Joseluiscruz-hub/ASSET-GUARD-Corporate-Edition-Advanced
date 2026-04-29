@@ -9,37 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!--
-    CSP actualizado:
-    - script-src: agrega *.googleapis.com para Gemini AI y Firebase Auth
-    - connect-src: agrega generativelanguage.googleapis.com para llamadas a la API de Gemini
-    - script-src-elem: definido explicitamente para evitar el fallback warning
-  -->
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self' https://*.firebaseio.com https://*.googleapis.com https://*.gstatic.com;
-    script-src 'self' 'unsafe-inline' 'unsafe-eval'
-      https://cdn.jsdelivr.net
-      https://cdnjs.cloudflare.com
-      https://apis.google.com
-      https://*.googleapis.com
-      https://*.gstatic.com;
-    script-src-elem 'self' 'unsafe-inline'
-      https://cdn.jsdelivr.net
-      https://cdnjs.cloudflare.com
-      https://apis.google.com
-      https://*.googleapis.com
-      https://*.gstatic.com;
-    font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
-    style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
-    img-src 'self' data: https:;
-    connect-src 'self'
-      https://*.firebaseio.com
-      https://*.googleapis.com
-      https://identitytoolkit.googleapis.com
-      https://generativelanguage.googleapis.com
-      https://securetoken.googleapis.com
-      https://cdn.jsdelivr.net;
-  ">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://*.firebaseio.com https://*.googleapis.com https://*.gstatic.com https://*.firebaseapp.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://apis.google.com https://*.googleapis.com https://*.gstatic.com; script-src-elem 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://apis.google.com https://*.googleapis.com https://*.gstatic.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://generativelanguage.googleapis.com https://securetoken.googleapis.com https://cdn.jsdelivr.net; frame-src 'self' https://*.firebaseapp.com https://accounts.google.com;">
 </head>
 <body>
   <app-root></app-root>
