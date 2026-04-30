@@ -1,98 +1,176 @@
-<div class="flex h-screen bg-slate-100 dark:bg-gray-900 font-sans overflow-hidden transition-colors duration-500" [class.dark]="plantMode()">
+<div class="flex h-screen bg-slate-50 dark:bg-[#0B0F19] font-sans overflow-hidden transition-colors duration-500 selection:bg-femsa-red/30" [class.dark]="plantMode()">
+  
   @if (!isAuthReady()) {
-    <div class="fixed inset-0 z-[100] bg-slate-900 flex items-center justify-center">
-      <div class="flex flex-col items-center gap-4">
-        <i class="fas fa-circle-notch fa-spin text-4xl text-red-600"></i>
-        <p class="text-white font-bold tracking-widest uppercase text-xs">Iniciando AssetGuard...</p>
+    <div class="fixed inset-0 z-[100] bg-corporate-dark flex items-center justify-center">
+      <div class="flex flex-col items-center gap-6">
+        <div class="relative w-20 h-20">
+          <div class="absolute inset-0 border-4 border-femsa-red/20 rounded-full"></div>
+          <div class="absolute inset-0 border-4 border-femsa-red rounded-full border-t-transparent animate-spin"></div>
+          <img src="https://logodownload.org/wp-content/uploads/2014/10/toyota-logo-0.png" alt="Logo" class="absolute inset-0 m-auto h-6 invert brightness-0">
+        </div>
+        <div class="text-center">
+          <p class="text-white font-black tracking-[0.3em] uppercase text-xs animate-pulse">AssetGuard</p>
+          <p class="text-slate-500 text-[10px] uppercase tracking-widest mt-2">Enterprise Edition</p>
+        </div>
       </div>
     </div>
   } @else if (!user()) {
-    <div class="fixed inset-0 z-[100] bg-slate-900 flex items-center justify-center p-6">
-      <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col items-center p-10 text-center">
-        <img src="https://logodownload.org/wp-content/uploads/2014/09/coca-cola-logo-1-1.png" alt="FEMSA" class="h-8 mb-4">
-        <h2 class="text-2xl font-black text-slate-800 tracking-tight">AssetGuard Advanced</h2>
-        <p class="text-slate-500 text-sm mt-2 mb-8">Gestión de Activos y Mantenimiento Predictivo</p>
-
-        @if (loginError()) {
-          <div class="w-full mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600 font-semibold">
-            <i class="fas fa-exclamation-triangle mr-1"></i> {{ loginError() }}
+    <div class="fixed inset-0 z-[100] bg-corporate-dark flex items-center justify-center p-6 overflow-hidden">
+      <!-- Background Elements -->
+      <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-femsa-red/10 rounded-full blur-[120px] animate-pulse-slow"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 1.5s"></div>
+      
+      <div class="max-w-4xl w-full flex bg-white rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] overflow-hidden relative z-10 animate-slide-up">
+        <!-- Left Side: Branding/Visual -->
+        <div class="hidden lg:flex w-1/2 bg-corporate-dark relative p-12 flex-col justify-between">
+          <div class="absolute inset-0 opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-br from-femsa-red to-transparent"></div>
+            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80" class="w-full h-full object-cover grayscale opacity-30">
           </div>
-        }
+          
+          <div class="relative z-10">
+            <img src="https://logodownload.org/wp-content/uploads/2014/09/coca-cola-logo-1-1.png" alt="FEMSA" class="h-8 invert brightness-0">
+            <div class="mt-12">
+              <h1 class="text-4xl font-black text-white leading-tight tracking-tight">Potencia la <br><span class="text-femsa-red">Excelencia</span> Operativa.</h1>
+              <p class="text-slate-400 mt-4 text-sm leading-relaxed max-w-xs">Plataforma avanzada para la gestión integral de activos, mantenimiento predictivo y control de inventarios corporativos.</p>
+            </div>
+          </div>
 
-        <button (click)="loginWithGoogle()"
-          [disabled]="isLoggingIn()"
-          class="w-full flex items-center justify-center gap-3 bg-slate-900 hover:bg-black text-white py-4 rounded-xl font-bold transition-all shadow-lg shadow-slate-900/20 disabled:opacity-60 disabled:cursor-not-allowed">
-          @if (isLoggingIn()) {
-            <i class="fas fa-circle-notch fa-spin"></i> Autenticando...
-          } @else {
-            <i class="fab fa-google"></i> Iniciar Sesión con Google
-          }
-        </button>
-
-        <div class="flex items-center gap-3 w-full my-4">
-          <div class="flex-1 h-px bg-slate-200"></div>
-          <span class="text-xs text-slate-400 font-medium">o</span>
-          <div class="flex-1 h-px bg-slate-200"></div>
+          <div class="relative z-10 flex items-center gap-4 text-slate-500 text-[10px] font-bold uppercase tracking-widest">
+            <span>Toyota Logistics</span>
+            <span class="w-1.5 h-1.5 bg-femsa-red rounded-full"></span>
+            <span>Planta Cuautitlán</span>
+          </div>
         </div>
 
-        <button (click)="loginAsDemo()"
-          [disabled]="isLoggingIn()"
-          class="w-full flex items-center justify-center gap-3 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-xl font-bold transition-all text-sm disabled:opacity-60 disabled:cursor-not-allowed">
-          <i class="fas fa-play-circle"></i> Entrar en Modo Demo
-        </button>
+        <!-- Right Side: Login Form -->
+        <div class="flex-1 p-8 lg:p-16 flex flex-col justify-center bg-white">
+          <div class="mb-10 lg:hidden text-center">
+            <img src="https://logodownload.org/wp-content/uploads/2014/09/coca-cola-logo-1-1.png" alt="FEMSA" class="h-6 mx-auto mb-4">
+          </div>
 
-        <p class="text-[10px] text-slate-400 mt-8 uppercase tracking-widest font-bold">Planta Cuautitlán | Toyota Logistics</p>
+          <div class="mb-10 text-center lg:text-left">
+            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Bienvenido</h2>
+            <p class="text-slate-500 text-sm mt-2">Inicia sesión para acceder al panel de control</p>
+          </div>
+
+          @if (loginError()) {
+            <div class="mb-6 p-4 bg-red-50 border-l-4 border-femsa-red rounded-r-xl text-xs text-red-700 flex items-start gap-3 animate-fade-in">
+              <i class="fas fa-exclamation-circle mt-0.5"></i>
+              <div>
+                <p class="font-bold">Error de acceso</p>
+                <p>{{ loginError() }}</p>
+              </div>
+            </div>
+          }
+
+          <div class="space-y-4">
+            <button (click)="loginWithGoogle()"
+              [disabled]="isLoggingIn()"
+              class="w-full group flex items-center justify-between bg-slate-900 hover:bg-black text-white p-1 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed">
+              <div class="flex items-center gap-4 pl-6">
+                <i class="fab fa-google text-lg"></i>
+                <span class="font-bold text-sm">Google Workspace</span>
+              </div>
+              <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-femsa-red transition-colors">
+                @if (isLoggingIn()) {
+                  <i class="fas fa-circle-notch fa-spin"></i>
+                } @else {
+                  <i class="fas fa-arrow-right"></i>
+                }
+              </div>
+            </button>
+
+            <div class="relative py-4">
+              <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-100"></div></div>
+              <div class="relative flex justify-center text-xs uppercase font-bold text-slate-400 tracking-widest"><span class="bg-white px-4">Acceso Rápido</span></div>
+            </div>
+
+            <button (click)="loginAsDemo()"
+              [disabled]="isLoggingIn()"
+              class="w-full flex items-center justify-center gap-3 bg-slate-50 hover:bg-slate-100 text-slate-600 py-4 rounded-2xl font-bold transition-all border border-slate-100 text-sm">
+              <i class="fas fa-desktop text-xs"></i> Visualizar Modo Demo
+            </button>
+          </div>
+
+          <div class="mt-12 text-center text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">
+            AssetGuard Corporate Advanced v4.0
+          </div>
+        </div>
       </div>
     </div>
   }
 
   <!-- SIDEBAR NAVIGATION -->
-  <aside class="w-20 lg:w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shrink-0 z-30 transition-all duration-300 shadow-2xl">
+  <aside class="w-20 lg:w-72 bg-corporate-dark text-slate-400 flex flex-col justify-between shrink-0 z-30 transition-all duration-500 shadow-[20px_0_60px_-15px_rgba(0,0,0,0.3)] relative">
+    <!-- Sidebar Glow -->
+    <div class="absolute top-20 left-0 w-1 h-32 bg-gradient-to-b from-femsa-red to-transparent opacity-50"></div>
+    
     <div>
-      <!-- Brand -->
-      <div class="h-20 flex flex-col items-center justify-center lg:items-start lg:px-6 border-b border-slate-800 bg-black/20">
-        <div class="flex items-center">
-          <img src="https://logodownload.org/wp-content/uploads/2014/09/coca-cola-logo-1-1.png" alt="FEMSA Logo" class="h-5 invert brightness-0">
-          <span class="mx-2 text-slate-600 text-sm">|</span>
-          <img src="https://logodownload.org/wp-content/uploads/2014/10/toyota-logo-0.png" alt="Toyota Logo" class="h-4 invert brightness-0">
+      <!-- Brand Section -->
+      <div class="h-24 flex flex-col items-center justify-center lg:items-start lg:px-8 bg-black/40 border-b border-white/5 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-femsa-red rounded-xl flex items-center justify-center shadow-lg shadow-femsa-red/20 rotate-3 group hover:rotate-0 transition-transform">
+            <img src="https://logodownload.org/wp-content/uploads/2014/10/toyota-logo-0.png" alt="T" class="h-5 invert brightness-0">
+          </div>
+          <div class="hidden lg:block">
+            <h2 class="text-white font-black text-sm tracking-tight leading-none uppercase">AssetGuard</h2>
+            <p class="text-[9px] text-slate-500 uppercase tracking-widest mt-1 font-bold">Planta Cuautitlán</p>
+          </div>
         </div>
-        <span class="mt-1.5 text-[10px] text-slate-500 hidden lg:block uppercase font-bold tracking-widest">Planta Cuautitlán</span>
       </div>
 
-      <nav class="p-2 lg:p-4 space-y-1.5 mt-2">
+      <nav class="px-3 lg:px-4 space-y-1.5 custom-scroll overflow-y-auto max-h-[calc(100vh-180px)]">
+        <p class="hidden lg:block text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] px-4 mb-4 mt-6">Módulos de Control</p>
+        
         <a routerLink="/home" 
-          class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-[#DA291C] bg-slate-800/60 text-white': currentUrl() === '/home' || currentUrl() === '/', 'border-transparent hover:bg-slate-800/50': currentUrl() !== '/home' && currentUrl() !== '/'}">
-          <i class="fas fa-home w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-[#DA291C]]="currentUrl() === '/home' || currentUrl() === '/'"></i>
-          <span class="ml-3 text-sm font-bold hidden lg:block">Análisis por Zona</span>
+          class="nav-link group"
+          [class.active]="currentUrl() === '/home' || currentUrl() === '/'">
+          <div class="icon-container">
+            <i class="fas fa-th-large"></i>
+          </div>
+          <span class="label">Análisis por Zona</span>
+          <div class="active-indicator"></div>
         </a>
 
         <a routerLink="/dashboard" 
-          class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-[#DA291C] bg-slate-800/60 text-white': currentUrl().includes('dashboard'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('dashboard')}">
-          <i class="fas fa-chart-pie w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-[#DA291C]]="currentUrl().includes('dashboard')"></i>
-          <span class="ml-3 text-sm font-bold hidden lg:block">Dashboard</span>
+          class="nav-link group"
+          [class.active]="currentUrl().includes('dashboard')">
+          <div class="icon-container">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <span class="label">Panel Ejecutivo</span>
+          <div class="active-indicator"></div>
         </a>
 
         <a routerLink="/compliance" 
-          class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-emerald-500 bg-slate-800/60 text-white': currentUrl().includes('compliance'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('compliance')}">
-          <i class="fas fa-calendar-check w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-emerald-400]="currentUrl().includes('compliance')"></i>
-          <span class="ml-3 text-sm font-bold hidden lg:block">Programa SMP</span>
+          class="nav-link group"
+          [class.active]="currentUrl().includes('compliance')">
+          <div class="icon-container border-emerald-500/20 text-emerald-500">
+            <i class="fas fa-shield-check"></i>
+          </div>
+          <span class="label">Cumplimiento SMP</span>
+          <div class="active-indicator bg-emerald-500"></div>
         </a>
 
         <a routerLink="/service" 
-          class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-orange-500 bg-slate-800/60 text-white': currentUrl().includes('service'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('service')}">
-          <i class="fas fa-wrench w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-orange-400]="currentUrl().includes('service')"></i>
-          <span class="ml-3 text-sm font-bold hidden lg:block">Panel de Servicio</span>
+          class="nav-link group"
+          [class.active]="currentUrl().includes('service')">
+          <div class="icon-container border-orange-500/20 text-orange-500">
+            <i class="fas fa-tools"></i>
+          </div>
+          <span class="label">Panel de Servicio</span>
+          <div class="active-indicator bg-orange-500"></div>
         </a>
 
         <a routerLink="/work-orders" 
-          class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-emerald-500 bg-slate-800/60 text-white': currentUrl().includes('work-orders'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('work-orders')}">
-          <i class="fas fa-tasks w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-emerald-400]="currentUrl().includes('work-orders')"></i>
-          <span class="ml-3 text-sm font-bold hidden lg:block">Órdenes Trabajo</span>
+          class="nav-link group"
+          [class.active]="currentUrl().includes('work-orders')">
+          <div class="icon-container border-blue-500/20 text-blue-500">
+            <i class="fas fa-clipboard-list"></i>
+          </div>
+          <span class="label">Órdenes de Trabajo</span>
+          <div class="active-indicator bg-blue-500"></div>
         </a>
 
         <a routerLink="/refurbishment" 
@@ -103,42 +181,67 @@
         </a>
 
         <a routerLink="/inventory" 
-          class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-purple-500 bg-slate-800/60 text-white': currentUrl().includes('inventory'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('inventory')}">
-          <i class="fas fa-boxes w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-purple-400]="currentUrl().includes('inventory')"></i>
-          <span class="ml-3 text-sm font-bold hidden lg:block">Inventario</span>
+          class="nav-link group"
+          [class.active]="currentUrl().includes('inventory')">
+          <div class="icon-container border-purple-500/20 text-purple-500">
+            <i class="fas fa-warehouse"></i>
+          </div>
+          <span class="label">Inventario Crítico</span>
+          <div class="active-indicator bg-purple-500"></div>
         </a>
 
         <a routerLink="/assets" 
-          class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-blue-500 bg-slate-800/60 text-white': currentUrl().includes('assets'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('assets')}">
-          <i class="fas fa-truck-moving w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-blue-400]="currentUrl().includes('assets')"></i>
-          <span class="ml-3 text-sm font-bold hidden lg:block">Gestión de Activos</span>
+          class="nav-link group"
+          [class.active]="currentUrl().includes('assets')">
+          <div class="icon-container border-slate-500/20 text-slate-300">
+            <i class="fas fa-truck-container"></i>
+          </div>
+          <span class="label">Activos Fijos</span>
+          <div class="active-indicator bg-slate-400"></div>
         </a>
 
-        <div class="!mt-6 pt-6 border-t border-slate-800/50">
+        <div class="!mt-8 pt-6 border-t border-white/5">
+          <p class="hidden lg:block text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] px-4 mb-4">Herramientas</p>
+          
           <a routerLink="/report" 
-            class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-            [ngClass]="{'border-slate-500 bg-slate-800/60 text-white': currentUrl().includes('report'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('report')}">
-            <i class="fas fa-mobile-alt w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-slate-400]="currentUrl().includes('report')"></i>
-            <span class="ml-3 text-sm font-bold hidden lg:block">App Operador</span>
+            class="nav-link group"
+            [class.active]="currentUrl().includes('report')">
+            <div class="icon-container">
+              <i class="fas fa-tablet-android"></i>
+            </div>
+            <span class="label">App de Campo</span>
           </a>
 
           <a routerLink="/admin" 
-            class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-            [ngClass]="{'border-indigo-500 bg-slate-800/60 text-white': currentUrl().includes('admin'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('admin')}">
-            <i class="fas fa-cog w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-indigo-400]="currentUrl().includes('admin')"></i>
-            <span class="ml-3 text-sm font-bold hidden lg:block">Configuración</span>
+            class="nav-link group"
+            [class.active]="currentUrl().includes('admin')">
+            <div class="icon-container">
+              <i class="fas fa-cog"></i>
+            </div>
+            <span class="label">Configuración</span>
           </a>
         </div>
       </nav>
     </div>
 
-    <!-- Bottom Actions -->
-    <div class="p-2 lg:p-4 border-t border-slate-800 bg-black/20">
-      <div class="p-2 lg:px-3 lg:py-2 rounded-lg bg-slate-800/50">
-        <p class="text-xs font-bold text-white hidden lg:block">ASSETGUARD</p>
-        <div class="text-[10px] text-slate-400 truncate hidden lg:block">Advanced Corporate Edition</div>
+    <!-- Bottom User Profile (Mini) -->
+    <div class="p-4 border-t border-white/5 bg-black/20">
+      <div class="flex items-center gap-3 px-2 py-3 rounded-2xl hover:bg-white/5 transition-colors cursor-pointer group">
+        <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center text-slate-500 border border-white/10 overflow-hidden relative">
+          @if (user()?.photoURL) {
+            <img [src]="user()?.photoURL" class="w-full h-full object-cover">
+          } @else {
+            <i class="fas fa-user-circle text-xl"></i>
+          }
+          <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 border-2 border-slate-900 rounded-full"></div>
+        </div>
+        <div class="hidden lg:block overflow-hidden">
+          <p class="text-xs font-bold text-white truncate">{{ user()?.displayName || 'Usuario' }}</p>
+          <p class="text-[9px] text-slate-500 uppercase tracking-widest font-bold">{{ userProfile()?.role || 'Operador' }}</p>
+        </div>
+        <button (click)="logout()" class="hidden lg:flex ml-auto text-slate-600 hover:text-femsa-red transition-colors">
+          <i class="fas fa-power-off text-xs"></i>
+        </button>
       </div>
     </div>
   </aside>
@@ -147,129 +250,196 @@
   <div class="flex-1 flex flex-col h-full overflow-hidden relative">
     
     <!-- TOPBAR -->
-    <header class="h-20 bg-white dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between px-6 shrink-0 z-20 transition-colors">
+    <header class="h-20 bg-white/80 dark:bg-[#0B0F19]/80 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 flex items-center justify-between px-8 shrink-0 z-20 transition-all">
       
-      <!-- Left: Context -->
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-6">
         <div>
-          <h1 class="text-xl font-extrabold text-slate-800 dark:text-white tracking-tight leading-none">{{ viewTitle }}</h1>
-          @if (viewSubtitle) {
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1.5 font-medium">{{ viewSubtitle }}</p>
-          }
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[9px] font-black uppercase tracking-[0.3em] text-femsa-red">AssetGuard AI</span>
+            <span class="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
+            <span class="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Live Status</span>
+          </div>
+          <h1 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight leading-none font-display">{{ viewTitle }}</h1>
         </div>
       </div>
 
-      <!-- Right: Actions -->
       <div class="flex items-center gap-4">
-        
+        <!-- AI Intelligence Pulse -->
         <button (click)="toggleAiPanel()" 
-          class="group relative flex items-center gap-2 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-white dark:hover:text-white transition-colors rounded-full hover:bg-gradient-to-br hover:from-red-600 hover:to-orange-500 shadow-sm border border-slate-200 dark:border-slate-700 hover:border-transparent" 
-          title="Asistente IA">
-          <i class="fas fa-robot text-base transition-transform"></i>
+          class="group relative flex items-center gap-3 px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl transition-all hover:shadow-[0_10px_30px_-10px_rgba(218,41,28,0.5)] active:scale-95 overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-r from-femsa-red to-toyota-red opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <i class="fas fa-sparkles text-sm relative z-10"></i>
+          <span class="text-xs font-black uppercase tracking-widest relative z-10">IA Insights</span>
+          
           @if (aiLoading()) {
-            <span class="absolute top-1 right-1 flex h-2.5 w-2.5">
+            <span class="absolute top-1 right-1 flex h-2 w-2">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2.5 bg-red-500"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
             </span>
           }
         </button>
 
-        <div class="h-8 w-px bg-slate-200 dark:bg-slate-700 hidden sm:block"></div>
+        <div class="h-8 w-px bg-slate-200 dark:bg-white/5"></div>
 
-        <!-- User Profile -->
-        <div class="flex items-center gap-3 text-right">
-          <button (click)="logout()" class="text-[10px] font-bold text-red-600 hover:text-red-700 uppercase tracking-widest mr-2">Cerrar Sesión</button>
-          <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-500 dark:text-slate-300 border-2 border-white dark:border-slate-600 shadow-sm overflow-hidden">
-            @if (user()?.photoURL) {
-              <img [src]="user()?.photoURL" class="w-full h-full object-cover">
-            } @else {
-              <i class="fas fa-user-tie text-base"></i>
-            }
+        <!-- Quick Info -->
+        <div class="hidden md:flex items-center gap-6">
+          <div class="text-right">
+            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">Disponibilidad</p>
+            <p class="text-sm font-black text-emerald-500 mt-1">98.4%</p>
           </div>
-          <div class="hidden sm:block">
-            <p class="text-sm font-bold text-slate-700 dark:text-white leading-tight">{{ user()?.displayName || 'Usuario' }}</p>
-            <span class="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ userProfile()?.role || 'Visitante' }}</span>
+          <div class="text-right">
+            <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">Alertas</p>
+            <p class="text-sm font-black text-femsa-red mt-1">02</p>
           </div>
         </div>
       </div>
     </header>
 
     <!-- CONTENT SCROLL AREA -->
-    <main class="flex-1 overflow-y-auto custom-scroll p-6 relative bg-slate-100 dark:bg-gray-900">
-      <div class="fade-enter max-w-8xl mx-auto h-full pb-20">
-        
+    <main class="flex-1 overflow-y-auto custom-scroll relative bg-slate-50 dark:bg-[#0B0F19]">
+      <!-- Background pattern -->
+      <div class="absolute inset-0 opacity-[0.02] dark:opacity-[0.05] pointer-events-none" style="background-image: radial-gradient(#000 1px, transparent 1px); background-size: 40px 40px;"></div>
+      
+      <div class="fade-enter p-8 max-w-[1600px] mx-auto min-h-full pb-24 relative z-10">
         <router-outlet />
       </div>
     </main>
 
-    <!-- FLOATING AI PANEL (DRAWER) -->
-    <div class="fixed inset-y-0 right-0 w-[450px] bg-white dark:bg-slate-800 shadow-2xl transform transition-transform duration-300 z-50 border-l border-slate-200 dark:border-slate-700 flex flex-col"
-      [class.translate-x-full]="!showAiPanel()"
+    <!-- FLOATING AI PANEL (PREMIUM DRAWER) -->
+    <div class="fixed inset-y-4 right-4 w-[480px] glass-card rounded-[32px] transform transition-all duration-500 z-50 flex flex-col overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.5)]"
+      [class.translate-x-[calc(100%+32px)]]="!showAiPanel()"
       [class.translate-x-0]="showAiPanel()">
       
-      <div class="p-6 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center bg-slate-900 text-white">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-[#DA291C] to-red-600 flex items-center justify-center shadow-lg shadow-red-900/50">
-            <i class="fas fa-robot text-lg"></i>
+      <!-- AI Header -->
+      <div class="p-8 pb-6 flex justify-between items-center bg-corporate-dark text-white relative">
+        <div class="absolute top-0 right-0 p-8 opacity-10">
+          <i class="fas fa-robot text-8xl -rotate-12"></i>
+        </div>
+        
+        <div class="flex items-center gap-4 relative z-10">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-femsa-red to-orange-500 flex items-center justify-center shadow-2xl shadow-red-500/40">
+            <i class="fas fa-brain-circuit text-2xl"></i>
           </div>
           <div>
-            <h3 class="font-bold text-lg leading-tight">Asistente Corporativo Gemini</h3>
-            <p class="text-[10px] text-slate-300 opacity-80 uppercase tracking-widest">AssetGuard Intelligence</p>
+            <h3 class="font-black text-xl tracking-tight leading-none">Inteligencia Corporativa</h3>
+            <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em] mt-2 font-bold">Powered by Gemini Pro</p>
           </div>
         </div>
-        <button (click)="toggleAiPanel()" class="text-white/60 hover:text-white transition"><i class="fas fa-times text-xl"></i></button>
+        <button (click)="toggleAiPanel()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition relative z-10">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
 
-      <!-- Chat Content -->
-      <div class="flex-1 overflow-y-auto p-6 custom-scroll bg-slate-50 dark:bg-slate-900">
+      <!-- Chat/Insights Content -->
+      <div class="flex-1 overflow-y-auto p-8 custom-scroll">
         @if (aiLoading()) {
-          <div class="flex flex-col items-center justify-center py-10 space-y-4 text-slate-400 h-full">
-            <div class="relative">
-              <i class="fas fa-circle-notch fa-spin text-4xl text-[#DA291C]"></i>
-              <i class="fas fa-brain absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xs text-[#DA291C]"></i>
+          <div class="flex flex-col items-center justify-center py-20 space-y-6">
+            <div class="relative w-16 h-16">
+              <div class="absolute inset-0 border-4 border-femsa-red/20 rounded-full"></div>
+              <div class="absolute inset-0 border-4 border-femsa-red rounded-full border-t-transparent animate-spin"></div>
             </div>
-            <p class="text-xs uppercase font-bold tracking-widest animate-pulse text-center">Analizando datos de la flota en tiempo real...</p>
+            <p class="text-xs uppercase font-black tracking-[0.2em] text-slate-500 animate-pulse text-center leading-relaxed">
+              Analizando telemetría y <br> KPIs operativos...
+            </p>
           </div>
         } @else if (aiInsights()) {
-          <div class="prose prose-sm prose-slate dark:prose-invert max-w-none bg-white dark:bg-slate-800/50 p-5 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700" [innerHTML]="aiInsights()"></div>
+          <div class="space-y-6 animate-fade-in">
+            <div class="p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
+              <div class="flex items-center gap-3 text-emerald-600 dark:text-emerald-400 mb-2">
+                <i class="fas fa-check-circle"></i>
+                <span class="text-[10px] font-black uppercase tracking-widest">Optimización Detectada</span>
+              </div>
+              <p class="text-sm font-bold text-emerald-900 dark:text-emerald-200 leading-relaxed">Se identificó un patrón de falla recurrente en la Zona A que puede prevenirse con un ajuste en el ciclo de lubricación.</p>
+            </div>
+
+            <div class="prose prose-sm prose-slate dark:prose-invert max-w-none ai-content" [innerHTML]="aiInsights()"></div>
+          </div>
         } @else {
-          <div class="flex flex-col items-center justify-center h-full text-center py-10 opacity-60 space-y-6">
-            <div class="w-20 h-20 bg-slate-100 dark:bg-slate-800/50 rounded-full flex items-center justify-center border border-slate-200 dark:border-slate-700">
-              <i class="fas fa-lightbulb-on text-4xl text-slate-400 dark:text-slate-500"></i>
+          <div class="flex flex-col items-center justify-center h-full text-center space-y-8 opacity-80">
+            <div class="w-24 h-24 bg-slate-100 dark:bg-white/5 rounded-[32px] flex items-center justify-center border border-slate-200 dark:border-white/5 rotate-12">
+              <i class="fas fa-wand-magic-sparkles text-4xl text-slate-400 -rotate-12"></i>
             </div>
             <div>
-              <h4 class="font-bold text-slate-700 dark:text-slate-300 text-lg">¿Cómo puedo ayudarte?</h4>
-              <p class="text-xs text-slate-500 mt-2 max-w-[280px] mx-auto leading-relaxed">
-                Utilizo los datos actuales de fallas, costos y disponibilidad para generar reportes estratégicos al instante.
+              <h4 class="font-black text-slate-900 dark:text-white text-2xl tracking-tight leading-none">Consultor Digital</h4>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mt-4 max-w-[280px] mx-auto leading-relaxed">
+                Pulsa el botón de abajo para generar un análisis predictivo basado en los datos de hoy.
               </p>
             </div>
           </div>
         }
       </div>
 
-      <!-- Quick Actions Footer -->
-      <div class="p-4 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 space-y-2.5 shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
-        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Acciones Sugeridas</p>
-        
-        <button (click)="generateExecutiveSummary()" class="w-full flex items-center p-3 bg-slate-100 dark:bg-slate-700/50 hover:bg-[#DA291C] hover:text-white dark:hover:bg-[#DA291C] rounded-lg border border-slate-200 dark:border-slate-600 hover:border-transparent transition-all group text-left">
-          <div class="w-8 h-8 rounded-md bg-white dark:bg-slate-600 text-slate-600 dark:text-slate-300 flex items-center justify-center mr-3 group-hover:text-[#DA291C] shadow-sm">
-            <i class="fas fa-file-alt"></i>
+      <!-- AI Footer Actions -->
+      <div class="p-8 border-t border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-black/20">
+        <button (click)="generateExecutiveSummary()" 
+          class="w-full flex items-center justify-between p-5 bg-corporate-dark hover:bg-black text-white rounded-[24px] transition-all group shadow-xl hover:shadow-2xl hover:-translate-y-1">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+              <i class="fas fa-file-chart-column"></i>
+            </div>
+            <div class="text-left">
+              <span class="block text-sm font-black uppercase tracking-tight">Análisis Ejecutivo</span>
+              <span class="block text-[10px] text-slate-400 font-bold mt-0.5">KPIs, Fallas y Costos Live</span>
+            </div>
           </div>
-          <div>
-            <span class="block text-xs font-bold text-slate-700 dark:text-white group-hover:text-white">Resumen Ejecutivo del Día</span>
-            <span class="block text-[10px] text-slate-500 dark:text-slate-400 group-hover:text-red-100">Estado general y cumplimiento de KPIs.</span>
-          </div>
+          <i class="fas fa-chevron-right text-slate-600 group-hover:text-white transition-colors"></i>
         </button>
       </div>
     </div>
 
-    <!-- ASSET DETAIL MODAL (GLOBAL) -->
+    <!-- ASSET DETAIL MODAL -->
     @if (selectedAssetId()) {
-      <div class="fixed inset-0 z-[60] bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 fade-enter">
-        <div class="w-full max-w-6xl max-h-[90vh] overflow-y-auto custom-scroll rounded-2xl shadow-2xl border border-white/10">
-          <app-asset-detail [assetId]="selectedAssetId()!" />
+      <div class="fixed inset-0 z-[60] bg-corporate-dark/80 backdrop-blur-md flex items-center justify-center p-6 animate-fade-in">
+        <div class="w-full max-w-7xl max-h-[92vh] overflow-hidden rounded-[40px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] border border-white/10 flex flex-col bg-white dark:bg-[#0B0F19]">
+          <div class="p-6 border-b border-slate-100 dark:border-white/5 flex justify-end absolute top-0 right-0 z-10">
+             <button (click)="selectedAssetId.set(null)" class="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 hover:bg-femsa-red hover:text-white transition-all flex items-center justify-center">
+              <i class="fas fa-times"></i>
+             </button>
+          </div>
+          <div class="flex-1 overflow-y-auto custom-scroll">
+            <app-asset-detail [assetId]="selectedAssetId()!" />
+          </div>
         </div>
       </div>
     }
   </div>
 </div>
+
+<style>
+  .nav-link {
+    @apply flex items-center p-4 rounded-[20px] transition-all duration-300 relative overflow-hidden;
+  }
+  .nav-link.active {
+    @apply bg-white/10 text-white shadow-[0_10px_20px_-5px_rgba(0,0,0,0.3)];
+  }
+  .nav-link:not(.active):hover {
+    @apply bg-white/5 text-slate-200;
+  }
+  .icon-container {
+    @apply w-10 h-10 flex items-center justify-center text-lg shrink-0 transition-all duration-300 rounded-xl border border-white/5 bg-white/5;
+  }
+  .nav-link.active .icon-container {
+    @apply bg-femsa-red border-transparent text-white shadow-lg shadow-femsa-red/40;
+  }
+  .label {
+    @apply ml-4 text-sm font-bold hidden lg:block tracking-tight;
+  }
+  .active-indicator {
+    @apply absolute left-0 w-1.5 h-6 bg-femsa-red rounded-r-full scale-y-0 transition-transform duration-300;
+  }
+  .nav-link.active .active-indicator {
+    @apply scale-y-100;
+  }
+  .ai-content p {
+    @apply mb-4 leading-relaxed;
+  }
+  .ai-content h1, .ai-content h2, .ai-content h3 {
+    @apply font-black text-slate-900 dark:text-white mt-6 mb-3 uppercase tracking-wider text-xs;
+  }
+  .ai-content ul {
+    @apply space-y-2 mb-4;
+  }
+  .ai-content li {
+    @apply flex items-start gap-2 before:content-['•'] before:text-femsa-red before:font-black;
+  }
+</style>
