@@ -31,7 +31,7 @@ import { DataService } from '../../services/data.service';
       <!-- Filter Tabs -->
       <div class="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar">
         <button 
-          *ngFor="let tab of tabs" 
+          *ngFor="let tab of tabs()" 
           (click)="activeTab.set(tab.id)"
           [class]="activeTab() === tab.id ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xl scale-105' : 'bg-white dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/10 border border-slate-200 dark:border-white/5'"
           class="px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 flex items-center gap-3"

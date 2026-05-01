@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed, effect } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
@@ -16,7 +16,6 @@ type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'setting
   standalone: true,
   imports: [
     CommonModule,
-    DatePipe,
     RouterModule,
     AssetDetailComponent
   ],

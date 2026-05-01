@@ -51,7 +51,7 @@ export class KpiCardComponent {
   status = input<KpiStatus>('neutral');
   statusText = input('');
   footerLabel = input('');
-  footerValue = input('');
+  footerValue = input<string | number>('');
   trendLabel = input('');
 
   containerClasses = computed(() => 'bg-white dark:bg-white/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none');

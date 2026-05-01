@@ -242,8 +242,8 @@ export class DashboardComponent {
   dataService = inject(DataService);
   
   lastUpdate = signal(new Date());
-  activeFailures = this.dataService.activeFailures;
-  kpi = this.dataService.kpi;
+  activeFailures = computed(() => this.dataService.forkliftFailures().filter(f => f.estatus !== 'Cerrada'));
+  kpi = this.dataService.kpiData;
   
   safetyStats = computed(() => ({
     daysWithoutAccident: 142,
@@ -269,15 +269,15 @@ export class DashboardComponent {
   fleetCapacityLabel = computed(() => `${this.operativeCount()} Activos Online`);
 
   formattedCost = computed(() => {
-    const cost = this.kpi().maintenanceCost;
+    const cost = this.kpi().totalCostMonth;
     return cost > 1000 ? (cost / 1000).toFixed(1) : cost;
   });
 
-  costUnit = computed(() => this.kpi().maintenanceCost > 1000 ? 'k USD' : 'USD');
-  budgetStatus = computed(() => this.kpi().maintenanceCost > this.kpi().budgetMonth ? 'danger' : 'success');
+  costUnit = computed(() => this.kpi().totalCostMonth > 1000 ? 'k USD' : 'USD');
+  budgetStatus = computed(() => this.kpi().totalCostMonth > this.kpi().budgetMonth ? 'danger' : 'success');
   budgetStatusText = computed(() => this.budgetStatus() === 'danger' ? 'Sobre Presupuesto' : 'Bajo Presupuesto');
   budgetVariance = computed(() => {
-    const variance = ((this.kpi().maintenanceCost / this.kpi().budgetMonth) * 100) - 100;
+    const variance = ((this.kpi().totalCostMonth / this.kpi().budgetMonth) * 100) - 100;
     return `${variance > 0 ? '+' : ''}${Math.round(variance)}% Var.`;
   });
 
