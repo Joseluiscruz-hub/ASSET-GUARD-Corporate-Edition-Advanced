@@ -249,7 +249,7 @@ export class GeminiService {
             recommended_actions: [],
             image_quality_warning: 'true'
           }
-        } as AIInspectionResponse;
+        } as unknown as AIInspectionResponse;
       }
     } catch (error: unknown) {
       console.warn('Gemini Error: falló análisis de imagen', error);
@@ -263,7 +263,7 @@ export class GeminiService {
           recommended_actions: [],
           image_quality_warning: 'true'
         }
-      } as AIInspectionResponse;
+      } as unknown as AIInspectionResponse;
     }
   }
 

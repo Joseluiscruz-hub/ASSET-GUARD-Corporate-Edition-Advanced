@@ -656,7 +656,7 @@ export class DataService {
 
   async updateMaintenanceScheduleFromExcel(data: any[]) {
     let success = 0;
-    let errors: string[] = [];
+    const errors: string[] = [];
 
     this.maintenanceScheduleSignal.update(list => {
       const newList = [...list];
@@ -693,7 +693,7 @@ export class DataService {
   // --- Excel Bulk Updates ---
   async updateAssetsFromExcel(data: any[]) {
     this.assetsSignal.update(current => {
-      let updated = [...current];
+      const updated = [...current];
       data.forEach(row => {
         const eco = row['Economico'] || row['economico'] || row['ID'];
         if (eco) {
