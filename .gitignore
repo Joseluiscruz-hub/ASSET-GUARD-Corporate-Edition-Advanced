@@ -3,6 +3,4 @@ node_modules
 dist
 C:/temp/
 .vite-assetguard/
-
-# Variables de producción generadas por CI
-src/environments/environment.prod.ts
+.vite/
