@@ -13,6 +13,49 @@ export class GeminiService {
     apiKey: environment.geminiApiKey?.trim() || 'TU_API_KEY_FALLBACK'
   });
 
+  private createFallbackInspectionResponse(visualCondition: string, observation: string): AIInspectionResponse {
+    return {
+      inspection: {
+        timestamp: new Date().toISOString(),
+        asset: {
+          component_affected: 'Desconocido',
+          subcomponent: '',
+          visual_condition: visualCondition,
+          context_analysis: ''
+        },
+        damage_analysis: {
+          damage_type: 'Desconocido',
+          visible_signs: [],
+          affected_area_percentage: '0%',
+          technical_description: ''
+        },
+        severity: {
+          level: 'BAJA',
+          risk_score: '0',
+          safety_impact: 'No determinado',
+          operational_impact: 'No determinado',
+          environmental_impact: 'No determinado'
+        },
+        root_cause_analysis: {
+          probable_cause: 'No determinada',
+          why_analysis: [],
+          contributing_factors: []
+        },
+        immediate_actions: {
+          safety_measures: [],
+          containment_actions: []
+        },
+        repair_plan: {
+          estimated_parts: [],
+          estimated_mttr_hours: '0',
+          estimated_cost_usd: { min: 0, max: 0 },
+          recommended_specialists: []
+        },
+        image_quality_warning: observation
+      }
+    };
+  }
+
   // --- BONUS 1: PREDICCIÓN DE FALLAS (MANTENIMIENTO PREDICTIVO) ---
   async analyzeMaintenanceHistory(asset: Asset, history: FailureReport[]): Promise<string> {
     try {
@@ -239,31 +282,11 @@ export class GeminiService {
         return JSON.parse(cleanText) as AIInspectionResponse;
       } catch (parseError) {
         console.warn('Gemini Error: respuesta JSON inválida', parseError);
-        return {
-          inspection: {
-            timestamp: new Date().toISOString(),
-            asset: { component_affected: 'Desconocido', subcomponent: '', visual_condition: 'Formato inválido', context_analysis: '' },
-            ai_confidence_score: 0,
-            observations: ['La IA devolvió formato incorrecto.'],
-            safety_hazards: [],
-            recommended_actions: [],
-            image_quality_warning: 'true'
-          }
-        } as unknown as AIInspectionResponse;
+        return this.createFallbackInspectionResponse('Formato inválido', 'La IA devolvió formato incorrecto.');
       }
     } catch (error: unknown) {
       console.warn('Gemini Error: falló análisis de imagen', error);
-      return {
-        inspection: {
-          timestamp: new Date().toISOString(),
-          asset: { component_affected: 'Desconocido', subcomponent: '', visual_condition: 'Falla al procesar imagen', context_analysis: '' },
-          ai_confidence_score: 0,
-          observations: ['Error de la IA.'],
-          safety_hazards: [],
-          recommended_actions: [],
-          image_quality_warning: 'true'
-        }
-      } as unknown as AIInspectionResponse;
+      return this.createFallbackInspectionResponse('Falla al procesar imagen', 'Error de la IA.');
     }
   }
 
