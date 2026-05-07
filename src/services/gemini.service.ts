@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GoogleGenAI } from '@google/genai';
-import { FailureReport, Asset, KPIData, AIInspectionResponse } from '../types';
+import { FailureReport, Asset, KPIData, AIInspectionResponse, ForkliftFailureEntry } from '../types';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -53,7 +53,11 @@ export class GeminiService {
   }
 
   // --- PROMPT 5: RESUMEN EJECUTIVO DIARIO ---
-  async generateExecutiveReport(kpi: KPIData, activeFailures: any[], availability: any): Promise<string> {
+  async generateExecutiveReport(
+    kpi: KPIData,
+    activeFailures: Pick<ForkliftFailureEntry, 'economico' | 'falla'>[],
+    availability: { percentage: number }
+  ): Promise<string> {
     try {
       const prompt = `
         Analiza el estado actual de AssetGuard CMMS y genera un resumen ejecutivo profesional para Gerencia de Operaciones.
@@ -135,8 +139,11 @@ export class GeminiService {
   }
 
   // --- Helper for Daily Summary (Legacy) ---
-  async generateDailySummary(fleetData: any, activeFailures: any[], history: any[]): Promise<string> {
-    void history;
+  async generateDailySummary(
+    fleetData: { percentage: number },
+    activeFailures: Pick<ForkliftFailureEntry, 'economico' | 'falla'>[],
+    _history: unknown[]
+  ): Promise<string> {
     return this.generateExecutiveReport(
       { availability: fleetData.percentage, mttr: 4.5, totalCostMonth: 12500, budgetMonth: 15000 },
       activeFailures,
@@ -231,7 +238,7 @@ export class GeminiService {
       try {
         return JSON.parse(cleanText) as AIInspectionResponse;
       } catch (parseError) {
-        void parseError;
+        console.warn('Gemini Error: respuesta JSON inválida', parseError);
         return {
           inspection: {
             timestamp: new Date().toISOString(),
@@ -245,7 +252,7 @@ export class GeminiService {
         } as AIInspectionResponse;
       }
     } catch (error: unknown) {
-      void error;
+      console.warn('Gemini Error: falló análisis de imagen', error);
       return {
         inspection: {
           timestamp: new Date().toISOString(),
@@ -279,7 +286,7 @@ export class GeminiService {
 
       return response.text || 'Reporte recibido. Proceda con precaución.';
     } catch (error) {
-      void error;
+      console.warn('Gemini Error: falló consejo para operador', error);
       return 'Reporte recibido. Proceda con precaución.';
     }
   }
