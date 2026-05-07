@@ -7,10 +7,18 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class GeminiService {
+
+  private resolveApiKey(): string {
+    const apiKey = environment.geminiApiKey?.trim();
+    if (!apiKey) {
+      throw new Error('Gemini API Key no configurada. Define GEMINI_API_KEY en tu entorno.');
+    }
+    return apiKey;
+  }
   
   // Inicializamos usando el nuevo SDK y tu API Key configurada
   private ai = new GoogleGenAI({ 
-    apiKey: environment.geminiApiKey?.trim() || 'TU_API_KEY_FALLBACK'
+    apiKey: this.resolveApiKey()
   });
 
   private createFallbackInspectionResponse(visualCondition: string, observation: string): AIInspectionResponse {
