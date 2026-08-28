@@ -43,25 +43,23 @@ jobs:
           const content = [
             'export const environment = {',
             '  production: true,',
-            '  geminiApiKey: \"' + (e.VITE_GEMINI_API_KEY||'') + '\",',
+            '  geminiApiKey: ' + JSON.stringify('') + ',',
             '  firebase: {',
-            '    apiKey: \"' + (e.VITE_FIREBASE_API_KEY||'demo-key') + '\",',
-            '    authDomain: \"' + (e.VITE_FIREBASE_AUTH_DOMAIN||'demo.firebaseapp.com') + '\",',
-            '    databaseURL: \"' + (e.VITE_FIREBASE_DATABASE_URL||'https://demo-rtdb.firebaseio.com') + '\",',
-            '    projectId: \"' + (e.VITE_FIREBASE_PROJECT_ID||'demo-project') + '\",',
-            '    storageBucket: \"' + (e.VITE_FIREBASE_STORAGE_BUCKET||'demo.appspot.com') + '\",',
-            '    messagingSenderId: \"' + (e.VITE_FIREBASE_MESSAGING_SENDER_ID||'123456789') + '\",',
-            '    appId: \"' + (e.VITE_FIREBASE_APP_ID||'1:123:web:abc') + '\"',
+            '    apiKey: ' + JSON.stringify(e.VITE_FIREBASE_API_KEY||'demo-key') + ',',
+            '    authDomain: ' + JSON.stringify(e.VITE_FIREBASE_AUTH_DOMAIN||'demo.firebaseapp.com') + ',',
+            '    databaseURL: ' + JSON.stringify(e.VITE_FIREBASE_DATABASE_URL||'https://demo-rtdb.firebaseio.com') + ',',
+            '    projectId: ' + JSON.stringify(e.VITE_FIREBASE_PROJECT_ID||'demo-project') + ',',
+            '    storageBucket: ' + JSON.stringify(e.VITE_FIREBASE_STORAGE_BUCKET||'demo.appspot.com') + ',',
+            '    messagingSenderId: ' + JSON.stringify(e.VITE_FIREBASE_MESSAGING_SENDER_ID||'123456789') + ',',
+            '    appId: ' + JSON.stringify(e.VITE_FIREBASE_APP_ID||'1:123:web:abc') + ',',
             '  }',
             '};'
           ].join('\\n');
           fs.mkdirSync('src/environments', {recursive:true});
           fs.writeFileSync('src/environments/environment.prod.ts', content);
-          console.log('Generated environment.prod.ts OK');
-          console.log(content);
+          console.log('Generated environment.prod.ts OK (geminiApiKey empty for Pages demo)');
           "
         env:
-          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
           VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
           VITE_FIREBASE_DATABASE_URL: ${{ secrets.VITE_FIREBASE_DATABASE_URL }}

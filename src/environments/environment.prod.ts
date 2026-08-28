@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  geminiApiKey: process.env['GEMINI_API_KEY'] || '',
+  geminiApiKey: '',
   firebase: {
     apiKey: process.env['FIREBASE_API_KEY'] || 'demo-api-key',
     authDomain: process.env['FIREBASE_AUTH_DOMAIN'] || 'demo-project.firebaseapp.com',
