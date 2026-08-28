@@ -94,7 +94,7 @@ export interface KPIData {
 // --- TRACKING BIDIRECCIONAL ---
 
 export interface FailureUpdate {
-  usuario: string;  // "Planta" or "Toyota"
+  usuario: string;  // "Planta" or "ORSTED CORP"
   mensaje: string;
   fecha: string;    // ISO Date
 }
@@ -112,7 +112,7 @@ export interface ForkliftFailureEntry {
   estatus: 'Abierta' | 'En Proceso' | 'Cerrada';
   seguimiento: FailureUpdate[];   // Historial de interacción
 
-  // Toyota Management Fields
+  // ORSTED CORP Management Fields
   ordenCompra?: string;
   estatusRefaccion?: 'N/A' | 'En Stock' | 'Pedida' | 'Por Recibir';
   fechaPromesa?: string;          // ISO Date for expected parts
@@ -200,7 +200,7 @@ export interface MaintenanceSchedule {
   scheduledDate: string;     // ISO Date
   realDate?: string;         // ISO Date (cuándo se ejecutó realmente)
   duration: string;          // Duración estimada (e.g. "2hrs")
-  otFolio: string;           // Folio de Orden de Trabajo Toyota (MXOT...)
+  otFolio: string;           // Folio de Orden de Trabajo ORSTED CORP (MXOT...)
   serviceOrder: string;      // Orden de servicio interna
   hourMeter?: number;        // Horómetro al momento del servicio
   technician: string;

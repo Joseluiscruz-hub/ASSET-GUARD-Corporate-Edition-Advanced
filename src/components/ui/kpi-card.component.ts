@@ -13,7 +13,7 @@ export type KpiStatus = 'success' | 'warning' | 'danger' | 'info' | 'neutral';
       [ngClass]="containerClasses()"
     >
       <!-- Background elements for premium feel -->
-      <div class="absolute -top-12 -right-12 w-32 h-32 bg-femsa-red/5 rounded-full blur-3xl group-hover:bg-femsa-red/10 transition-colors"></div>
+      <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-red/5 rounded-full blur-3xl group-hover:bg-brand-red/10 transition-colors"></div>
       
       <header class="flex items-start justify-between relative z-10">
         <div>

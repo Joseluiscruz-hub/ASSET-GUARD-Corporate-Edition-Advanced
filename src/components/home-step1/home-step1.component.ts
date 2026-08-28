@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DataService } from '../../services/data.service';
 import { Router } from '@angular/router';
 
-const FEMSA_RED = '#ce1126';
+const BRAND_RED = '#ce1126';
 
 export interface ZoneSelection {
   zones: string[];
@@ -18,7 +18,7 @@ export interface ZoneSelection {
       <!-- Hero Panel -->
       <div class="w-full max-w-3xl bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
         <!-- Red top accent line -->
-        <div class="h-1 w-full" [style.background-color]="FEMSA_RED"></div>
+        <div class="h-1 w-full" [style.background-color]="BRAND_RED"></div>
         <!-- Panel Body -->
         <div class="p-6 md:p-10">
           <!-- Step Badge -->
@@ -43,7 +43,7 @@ export interface ZoneSelection {
           <ul class="flex flex-col sm:flex-row gap-3 mb-8">
             @for (b of microBenefits; track b.label) {
               <li class="flex items-start gap-2 text-xs text-slate-500">
-                <i [class]="b.icon + ' mt-0.5 shrink-0'" [style.color]="FEMSA_RED"></i>
+                <i [class]="b.icon + ' mt-0.5 shrink-0'" [style.color]="BRAND_RED"></i>
                 <span>{{ b.label }}</span>
               </li>
             }
@@ -58,7 +58,7 @@ export interface ZoneSelection {
                 [class.border-slate-200]="!isSelected(zone.name)"
                 [class.bg-white]="!isSelected(zone.name)"
                 [class.shadow-sm]="!isSelected(zone.name)"
-                [style.border-color]="isSelected(zone.name) ? FEMSA_RED : ''"
+                [style.border-color]="isSelected(zone.name) ? BRAND_RED : ''"
                 [style.background-color]="isSelected(zone.name) ? '#fef2f2' : ''"
                 [attr.aria-pressed]="isSelected(zone.name)"
               >
@@ -66,7 +66,7 @@ export interface ZoneSelection {
                 @if (isSelected(zone.name)) {
                   <span
                     class="absolute top-3 right-3 w-5 h-5 rounded-full flex items-center justify-center text-white text-[10px]"
-                    [style.background-color]="FEMSA_RED"
+                    [style.background-color]="BRAND_RED"
                   >
                     <i class="fas fa-check"></i>
                   </span>
@@ -75,7 +75,7 @@ export interface ZoneSelection {
                 <div class="flex items-center gap-3 mb-2">
                   <div
                     class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-colors"
-                    [style.background-color]="isSelected(zone.name) ? FEMSA_RED : '#f1f5f9'"
+                    [style.background-color]="isSelected(zone.name) ? BRAND_RED : '#f1f5f9'"
                   >
                     <i
                       [class]="'fas ' + zone.icon + ' text-base'"
@@ -85,7 +85,7 @@ export interface ZoneSelection {
                   <span
                     class="text-sm font-bold leading-tight"
                     [class.text-slate-800]="!isSelected(zone.name)"
-                    [style.color]="isSelected(zone.name) ? FEMSA_RED : ''"
+                    [style.color]="isSelected(zone.name) ? BRAND_RED : ''"
                     >{{ zone.name }}</span>
                 </div>
                 <!-- Zone stats -->
@@ -119,7 +119,7 @@ export interface ZoneSelection {
               [class.shadow-md]="selectedZones().length > 0"
               [class.bg-slate-300]="selectedZones().length === 0"
               [class.text-slate-500]="selectedZones().length === 0"
-              [style.background-color]="selectedZones().length > 0 ? FEMSA_RED : ''"
+              [style.background-color]="selectedZones().length > 0 ? BRAND_RED : ''"
             >
               <i class="fas fa-chart-bar text-sm"></i>
               Comparar zonas
@@ -148,7 +148,7 @@ export interface ZoneSelection {
   `,
 })
 export class HomeStep1Component {
-  readonly FEMSA_RED = FEMSA_RED;
+  readonly BRAND_RED = BRAND_RED;
   private dataService = inject(DataService);
   private router = inject(Router);
 

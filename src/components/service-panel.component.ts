@@ -1,4 +1,4 @@
-// service-panel.component.ts — Panel de Servicio Técnico Toyota
+// service-panel.component.ts — Panel de Servicio Técnico ORSTED CORP
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -29,7 +29,7 @@ import { ForkliftFailureEntry } from '../types';
       <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
         <div class="p-4 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between">
           <h3 class="font-bold text-slate-800 dark:text-white">Órdenes de Servicio Activas</h3>
-          <span class="text-xs text-slate-400">Toyota Material Handling México</span>
+          <span class="text-xs text-slate-400">ORSTED CORP Material Handling</span>
         </div>
         <div class="divide-y divide-slate-100 dark:divide-slate-700">
           @for (failure of activeFailures(); track failure.id) {
@@ -83,7 +83,7 @@ export class ServicePanelComponent {
     if (status === 'Cerrada') {
       this.dataService.closeLiveFailure(failure.id);
     } else {
-      this.dataService.addFailureUpdate(failure.id, 'Reparación iniciada por técnico.', 'Toyota Tech');
+      this.dataService.addFailureUpdate(failure.id, 'Reparación iniciada por técnico.', 'ORSTED CORP Tech');
     }
   }
 }

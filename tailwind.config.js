@@ -8,8 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'femsa-red': '#DA291C',
-        'toyota-red': '#EB0A1E',
+        'brand-red': '#DA291C',
+        'brand-accent': '#EB0A1E',
         'corporate-dark': '#0F172A',
         'corporate-slate': '#1E293B',
       },

@@ -22,7 +22,7 @@ import { EstadoRefaccion } from '../../types';
         </div>
         
         <div class="flex items-center gap-3">
-          <button class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-2xl flex items-center gap-2 shadow-xl transition-all hover:bg-femsa-red hover:text-white dark:hover:bg-femsa-red dark:hover:text-white active:scale-95 text-xs font-black uppercase tracking-widest">
+          <button class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-2xl flex items-center gap-2 shadow-xl transition-all hover:bg-brand-red hover:text-white dark:hover:bg-brand-red dark:hover:text-white active:scale-95 text-xs font-black uppercase tracking-widest">
             <i class="fas fa-plus"></i>
             Registrar Refacción
           </button>
@@ -60,18 +60,18 @@ import { EstadoRefaccion } from '../../types';
             type="text" 
             [(ngModel)]="searchTerm"
             placeholder="Buscar por SKU, descripción o categoría..." 
-            class="w-full pl-12 pr-6 py-4 bg-slate-100 dark:bg-white/5 border-transparent focus:bg-white dark:focus:bg-white/10 focus:ring-2 focus:ring-femsa-red rounded-2xl transition-all outline-none text-sm font-bold text-slate-700 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600"
+            class="w-full pl-12 pr-6 py-4 bg-slate-100 dark:bg-white/5 border-transparent focus:bg-white dark:focus:bg-white/10 focus:ring-2 focus:ring-brand-red rounded-2xl transition-all outline-none text-sm font-bold text-slate-700 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600"
           >
         </div>
         <div class="flex gap-3">
-          <select class="bg-slate-100 dark:bg-white/5 border-transparent focus:ring-2 focus:ring-femsa-red rounded-2xl px-6 py-4 outline-none text-sm font-bold text-slate-700 dark:text-white cursor-pointer">
+          <select class="bg-slate-100 dark:bg-white/5 border-transparent focus:ring-2 focus:ring-brand-red rounded-2xl px-6 py-4 outline-none text-sm font-bold text-slate-700 dark:text-white cursor-pointer">
             <option>Todas las categorías</option>
             <option>Frenos</option>
             <option>Hidráulico</option>
             <option>Llantas</option>
             <option>Filtros</option>
           </select>
-          <button class="w-12 h-12 bg-slate-100 dark:bg-white/5 rounded-2xl flex items-center justify-center text-slate-500 hover:text-femsa-red transition-colors">
+          <button class="w-12 h-12 bg-slate-100 dark:bg-white/5 rounded-2xl flex items-center justify-center text-slate-500 hover:text-brand-red transition-colors">
             <i class="fas fa-filter"></i>
           </button>
         </div>
@@ -93,7 +93,7 @@ import { EstadoRefaccion } from '../../types';
           <tbody class="divide-y divide-slate-100 dark:divide-white/5 font-bold">
             <tr *ngFor="let item of filteredInventory()" class="hover:bg-slate-50 dark:hover:bg-white/5 transition-all group">
               <td class="px-8 py-6">
-                <div class="text-sm font-black text-slate-900 dark:text-white group-hover:text-femsa-red transition-colors">{{ item.sku }}</div>
+                <div class="text-sm font-black text-slate-900 dark:text-white group-hover:text-brand-red transition-colors">{{ item.sku }}</div>
                 <div class="text-[11px] text-slate-500 mt-0.5 font-medium">{{ item.nombre }}</div>
               </td>
               <td class="px-8 py-6">
@@ -123,10 +123,10 @@ import { EstadoRefaccion } from '../../types';
               </td>
               <td class="px-8 py-6 text-right">
                 <div class="flex items-center justify-end gap-2">
-                  <button class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-500 hover:text-femsa-red hover:bg-femsa-red/10 transition-all flex items-center justify-center">
+                  <button class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-500 hover:text-brand-red hover:bg-brand-red/10 transition-all flex items-center justify-center">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <button class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-500 hover:text-femsa-red hover:bg-femsa-red/10 transition-all flex items-center justify-center">
+                  <button class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-500 hover:text-brand-red hover:bg-brand-red/10 transition-all flex items-center justify-center">
                     <i class="fas fa-ellipsis-v"></i>
                   </button>
                 </div>

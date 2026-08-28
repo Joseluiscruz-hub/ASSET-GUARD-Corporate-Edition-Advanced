@@ -21,8 +21,8 @@ import { DataService } from '../../services/data.service';
         </div>
         
         <div class="flex items-center gap-3">
-          <button class="bg-corporate-dark text-white px-6 py-3 rounded-2xl flex items-center gap-2 shadow-xl transition-all hover:bg-femsa-red active:scale-95 text-xs font-black uppercase tracking-widest">
-            <i class="fas fa-file-signature text-femsa-red"></i>
+          <button class="bg-corporate-dark text-white px-6 py-3 rounded-2xl flex items-center gap-2 shadow-xl transition-all hover:bg-brand-red active:scale-95 text-xs font-black uppercase tracking-widest">
+            <i class="fas fa-file-signature text-brand-red"></i>
             Generar OT Manual
           </button>
         </div>
@@ -45,15 +45,15 @@ import { DataService } from '../../services/data.service';
       <div class="grid grid-cols-1 gap-6">
         <div 
           *ngFor="let ot of filteredOrders()" 
-          class="bg-white dark:bg-white/5 p-8 rounded-[32px] border border-slate-200 dark:border-white/5 shadow-xl shadow-slate-200/20 dark:shadow-none hover:border-femsa-red/30 transition-all group relative overflow-hidden"
+          class="bg-white dark:bg-white/5 p-8 rounded-[32px] border border-slate-200 dark:border-white/5 shadow-xl shadow-slate-200/20 dark:shadow-none hover:border-brand-red/30 transition-all group relative overflow-hidden"
         >
           <!-- Background accent -->
-          <div class="absolute top-0 right-0 w-32 h-32 bg-femsa-red/5 rounded-full blur-3xl -translate-y-16 translate-x-16 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/5 rounded-full blur-3xl -translate-y-16 translate-x-16 opacity-0 group-hover:opacity-100 transition-opacity"></div>
           
           <div class="flex flex-col md:flex-row gap-8 relative z-10">
             <!-- OT ID & Status Visual -->
             <div class="flex-shrink-0 flex md:flex-col items-center justify-center gap-4 bg-slate-50 dark:bg-white/5 rounded-[24px] px-8 py-6 border border-slate-100 dark:border-white/5">
-              <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 shadow-sm flex items-center justify-center text-2xl" [class.text-femsa-red]="ot.tipo === 'Correctivo'" [class.text-blue-500]="ot.tipo === 'Preventivo'">
+              <div class="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 shadow-sm flex items-center justify-center text-2xl" [class.text-brand-red]="ot.tipo === 'Correctivo'" [class.text-blue-500]="ot.tipo === 'Preventivo'">
                 <i [class]="ot.tipo === 'Correctivo' ? 'fas fa-exclamation-triangle' : 'fas fa-calendar-check'"></i>
               </div>
               <div class="text-center">
@@ -73,7 +73,7 @@ import { DataService } from '../../services/data.service';
                 </div>
               </div>
               
-              <h3 class="text-xl font-black text-slate-900 dark:text-white group-hover:text-femsa-red transition-colors mb-2">{{ ot.titulo }}</h3>
+              <h3 class="text-xl font-black text-slate-900 dark:text-white group-hover:text-brand-red transition-colors mb-2">{{ ot.titulo }}</h3>
               <p class="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{{ ot.descripcion }}</p>
 
               <div class="flex flex-wrap items-center gap-8 mt-6 pt-6 border-t border-slate-100 dark:border-white/5">
@@ -112,7 +112,7 @@ import { DataService } from '../../services/data.service';
             <!-- Actions -->
             <div class="flex md:flex-col justify-end gap-3">
               <button class="px-6 py-3 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-slate-400 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all">Detalle</button>
-              <button class="px-6 py-3 bg-femsa-red text-white rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-femsa-red/20 active:scale-95">Gestionar</button>
+              <button class="px-6 py-3 bg-brand-red text-white rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-brand-red/20 active:scale-95">Gestionar</button>
             </div>
           </div>
         </div>
@@ -145,7 +145,7 @@ export class WorkOrdersComponent {
 
   getPriorityClass(p: string): string {
     switch (p) {
-      case 'Alta': return 'bg-femsa-red/10 text-femsa-red border-femsa-red/20';
+      case 'Alta': return 'bg-brand-red/10 text-brand-red border-brand-red/20';
       case 'Media': return 'bg-amber-500/10 text-amber-600 border-amber-500/20';
       default: return 'bg-slate-500/10 text-slate-500 border-slate-500/20';
     }

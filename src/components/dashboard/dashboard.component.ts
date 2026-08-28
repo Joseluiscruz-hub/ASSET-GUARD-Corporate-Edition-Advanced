@@ -13,7 +13,7 @@ import { KpiCardComponent } from '../ui/kpi-card.component';
       <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div>
           <div class="flex items-center gap-2 mb-2">
-            <div class="w-2 h-2 bg-femsa-red rounded-full animate-pulse"></div>
+            <div class="w-2 h-2 bg-brand-red rounded-full animate-pulse"></div>
             <span class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">Centro de Operaciones Digitales</span>
           </div>
           <h1 class="text-4xl font-black text-slate-900 dark:text-white tracking-tight font-display">Executive NOC Dashboard</h1>
@@ -25,7 +25,7 @@ import { KpiCardComponent } from '../ui/kpi-card.component';
         </div>
         <div class="flex items-center gap-3">
           <button (click)="downloadReport()" class="flex items-center gap-2 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white px-5 py-3 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-white/10 transition-all shadow-sm active:scale-95">
-            <i class="fas fa-file-pdf text-femsa-red"></i> Exportar Reporte
+            <i class="fas fa-file-pdf text-brand-red"></i> Exportar Reporte
           </button>
         </div>
       </div>
@@ -63,18 +63,18 @@ import { KpiCardComponent } from '../ui/kpi-card.component';
             </div>
           </footer>
           
-          <button (click)="analizarDisponibilidad()" class="mt-4 w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-femsa-red hover:text-white dark:hover:bg-femsa-red dark:hover:text-white transition-all relative z-10 active:scale-95">
+          <button (click)="analizarDisponibilidad()" class="mt-4 w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-brand-red hover:text-white dark:hover:bg-brand-red dark:hover:text-white transition-all relative z-10 active:scale-95">
             <i class="fas fa-brain-circuit"></i> Diagnóstico IA
           </button>
 
           @if (analisisDisponibilidad()) {
-            <div class="mt-4 p-4 bg-femsa-red/5 rounded-2xl border border-femsa-red/10 animate-fade-in relative z-10">
-              <p class="text-[9px] font-black uppercase text-femsa-red tracking-widest mb-3">Factores Críticos:</p>
+            <div class="mt-4 p-4 bg-brand-red/5 rounded-2xl border border-brand-red/10 animate-fade-in relative z-10">
+              <p class="text-[9px] font-black uppercase text-brand-red tracking-widest mb-3">Factores Críticos:</p>
               <div class="space-y-2">
                 @for (causa of analisisDisponibilidad().causas; track causa.desc) {
                   <div class="flex items-center justify-between text-[10px]">
                     <span class="text-slate-600 dark:text-slate-400 font-bold">{{ causa.desc }}</span>
-                    <span class="text-femsa-red font-black">{{ causa.pct }}%</span>
+                    <span class="text-brand-red font-black">{{ causa.pct }}%</span>
                   </div>
                 }
               </div>
@@ -143,7 +143,7 @@ import { KpiCardComponent } from '../ui/kpi-card.component';
                       </div>
                     </td>
                     <td class="p-6 pr-8 text-right">
-                      <button (click)="selectAsset(f.economico)" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-400 hover:bg-femsa-red hover:text-white transition-all flex items-center justify-center shadow-sm">
+                      <button (click)="selectAsset(f.economico)" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-400 hover:bg-brand-red hover:text-white transition-all flex items-center justify-center shadow-sm">
                         <i class="fas fa-chevron-right"></i>
                       </button>
                     </td>
@@ -177,17 +177,17 @@ import { KpiCardComponent } from '../ui/kpi-card.component';
             <div class="space-y-6">
               <button (click)="filterByIssue('Hidráulico')" class="w-full text-left group transition-all">
                 <div class="flex justify-between items-end mb-3">
-                  <span class="text-xs font-black text-slate-700 dark:text-slate-300 group-hover:text-femsa-red transition-colors uppercase tracking-tight">Sistema Hidráulico</span>
-                  <span class="text-xs font-black text-femsa-red">45%</span>
+                  <span class="text-xs font-black text-slate-700 dark:text-slate-300 group-hover:text-brand-red transition-colors uppercase tracking-tight">Sistema Hidráulico</span>
+                  <span class="text-xs font-black text-brand-red">45%</span>
                 </div>
                 <div class="w-full bg-slate-100 dark:bg-white/5 h-2 rounded-full overflow-hidden">
-                  <div class="bg-femsa-red h-full w-[45%] relative">
+                  <div class="bg-brand-red h-full w-[45%] relative">
                     <div class="absolute inset-0 shimmer opacity-30"></div>
                   </div>
                 </div>
                 <div class="mt-3 flex items-center justify-between">
                   <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">12 Incidentes</span>
-                  <span class="text-[10px] text-femsa-red font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles →</span>
+                  <span class="text-[10px] text-brand-red font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Ver Detalles →</span>
                 </div>
               </button>
 
@@ -213,7 +213,7 @@ import { KpiCardComponent } from '../ui/kpi-card.component';
           <div class="flex-1 bg-white dark:bg-white/5 rounded-[32px] border border-slate-200 dark:border-white/5 p-8 shadow-xl shadow-slate-200/20 dark:shadow-none flex flex-col">
             <div class="flex justify-between items-center mb-8">
               <h3 class="font-black text-slate-900 dark:text-white text-sm uppercase tracking-wider">Línea de Tiempo</h3>
-              <button class="text-[9px] font-black text-femsa-red uppercase tracking-widest hover:underline">Ver Historial</button>
+              <button class="text-[9px] font-black text-brand-red uppercase tracking-widest hover:underline">Ver Historial</button>
             </div>
             <div class="relative pl-6 border-l-2 border-slate-100 dark:border-white/5 space-y-8 flex-1">
               @for (event of recentEvents(); track $index) {
@@ -222,7 +222,7 @@ import { KpiCardComponent } from '../ui/kpi-card.component';
                     <i [class]="'fas ' + event.icon"></i>
                   </div>
                   <div class="pl-2">
-                    <p class="text-sm font-black text-slate-800 dark:text-slate-200 leading-tight group-hover:text-femsa-red transition-colors">{{ event.title }}</p>
+                    <p class="text-sm font-black text-slate-800 dark:text-slate-200 leading-tight group-hover:text-brand-red transition-colors">{{ event.title }}</p>
                     <div class="flex items-center gap-3 mt-2">
                       <span class="text-[10px] text-slate-400 font-black font-mono">{{ event.time }}</span>
                       <span class="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
@@ -286,12 +286,12 @@ export class DashboardComponent {
   recentEvents = signal([
     { title: 'MTTO Preventivo Finalizado', time: '10:45 AM', user: 'JUAN PEREZ', icon: 'fa-check', color: 'bg-emerald-500' },
     { title: 'Nueva Alerta de Sensor', time: '09:30 AM', user: 'SYSTEM', icon: 'fa-exclamation-triangle', color: 'bg-amber-500' },
-    { title: 'Activo MT-802 Ingresado', time: '08:15 AM', user: 'CARLOS R.', icon: 'fa-wrench', color: 'bg-femsa-red' },
+    { title: 'Activo MT-802 Ingresado', time: '08:15 AM', user: 'CARLOS R.', icon: 'fa-wrench', color: 'bg-brand-red' },
   ]);
 
   getPriorityColor(p: string) {
     switch (p) {
-      case 'Alta': return 'bg-femsa-red';
+      case 'Alta': return 'bg-brand-red';
       case 'Media': return 'bg-amber-500';
       default: return 'bg-blue-500';
     }
@@ -299,7 +299,7 @@ export class DashboardComponent {
 
   getPriorityBadgeClass(p: string) {
     switch (p) {
-      case 'Alta': return 'bg-femsa-red/10 text-femsa-red border-femsa-red/20';
+      case 'Alta': return 'bg-brand-red/10 text-brand-red border-brand-red/20';
       case 'Media': return 'bg-amber-500/10 text-amber-600 border-amber-500/20';
       default: return 'bg-blue-500/10 text-blue-600 border-blue-500/20';
     }
@@ -318,7 +318,7 @@ export class DashboardComponent {
     return {
       text: `${hours}h`,
       label: hours > 24 ? 'Critical' : 'Normal',
-      color: hours > 24 ? 'text-femsa-red' : 'text-slate-400'
+      color: hours > 24 ? 'text-brand-red' : 'text-slate-400'
     };
   }
 

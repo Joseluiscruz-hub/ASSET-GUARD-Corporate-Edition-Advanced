@@ -30,12 +30,12 @@ import { DataService } from '../../services/data.service';
           </div>
         </div>
 
-        <div class="bg-white dark:bg-white/5 rounded-[24px] border border-slate-200 dark:border-white/5 p-6 shadow-sm flex items-center justify-between group hover:border-femsa-red/30 transition-all">
+        <div class="bg-white dark:bg-white/5 rounded-[24px] border border-slate-200 dark:border-white/5 p-6 shadow-sm flex items-center justify-between group hover:border-brand-red/30 transition-all">
           <div>
             <p class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Vencidos</p>
             <p class="text-3xl font-black text-slate-900 dark:text-white font-display">{{ countByStatus('Vencido') }}</p>
           </div>
-          <div class="w-12 h-12 rounded-2xl bg-femsa-red/10 flex items-center justify-center text-femsa-red text-xl">
+          <div class="w-12 h-12 rounded-2xl bg-brand-red/10 flex items-center justify-center text-brand-red text-xl">
             <i class="fas fa-clock"></i>
           </div>
         </div>
@@ -59,7 +59,7 @@ import { DataService } from '../../services/data.service';
               <div class="absolute inset-0 shimmer opacity-30"></div>
             </div>
           </div>
-          <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-4 font-bold uppercase tracking-widest">Sincronizado con bases de datos Toyota Material Handling México</p>
+          <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-4 font-bold uppercase tracking-widest">Sincronizado con bases de datos ORSTED CORP Material Handling</p>
         </div>
       </div>
 
@@ -70,7 +70,7 @@ import { DataService } from '../../services/data.service';
             <h3 class="font-black text-slate-900 dark:text-white text-lg tracking-tight uppercase">Programa Sistemático de Mantenimiento (SMP)</h3>
             <p class="text-xs text-slate-500 mt-1 font-medium italic">Lead Supervisor: Supervisor Demo 1 · Región Demo</p>
           </div>
-          <button class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-femsa-red hover:text-white dark:hover:bg-femsa-red dark:hover:text-white transition-all shadow-lg active:scale-95">
+          <button class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-brand-red hover:text-white dark:hover:bg-brand-red dark:hover:text-white transition-all shadow-lg active:scale-95">
             Descargar Programa
           </button>
         </div>
@@ -91,7 +91,7 @@ import { DataService } from '../../services/data.service';
               @for (item of dataService.maintenanceSchedule(); track item.id) {
                 <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-all group">
                   <td class="px-8 py-6">
-                    <span class="text-sm font-black text-slate-900 dark:text-white group-hover:text-femsa-red transition-colors font-mono">{{ item.economico }}</span>
+                    <span class="text-sm font-black text-slate-900 dark:text-white group-hover:text-brand-red transition-colors font-mono">{{ item.economico }}</span>
                   </td>
                   <td class="px-8 py-6">
                     <span class="text-xs font-bold text-slate-600 dark:text-slate-300">{{ item.model }}</span>
@@ -106,7 +106,7 @@ import { DataService } from '../../services/data.service';
                     </div>
                   </td>
                   <td class="px-8 py-6 text-xs font-mono text-slate-500 font-bold">{{ item.scheduledDate | date:'dd.MM.yyyy' }}</td>
-                  <td class="px-8 py-6 text-xs font-mono text-slate-400 group-hover:text-femsa-red transition-colors">#{{ item.otFolio }}</td>
+                  <td class="px-8 py-6 text-xs font-mono text-slate-400 group-hover:text-brand-red transition-colors">#{{ item.otFolio }}</td>
                   <td class="px-8 py-6 text-center">
                     <span [class]="'text-[9px] font-black px-3 py-1.5 rounded-full border uppercase tracking-widest ' + getStatusClass(item.status)">
                       {{ item.status }}
@@ -132,7 +132,7 @@ export class MaintenanceComplianceComponent {
   getStatusClass(status: string) {
     switch(status) {
       case 'Completado': return 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20';
-      case 'Vencido':    return 'bg-femsa-red/10 text-femsa-red border-femsa-red/20';
+      case 'Vencido':    return 'bg-brand-red/10 text-brand-red border-brand-red/20';
       default:           return 'bg-amber-500/10 text-amber-600 border-amber-500/20';
     }
   }
