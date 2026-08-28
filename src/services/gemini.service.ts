@@ -8,18 +8,20 @@ import { environment } from '../environments/environment';
 })
 export class GeminiService {
 
-  private resolveApiKey(): string {
+  private ai: GoogleGenAI | null = null;
+
+  /** Lazy-init GoogleGenAI only when a key exists. Empty key must not crash boot (Pages demo). */
+  private getClient(): GoogleGenAI | null {
+    if (this.ai) {
+      return this.ai;
+    }
     const apiKey = environment.geminiApiKey?.trim();
     if (!apiKey) {
-      throw new Error('Gemini API Key no configurada. Define GEMINI_API_KEY en tu entorno.');
+      return null;
     }
-    return apiKey;
+    this.ai = new GoogleGenAI({ apiKey });
+    return this.ai;
   }
-  
-  // Inicializamos usando el nuevo SDK y tu API Key configurada
-  private ai = new GoogleGenAI({ 
-    apiKey: this.resolveApiKey()
-  });
 
   private createFallbackInspectionResponse(visualCondition: string, observation: string): AIInspectionResponse {
     return {
@@ -67,6 +69,11 @@ export class GeminiService {
   // --- BONUS 1: PREDICCIÓN DE FALLAS (MANTENIMIENTO PREDICTIVO) ---
   async analyzeMaintenanceHistory(asset: Asset, history: FailureReport[]): Promise<string> {
     try {
+      const client = this.getClient();
+      if (!client) {
+        return '<p class="text-slate-500">IA no configurada en este demo. Mostrando respuesta de respaldo.</p>';
+      }
+
       const prompt = `
         Actúa como Analista de Mantenimiento Predictivo con especialización en Machine Learning aplicado a activos industriales.
         
@@ -91,7 +98,7 @@ export class GeminiService {
         
       `;
 
-      const response = await this.ai.models.generateContent({
+      const response = await client.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: prompt,
       });
@@ -110,6 +117,11 @@ export class GeminiService {
     availability: { percentage: number }
   ): Promise<string> {
     try {
+      const client = this.getClient();
+      if (!client) {
+        return '<p class="text-slate-500">IA no configurada en este demo. El reporte ejecutivo no está disponible sin clave Gemini.</p>';
+      }
+
       const prompt = `
         Analiza el estado actual de AssetGuard CMMS y genera un resumen ejecutivo profesional para Gerencia de Operaciones.
 
@@ -138,7 +150,7 @@ export class GeminiService {
         TONO: Profesional, directo, español mexicano empresarial. Sin saludos.
       `;
 
-      const response = await this.ai.models.generateContent({
+      const response = await client.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: prompt,
       });
@@ -154,6 +166,11 @@ export class GeminiService {
   // --- BONUS 3: GENERADOR DE PROCEDIMIENTOS DE SEGURIDAD (LOTO) ---
   async generateLotoProcedure(asset: Asset, failureDescription: string): Promise<string> {
     try {
+      const client = this.getClient();
+      if (!client) {
+        return '<p>No disponible.</p>';
+      }
+
       const prompt = `
         Actúa como Ingeniero de Seguridad Industrial certificado en LOTO (NOM-004-STPS-1999).
         Genera un procedimiento de bloqueo/etiquetado para:
@@ -178,7 +195,7 @@ export class GeminiService {
         Resalta ADVERTENCIAS DE SEGURIDAD en negritas.
       `;
 
-      const response = await this.ai.models.generateContent({
+      const response = await client.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: prompt,
       });
@@ -205,6 +222,11 @@ export class GeminiService {
   // --- PROMPT 2: INSPECCIÓN VISUAL MULTIMODAL ---
   async analyzeImage(base64Image: string, mimeType: string): Promise<AIInspectionResponse> {
     try {
+      const client = this.getClient();
+      if (!client) {
+        return this.createFallbackInspectionResponse('IA no configurada', 'Gemini no está disponible en este demo público.');
+      }
+
       const prompt = `
         Actúa como un Ingeniero de Mantenimiento Experto y Especialista en Seguridad Industrial. 
         Analiza la imagen proporcionada de un componente de montacargas o equipo industrial.
@@ -260,7 +282,7 @@ export class GeminiService {
         5. NUNCA uses el valor \`undefined\` en el JSON. Usa \`null\` si un valor es desconocido.
       `;
 
-      const response = await this.ai.models.generateContent({
+      const response = await client.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: {
           parts: [
@@ -301,6 +323,11 @@ export class GeminiService {
   // --- PROMPT 4: ASISTENTE PARA OPERADORES (CONSEJOS RÁPIDOS) ---
   async getOperatorAdvice(category: string, notes: string): Promise<string> {
     try {
+      const client = this.getClient();
+      if (!client) {
+        return 'Reporte recibido. Proceda con precaución.';
+      }
+
       const prompt = `
         Actúa como un Supervisor de Mantenimiento experto. Un operador está reportando una falla.
         Categoría: ${category}
@@ -310,7 +337,7 @@ export class GeminiService {
         Tono: Directo, empático, español mexicano. Sin saludos.
       `;
 
-      const response = await this.ai.models.generateContent({
+      const response = await client.models.generateContent({
         model: 'gemini-2.5-flash',
         contents: prompt,
       });
