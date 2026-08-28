@@ -292,7 +292,7 @@ export class AssetListComponent {
             // Subtitle Info
             doc.setFontSize(9);
             doc.setFont('helvetica', 'normal');
-            doc.text(`Planta: Cuautitlán Izcalli  |  Generado: ${dateStr} ${timeStr}`, 14, 28);
+            doc.text(`Planta: Demo  |  Generado: ${dateStr} ${timeStr}`, 14, 28);
 
             // -- Executive Summary Cards (Simulated) --
 
