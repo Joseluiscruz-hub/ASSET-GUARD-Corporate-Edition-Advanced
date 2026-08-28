@@ -179,7 +179,7 @@ export class HomeStep1Component {
       'Nave Industrial B': 'fa-industry',
       'Línea de Estampado': 'fa-stamp',
       'Empaque Final': 'fa-box',
-      'Planta Cuautitlán': 'fa-warehouse',
+      'Planta Demo': 'fa-warehouse',
     };
 
     return Array.from(zoneMap.entries()).map(([name, stats]) => ({
