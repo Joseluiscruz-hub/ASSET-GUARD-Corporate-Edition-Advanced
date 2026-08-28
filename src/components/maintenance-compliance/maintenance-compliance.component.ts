@@ -68,7 +68,7 @@ import { DataService } from '../../services/data.service';
         <div class="p-8 border-b border-slate-100 dark:border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h3 class="font-black text-slate-900 dark:text-white text-lg tracking-tight uppercase">Programa Sistemático de Mantenimiento (SMP)</h3>
-            <p class="text-xs text-slate-500 mt-1 font-medium italic">Lead Supervisor: Ing. Aaron Velázquez · Región Centro</p>
+            <p class="text-xs text-slate-500 mt-1 font-medium italic">Lead Supervisor: Supervisor Demo 1 · Región Demo</p>
           </div>
           <button class="bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-femsa-red hover:text-white dark:hover:bg-femsa-red dark:hover:text-white transition-all shadow-lg active:scale-95">
             Descargar Programa
