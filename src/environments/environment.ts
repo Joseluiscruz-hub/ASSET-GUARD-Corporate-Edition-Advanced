@@ -1,8 +1,8 @@
 // environment.ts — Solo para desarrollo local (ng serve)
-// Crea un archivo .env.local con tus claves reales (nunca lo comitees)
+// El demo público de GitHub Pages no incluye clave Gemini.
 export const environment = {
   production: false,
-  geminiApiKey: '',          // <-- pon tu key aquí solo para pruebas locales
+  geminiApiKey: '',
   firebase: {
     apiKey:            'demo-api-key',
     authDomain:        'demo-project.firebaseapp.com',
