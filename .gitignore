@@ -1,6 +1,13 @@
 node_modules
 .angular/cache/
 dist
+dist/
 C:/temp/
 .vite-assetguard/
 .vite/
+.next/
+build.log
+.env
+.env.local
+.idea/
+coverage/
