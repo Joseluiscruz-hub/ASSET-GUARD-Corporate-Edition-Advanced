@@ -122,9 +122,9 @@ export class DataService {
   readonly topOperators = computed(() => {
     const failures = this.forkliftFailures();
     const basePoints: { [key: string]: number } = {
-      'Carlos Eduardo Vazquez Calderon': 100,
-      'Juan Pablo Ortega': 100,
-      'Ariel Alavez': 100
+      'Operador Demo 1': 100,
+      'Operador Demo 2': 100,
+      'Operador Demo 3': 100
     };
 
     failures.forEach(f => {
@@ -140,9 +140,9 @@ export class DataService {
   });
 
   readonly safetyStats = signal({
-    daysWithoutAccident: 142,
-    record: 180,
-    announcement: 'Uso obligatorio de EPP en Patio de Maniobras - Planta Cuautitlán'
+    daysWithoutAccident: 90,
+    record: 120,
+    announcement: 'Uso obligatorio de EPP en Patio de Maniobras - Planta Demo'
   });
 
   readonly crewLeaderboard = signal([
@@ -232,7 +232,7 @@ export class DataService {
     }));
 
     const woFromSchedule = schedule.filter(s => s.status !== 'Completado').map(s => ({
-      id: s.otFolio.replace('MXOT', ''),
+      id: s.otFolio.replace(/^(DEMO-OT-|MXOT)/, ''),
       titulo: `Mantenimiento SMP ${s.smpType}`,
       descripcion: `Servicio programado tipo ${s.smpType} para unidad ${s.economico}`,
       unidad: s.economico,
@@ -535,7 +535,7 @@ export class DataService {
 
     // Generar un historial ficticio pero coherente para los primeros 5 activos
     const history: FailureReport[] = [];
-    const technicians = ['Maycol Martinez', 'Ariel Alavez', 'Erick Ramon'];
+    const technicians = ['Técnico Demo 1', 'Técnico Demo 2', 'Técnico Demo 3'];
     const issues = ['Mantenimiento Preventivo', 'Fuga Hidráulica', 'Falla Eléctrica', 'Desgaste de Llantas'];
 
     assets.slice(0, 5).forEach((asset, idx) => {
@@ -565,9 +565,9 @@ export class DataService {
     return [
       {
         id: 'FAIL-2026-0001',
-        economico: '35526',
+        economico: 'DEMO-001',
         falla: 'Fuga de aceite hidráulico en cilindro de elevación principal.',
-        reporta: 'Carlos Eduardo Vazquez Calderon',
+        reporta: 'Operador Demo 1',
         fechaIngreso: new Date().toISOString(),
         prioridad: 'Alta',
         estatus: 'Abierta',
@@ -585,30 +585,31 @@ export class DataService {
   }
 
   private generateMaintenanceSchedule(): MaintenanceSchedule[] {
+    // Synthetic demo SMP schedule — not a real plant program.
     const staticData = [
-      { model: "32-8FG30", serial: "66454", eco: "CUA-29440", smp: "REV", date: "2026-02-05", tech: "Maycol Martinez", ot: "MXOT184286" },
-      { model: "32-8FG30", serial: "92719", eco: "CUA-35526", smp: "Z", date: "2026-02-14", tech: "Ariel Alavez", ot: "MXOT184289" },
-      { model: "32-8FG30", serial: "92714", eco: "CUA-35482", smp: "X", date: "2026-02-05", tech: "Max Gonzalo", ot: "MXOT184291" },
-      { model: "32-8FG30", serial: "92730", eco: "CUA-35483", smp: "X", date: "2026-02-05", tech: "Ariel Alavez", ot: "MXOT184293" },
-      { model: "32-8FG30", serial: "92732", eco: "CUA-35494", smp: "X", date: "2026-02-08", tech: "Erick Ramon", ot: "MXOT184294" },
-      { model: "32-8FG30", serial: "95159", eco: "CUA-37191", smp: "X", date: "2026-02-07", tech: "Maycol Martinez", ot: "MXOT184296" },
-      { model: "32-8FG30", serial: "95162", eco: "CUA-37192", smp: "X", date: "2026-02-07", tech: "Ariel Alavez", ot: "MXOT184297" },
-      { model: "32-8FG30", serial: "95074", eco: "CUA-37193", smp: "X", date: "2026-02-07", tech: "Max Gonzalo", ot: "MXOT184298" },
-      { model: "32-8FG30", serial: "95056", eco: "CUA-37194", smp: "X", date: "2026-02-08", tech: "Erick Ramon", ot: "MXOT184299" },
-      { model: "32-8FG30", serial: "95049", eco: "CUA-37195", smp: "X", date: "2026-02-08", tech: "Ariel Alavez", ot: "MXOT184300" },
-      { model: "32-8FG30", serial: "97520", eco: "CUA-40019", smp: "REV", date: "2026-02-12", tech: "Max Gonzalo", ot: "MXOT184303" },
-      { model: "32-8FG30", serial: "97519", eco: "CUA-40020", smp: "Y", date: "2026-02-12", tech: "Ariel Alavez", ot: "MXOT184304" },
-      { model: "32-8FG30", serial: "97532", eco: "CUA-40021", smp: "Y", date: "2026-02-11", tech: "Erick Ramon", ot: "MXOT184307" },
-      { model: "32-8FG30", serial: "97518", eco: "CUA-40057", smp: "Y", date: "2026-02-07", tech: "Maycol Martinez", ot: "MXOT184310" },
-      { model: "32-8FG30", serial: "97529", eco: "CUA-40060", smp: "Y", date: "2026-02-07", tech: "Ariel Alavez", ot: "MXOT184313" },
-      { model: "32-8FG30", serial: "97560", eco: "CUA-40065", smp: "REV", date: "2026-02-09", tech: "Max Gonzalo", ot: "MXOT184314" },
-      { model: "32-8FG30", serial: "97562", eco: "CUA-40327", smp: "REV", date: "2026-02-09", tech: "Erick Ramon", ot: "MXOT184315" },
-      { model: "32-8FG30", serial: "97584", eco: "CUA-40328", smp: "REV", date: "2026-02-09", tech: "Ariel Alavez", ot: "MXOT184318" },
-      { model: "32-8FG30", serial: "97781", eco: "CUA-40338", smp: "Z", date: "2026-02-14", tech: "Maycol Martinez", ot: "MXOT184321" },
-      { model: "32-8FG30", serial: "97788", eco: "CUA-40066", smp: "X", date: "2026-02-10", tech: "Erick Ramon", ot: "MXOT184322" },
-      { model: "32-8FG30", serial: "97796", eco: "CUA-40067", smp: "REV", date: "2026-02-14", tech: "Ariel Alavez", ot: "MXOT184324" },
-      { model: "8FGU30", serial: "35540", eco: "BACK-UP", smp: "REV", date: "2026-02-12", tech: "Maycol Martinez", ot: "MXOT184326" },
-      { model: "8FBCU30", serial: "67022", eco: "RENTA", smp: "REV", date: "2026-02-05", tech: "Erick Ramon", ot: "MXOT184327" }
+      { model: "32-8FG30", serial: "DEMO-SN-021", eco: "DEMO-021", smp: "REV", date: "2026-02-05", tech: "Técnico Demo 1", ot: "DEMO-OT-0001" },
+      { model: "32-8FG30", serial: "DEMO-SN-001", eco: "DEMO-001", smp: "Z", date: "2026-02-14", tech: "Técnico Demo 2", ot: "DEMO-OT-0002" },
+      { model: "32-8FG30", serial: "DEMO-SN-002", eco: "DEMO-002", smp: "X", date: "2026-02-05", tech: "Técnico Demo 3", ot: "DEMO-OT-0003" },
+      { model: "32-8FG30", serial: "DEMO-SN-003", eco: "DEMO-003", smp: "X", date: "2026-02-05", tech: "Técnico Demo 2", ot: "DEMO-OT-0004" },
+      { model: "32-8FG30", serial: "DEMO-SN-004", eco: "DEMO-004", smp: "X", date: "2026-02-08", tech: "Técnico Demo 3", ot: "DEMO-OT-0005" },
+      { model: "32-8FG30", serial: "DEMO-SN-005", eco: "DEMO-005", smp: "X", date: "2026-02-07", tech: "Técnico Demo 1", ot: "DEMO-OT-0006" },
+      { model: "32-8FG30", serial: "DEMO-SN-006", eco: "DEMO-006", smp: "X", date: "2026-02-07", tech: "Técnico Demo 2", ot: "DEMO-OT-0007" },
+      { model: "32-8FG30", serial: "DEMO-SN-007", eco: "DEMO-007", smp: "X", date: "2026-02-07", tech: "Técnico Demo 3", ot: "DEMO-OT-0008" },
+      { model: "32-8FG30", serial: "DEMO-SN-008", eco: "DEMO-008", smp: "X", date: "2026-02-08", tech: "Técnico Demo 1", ot: "DEMO-OT-0009" },
+      { model: "32-8FG30", serial: "DEMO-SN-009", eco: "DEMO-009", smp: "X", date: "2026-02-08", tech: "Técnico Demo 2", ot: "DEMO-OT-0010" },
+      { model: "32-8FG30", serial: "DEMO-SN-010", eco: "DEMO-010", smp: "REV", date: "2026-02-12", tech: "Técnico Demo 3", ot: "DEMO-OT-0011" },
+      { model: "32-8FG30", serial: "DEMO-SN-011", eco: "DEMO-011", smp: "Y", date: "2026-02-12", tech: "Técnico Demo 2", ot: "DEMO-OT-0012" },
+      { model: "32-8FG30", serial: "DEMO-SN-012", eco: "DEMO-012", smp: "Y", date: "2026-02-11", tech: "Técnico Demo 1", ot: "DEMO-OT-0013" },
+      { model: "32-8FG30", serial: "DEMO-SN-013", eco: "DEMO-013", smp: "Y", date: "2026-02-07", tech: "Técnico Demo 1", ot: "DEMO-OT-0014" },
+      { model: "32-8FG30", serial: "DEMO-SN-014", eco: "DEMO-014", smp: "Y", date: "2026-02-07", tech: "Técnico Demo 2", ot: "DEMO-OT-0015" },
+      { model: "32-8FG30", serial: "DEMO-SN-015", eco: "DEMO-015", smp: "REV", date: "2026-02-09", tech: "Técnico Demo 3", ot: "DEMO-OT-0016" },
+      { model: "32-8FG30", serial: "DEMO-SN-016", eco: "DEMO-016", smp: "REV", date: "2026-02-09", tech: "Técnico Demo 1", ot: "DEMO-OT-0017" },
+      { model: "32-8FG30", serial: "DEMO-SN-017", eco: "DEMO-017", smp: "REV", date: "2026-02-09", tech: "Técnico Demo 2", ot: "DEMO-OT-0018" },
+      { model: "32-8FG30", serial: "DEMO-SN-018", eco: "DEMO-018", smp: "Z", date: "2026-02-14", tech: "Técnico Demo 1", ot: "DEMO-OT-0019" },
+      { model: "32-8FG30", serial: "DEMO-SN-019", eco: "DEMO-019", smp: "X", date: "2026-02-10", tech: "Técnico Demo 3", ot: "DEMO-OT-0020" },
+      { model: "32-8FG30", serial: "DEMO-SN-020", eco: "DEMO-020", smp: "REV", date: "2026-02-14", tech: "Técnico Demo 2", ot: "DEMO-OT-0021" },
+      { model: "8FGU30", serial: "DEMO-SN-022", eco: "DEMO-BACKUP", smp: "REV", date: "2026-02-12", tech: "Técnico Demo 1", ot: "DEMO-OT-0022" },
+      { model: "8FBCU30", serial: "DEMO-SN-023", eco: "DEMO-RENTAL", smp: "REV", date: "2026-02-05", tech: "Técnico Demo 3", ot: "DEMO-OT-0023" }
     ];
 
     return staticData.map((item, index) => {
@@ -619,13 +620,13 @@ export class DataService {
         model: item.model,
         serial: item.serial,
         economico: item.eco,
-        supervisor: "AARON VELAZQUEZ",
+        supervisor: "Supervisor Demo 1",
         smpType: item.smp as any,
         scheduledDate: scheduledIso,
         realDate: undefined,
         duration: "2hrs",
         otFolio: item.ot,
-        serviceOrder: `OS-${237000 + index}`,
+        serviceOrder: `DEMO-OS-${String(index + 1).padStart(4, '0')}`,
         hourMeter: undefined,
         technician: item.tech,
         status: status,
