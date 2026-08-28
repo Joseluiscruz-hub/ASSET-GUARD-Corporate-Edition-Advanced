@@ -5,9 +5,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --kof-red: #DA291C;
-  --kof-dark: #000000;
-  --toyota-red: #EB0A1E;
+  --brand-red: #DA291C;
+  --brand-dark: #000000;
+  --brand-accent: #EB0A1E;
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.2);
 }

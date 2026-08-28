@@ -388,7 +388,7 @@ export class DataService {
     }
   }
 
-  updateToyotaLogistics(failureId: string, po: string, statusRef: ForkliftFailureEntry['estatusRefaccion'], promiseDate?: string) {
+  updateCorporateLogistics(failureId: string, po: string, statusRef: ForkliftFailureEntry['estatusRefaccion'], promiseDate?: string) {
     const updates: Partial<ForkliftFailureEntry> = {
       ordenCompra: po,
       estatusRefaccion: statusRef,

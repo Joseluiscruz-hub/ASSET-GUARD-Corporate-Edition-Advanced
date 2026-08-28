@@ -143,7 +143,7 @@ export class AppComponent {
     if (url.includes('dashboard')) return 'Dashboard Corporativo (NOC)';
     if (url.includes('compliance')) return 'Programa SMP - Cumplimiento';
     if (url.includes('assets')) return 'Gestión de Activos / Flota';
-    if (url.includes('service')) return 'Panel de Servicio Técnico Toyota';
+    if (url.includes('service')) return 'Panel de Servicio Técnico ORSTED CORP';
     if (url.includes('report')) return 'App Operador (Solicitante)';
     if (url.includes('inventory')) return 'Inventario y Refacciones';
     if (url.includes('work-orders')) return 'Órdenes de Trabajo';

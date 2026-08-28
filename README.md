@@ -50,7 +50,7 @@ Este repositorio representa la **versión avanzada y fusionada** de AssetGuard, 
 
 ### 📊 Gestión de Activos
 - Inventario de flota con filtros y búsqueda
-- Historial de fallas bidireccional (Planta ↔ Toyota)
+- Historial de fallas bidireccional (Planta ↔ ORSTED CORP)
 - Órdenes de trabajo (WorkOrders)
 - Programa de mantenimiento SMP (Compliance)
 - Integración HACCP / inocuidad alimentaria
@@ -82,7 +82,7 @@ src/
 │   ├── asset-list/           # Inventario de flota
 │   ├── asset-detail/         # Detalle + historial + análisis IA por activo
 │   ├── admin/                # Panel administrativo
-│   ├── service-panel/        # Gestión técnica Toyota (fallas activas)
+│   ├── service-panel/        # Gestión técnica ORSTED CORP (fallas activas)
 │   ├── solicitor-panel/      # App operador (reporte de fallas)
 │   ├── login/                # Pantalla de autenticación
 │   ├── maintenance-compliance/ # Programa SMP
@@ -235,7 +235,7 @@ npm run build     # Verificación de build
 
 ## 🏢 Contexto del Proyecto
 
-Sistema CMMS (Computerized Maintenance Management System) para gestión de montacargas y activos industriales en entorno Toyota/FEMSA. Diseñado para:
+Sistema CMMS (Computerized Maintenance Management System) para gestión de montacargas y activos industriales en entorno ORSTED CORP. Diseñado para:
 - Plantas de distribución con flota mixta (eléctrico, gas LP, diesel)
 - Equipos de mantenimiento predictivo
 - Gerencia de operaciones (reportes ejecutivos)

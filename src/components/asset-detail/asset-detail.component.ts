@@ -14,11 +14,11 @@ import { GeminiService } from '../../services/gemini.service';
       <div class="bg-white dark:bg-corporate-dark rounded-[32px] overflow-hidden shadow-2xl animate-fade-in border border-slate-200 dark:border-white/5">
         <!-- Header -->
         <div class="bg-slate-900 dark:bg-black/40 text-white p-8 relative overflow-hidden">
-          <div class="absolute -top-24 -right-24 w-64 h-64 bg-femsa-red/10 rounded-full blur-[80px]"></div>
+          <div class="absolute -top-24 -right-24 w-64 h-64 bg-brand-red/10 rounded-full blur-[80px]"></div>
           <div class="relative z-10 flex justify-between items-start">
             <div>
               <div class="flex items-center gap-3 mb-3">
-                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-femsa-red bg-femsa-red/10 px-3 py-1 rounded-lg border border-femsa-red/20">Industrial Asset</span>
+                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-red bg-brand-red/10 px-3 py-1 rounded-lg border border-brand-red/20">Industrial Asset</span>
                 @if (asset()!.critical) {
                   <span class="text-[10px] font-black px-3 py-1 rounded-lg bg-red-600 text-white animate-pulse">⚡ CRITICAL OPS</span>
                 }
@@ -55,7 +55,7 @@ import { GeminiService } from '../../services/gemini.service';
               <h4 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 mb-4">Motor de Inteligencia</h4>
               <button (click)="runPredictiveAnalysis()"
                 [disabled]="aiLoading()"
-                class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all hover:bg-femsa-red hover:text-white dark:hover:bg-femsa-red dark:hover:text-white disabled:opacity-60 active:scale-95 shadow-xl shadow-slate-200 dark:shadow-none">
+                class="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 py-4 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all hover:bg-brand-red hover:text-white dark:hover:bg-brand-red dark:hover:text-white disabled:opacity-60 active:scale-95 shadow-xl shadow-slate-200 dark:shadow-none">
                 <i class="fas" [class.fa-brain]="!aiLoading()" [class.fa-circle-notch]="aiLoading()" [class.fa-spin]="aiLoading()"></i>
                 {{ aiLoading() ? 'Analizando Historial...' : 'Predictivo IA Avanzado' }}
               </button>
@@ -69,9 +69,9 @@ import { GeminiService } from '../../services/gemini.service';
             <!-- Inspección Visual -->
             <div>
               <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 block mb-4">Inspección por Visión Computacional</label>
-              <label class="cursor-pointer group block w-full border-2 border-dashed border-slate-200 dark:border-white/5 rounded-[24px] p-8 text-center hover:border-femsa-red/50 hover:bg-femsa-red/5 transition-all duration-300">
+              <label class="cursor-pointer group block w-full border-2 border-dashed border-slate-200 dark:border-white/5 rounded-[24px] p-8 text-center hover:border-brand-red/50 hover:bg-brand-red/5 transition-all duration-300">
                 <div class="w-16 h-16 bg-slate-50 dark:bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                  <i class="fas fa-camera-retro text-2xl text-slate-400 group-hover:text-femsa-red"></i>
+                  <i class="fas fa-camera-retro text-2xl text-slate-400 group-hover:text-brand-red"></i>
                 </div>
                 <span class="text-[10px] font-black text-slate-500 uppercase tracking-widest">Cargar Evidencia Visual</span>
                 <input type="file" accept="image/*" class="hidden" (change)="onImageSelected($event)">
@@ -90,12 +90,12 @@ import { GeminiService } from '../../services/gemini.service';
             } @else {
               <div class="space-y-4">
                 @for (report of history(); track report.id) {
-                  <div class="p-5 rounded-2xl border border-slate-200 dark:border-white/5 bg-white dark:bg-white/5 group hover:border-femsa-red/30 transition-all">
+                  <div class="p-5 rounded-2xl border border-slate-200 dark:border-white/5 bg-white dark:bg-white/5 group hover:border-brand-red/30 transition-all">
                     <div class="flex justify-between items-start mb-3">
                       <span class="text-[9px] font-black uppercase px-2 py-1 bg-slate-100 dark:bg-white/10 text-slate-600 dark:text-slate-300 rounded tracking-widest">{{ report.type }}</span>
                       <span class="text-[10px] font-mono text-slate-400 font-bold">{{ report.entryDate | date:'dd.MM.yy' }}</span>
                     </div>
-                    <p class="text-sm font-bold text-slate-800 dark:text-slate-200 leading-snug mb-3 group-hover:text-femsa-red transition-colors">{{ report.failureDescription }}</p>
+                    <p class="text-sm font-bold text-slate-800 dark:text-slate-200 leading-snug mb-3 group-hover:text-brand-red transition-colors">{{ report.failureDescription }}</p>
                     <div class="flex justify-between items-center text-[10px] font-black uppercase tracking-tighter">
                       <span class="text-slate-400"><i class="fas fa-user-gear mr-1"></i> {{ report.technician }}</span>
                       <span class="text-emerald-500">$ {{ report.estimatedCost | number }}</span>
@@ -119,10 +119,10 @@ import { GeminiService } from '../../services/gemini.service';
             }
 
             @if (imageAnalysis()) {
-              <div class="mt-8 p-6 bg-slate-900 dark:bg-black rounded-[24px] text-white border-l-4 border-femsa-red animate-fade-in shadow-2xl relative overflow-hidden">
-                <div class="absolute -top-12 -right-12 w-32 h-32 bg-femsa-red/20 rounded-full blur-3xl"></div>
+              <div class="mt-8 p-6 bg-slate-900 dark:bg-black rounded-[24px] text-white border-l-4 border-brand-red animate-fade-in shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-32 h-32 bg-brand-red/20 rounded-full blur-3xl"></div>
                 <div class="relative z-10">
-                  <p class="text-[10px] font-black uppercase tracking-[0.3em] text-femsa-red mb-4">Inspección Visual IA</p>
+                  <p class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-red mb-4">Inspección Visual IA</p>
                   <div class="space-y-4">
                     <div class="flex justify-between border-b border-white/5 pb-2">
                       <span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Componente</span>

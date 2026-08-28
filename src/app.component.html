@@ -1,12 +1,12 @@
-<div class="flex h-screen bg-slate-50 dark:bg-[#0B0F19] font-sans overflow-hidden transition-colors duration-500 selection:bg-femsa-red/30" [class.dark]="plantMode()">
+<div class="flex h-screen bg-slate-50 dark:bg-[#0B0F19] font-sans overflow-hidden transition-colors duration-500 selection:bg-brand-red/30" [class.dark]="plantMode()">
   
   @if (!isAuthReady()) {
     <div class="fixed inset-0 z-[100] bg-corporate-dark flex items-center justify-center">
       <div class="flex flex-col items-center gap-6">
         <div class="relative w-20 h-20">
-          <div class="absolute inset-0 border-4 border-femsa-red/20 rounded-full"></div>
-          <div class="absolute inset-0 border-4 border-femsa-red rounded-full border-t-transparent animate-spin"></div>
-          <img src="https://logodownload.org/wp-content/uploads/2014/10/toyota-logo-0.png" alt="Logo" class="absolute inset-0 m-auto h-6 invert brightness-0">
+          <div class="absolute inset-0 border-4 border-brand-red/20 rounded-full"></div>
+          <div class="absolute inset-0 border-4 border-brand-red rounded-full border-t-transparent animate-spin"></div>
+          <i class="fas fa-industry" title="ORSTED CORP"></i>
         </div>
         <div class="text-center">
           <p class="text-white font-black tracking-[0.3em] uppercase text-xs animate-pulse">AssetGuard</p>
@@ -17,28 +17,28 @@
   } @else if (!user()) {
     <div class="fixed inset-0 z-[100] bg-corporate-dark flex items-center justify-center p-6 overflow-hidden">
       <!-- Background Elements -->
-      <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-femsa-red/10 rounded-full blur-[120px] animate-pulse-slow"></div>
+      <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-red/10 rounded-full blur-[120px] animate-pulse-slow"></div>
       <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 1.5s"></div>
       
       <div class="max-w-4xl w-full flex bg-white rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] overflow-hidden relative z-10 animate-slide-up">
         <!-- Left Side: Branding/Visual -->
         <div class="hidden lg:flex w-1/2 bg-corporate-dark relative p-12 flex-col justify-between">
           <div class="absolute inset-0 opacity-20">
-            <div class="absolute inset-0 bg-gradient-to-br from-femsa-red to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-brand-red to-transparent"></div>
             <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80" class="w-full h-full object-cover grayscale opacity-30">
           </div>
           
           <div class="relative z-10">
-            <img src="https://logodownload.org/wp-content/uploads/2014/09/coca-cola-logo-1-1.png" alt="FEMSA" class="h-8 invert brightness-0">
+            <span class="font-black tracking-widest">ORSTED CORP</span>
             <div class="mt-12">
-              <h1 class="text-4xl font-black text-white leading-tight tracking-tight">Potencia la <br><span class="text-femsa-red">Excelencia</span> Operativa.</h1>
+              <h1 class="text-4xl font-black text-white leading-tight tracking-tight">Potencia la <br><span class="text-brand-red">Excelencia</span> Operativa.</h1>
               <p class="text-slate-400 mt-4 text-sm leading-relaxed max-w-xs">Plataforma avanzada para la gestión integral de activos, mantenimiento predictivo y control de inventarios corporativos.</p>
             </div>
           </div>
 
           <div class="relative z-10 flex items-center gap-4 text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-            <span>Toyota Logistics</span>
-            <span class="w-1.5 h-1.5 bg-femsa-red rounded-full"></span>
+            <span>ORSTED CORP Logistics</span>
+            <span class="w-1.5 h-1.5 bg-brand-red rounded-full"></span>
             <span>Planta Demo</span>
           </div>
         </div>
@@ -46,7 +46,7 @@
         <!-- Right Side: Login Form -->
         <div class="flex-1 p-8 lg:p-16 flex flex-col justify-center bg-white">
           <div class="mb-10 lg:hidden text-center">
-            <img src="https://logodownload.org/wp-content/uploads/2014/09/coca-cola-logo-1-1.png" alt="FEMSA" class="h-6 mx-auto mb-4">
+            <span class="font-black tracking-widest">ORSTED CORP</span>
           </div>
 
           <div class="mb-10 text-center lg:text-left">
@@ -55,7 +55,7 @@
           </div>
 
           @if (loginError()) {
-            <div class="mb-6 p-4 bg-red-50 border-l-4 border-femsa-red rounded-r-xl text-xs text-red-700 flex items-start gap-3 animate-fade-in">
+            <div class="mb-6 p-4 bg-red-50 border-l-4 border-brand-red rounded-r-xl text-xs text-red-700 flex items-start gap-3 animate-fade-in">
               <i class="fas fa-exclamation-circle mt-0.5"></i>
               <div>
                 <p class="font-bold">Error de acceso</p>
@@ -72,7 +72,7 @@
                 <i class="fab fa-google text-lg"></i>
                 <span class="font-bold text-sm">Google Workspace</span>
               </div>
-              <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-femsa-red transition-colors">
+              <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-brand-red transition-colors">
                 @if (isLoggingIn()) {
                   <i class="fas fa-circle-notch fa-spin"></i>
                 } @else {
@@ -104,14 +104,14 @@
   <!-- SIDEBAR NAVIGATION -->
   <aside class="w-20 lg:w-72 bg-corporate-dark text-slate-400 flex flex-col justify-between shrink-0 z-30 transition-all duration-500 shadow-[20px_0_60px_-15px_rgba(0,0,0,0.3)] relative">
     <!-- Sidebar Glow -->
-    <div class="absolute top-20 left-0 w-1 h-32 bg-gradient-to-b from-femsa-red to-transparent opacity-50"></div>
+    <div class="absolute top-20 left-0 w-1 h-32 bg-gradient-to-b from-brand-red to-transparent opacity-50"></div>
     
     <div>
       <!-- Brand Section -->
       <div class="h-24 flex flex-col items-center justify-center lg:items-start lg:px-8 bg-black/40 border-b border-white/5 mb-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-femsa-red rounded-xl flex items-center justify-center shadow-lg shadow-femsa-red/20 rotate-3 group hover:rotate-0 transition-transform">
-            <img src="https://logodownload.org/wp-content/uploads/2014/10/toyota-logo-0.png" alt="T" class="h-5 invert brightness-0">
+          <div class="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center shadow-lg shadow-brand-red/20 rotate-3 group hover:rotate-0 transition-transform">
+            <i class="fas fa-industry" title="ORSTED CORP"></i>
           </div>
           <div class="hidden lg:block">
             <h2 class="text-white font-black text-sm tracking-tight leading-none uppercase">AssetGuard</h2>
@@ -239,7 +239,7 @@
           <p class="text-xs font-bold text-white truncate">{{ user()?.displayName || 'Usuario' }}</p>
           <p class="text-[9px] text-slate-500 uppercase tracking-widest font-bold">{{ userProfile()?.role || 'Operador' }}</p>
         </div>
-        <button (click)="logout()" class="hidden lg:flex ml-auto text-slate-600 hover:text-femsa-red transition-colors">
+        <button (click)="logout()" class="hidden lg:flex ml-auto text-slate-600 hover:text-brand-red transition-colors">
           <i class="fas fa-power-off text-xs"></i>
         </button>
       </div>
@@ -255,7 +255,7 @@
       <div class="flex items-center gap-6">
         <div>
           <div class="flex items-center gap-2 mb-1">
-            <span class="text-[9px] font-black uppercase tracking-[0.3em] text-femsa-red">AssetGuard AI</span>
+            <span class="text-[9px] font-black uppercase tracking-[0.3em] text-brand-red">AssetGuard AI</span>
             <span class="w-1 h-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
             <span class="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 dark:text-slate-500">Live Status</span>
           </div>
@@ -267,7 +267,7 @@
         <!-- AI Intelligence Pulse -->
         <button (click)="toggleAiPanel()" 
           class="group relative flex items-center gap-3 px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl transition-all hover:shadow-[0_10px_30px_-10px_rgba(218,41,28,0.5)] active:scale-95 overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-r from-femsa-red to-toyota-red opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="absolute inset-0 bg-gradient-to-r from-brand-red to-brand-accent opacity-0 group-hover:opacity-100 transition-opacity"></div>
           <i class="fas fa-sparkles text-sm relative z-10"></i>
           <span class="text-xs font-black uppercase tracking-widest relative z-10">IA Insights</span>
           
@@ -289,7 +289,7 @@
           </div>
           <div class="text-right">
             <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">Alertas</p>
-            <p class="text-sm font-black text-femsa-red mt-1">02</p>
+            <p class="text-sm font-black text-brand-red mt-1">02</p>
           </div>
         </div>
       </div>
@@ -317,7 +317,7 @@
         </div>
         
         <div class="flex items-center gap-4 relative z-10">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-femsa-red to-orange-500 flex items-center justify-center shadow-2xl shadow-red-500/40">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-red to-orange-500 flex items-center justify-center shadow-2xl shadow-red-500/40">
             <i class="fas fa-brain-circuit text-2xl"></i>
           </div>
           <div>
@@ -335,8 +335,8 @@
         @if (aiLoading()) {
           <div class="flex flex-col items-center justify-center py-20 space-y-6">
             <div class="relative w-16 h-16">
-              <div class="absolute inset-0 border-4 border-femsa-red/20 rounded-full"></div>
-              <div class="absolute inset-0 border-4 border-femsa-red rounded-full border-t-transparent animate-spin"></div>
+              <div class="absolute inset-0 border-4 border-brand-red/20 rounded-full"></div>
+              <div class="absolute inset-0 border-4 border-brand-red rounded-full border-t-transparent animate-spin"></div>
             </div>
             <p class="text-xs uppercase font-black tracking-[0.2em] text-slate-500 animate-pulse text-center leading-relaxed">
               Analizando telemetría y <br> KPIs operativos...
@@ -392,7 +392,7 @@
       <div class="fixed inset-0 z-[60] bg-corporate-dark/80 backdrop-blur-md flex items-center justify-center p-6 animate-fade-in">
         <div class="w-full max-w-7xl max-h-[92vh] overflow-hidden rounded-[40px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] border border-white/10 flex flex-col bg-white dark:bg-[#0B0F19]">
           <div class="p-6 border-b border-slate-100 dark:border-white/5 flex justify-end absolute top-0 right-0 z-10">
-             <button (click)="selectedAssetId.set(null)" class="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 hover:bg-femsa-red hover:text-white transition-all flex items-center justify-center">
+             <button (click)="selectedAssetId.set(null)" class="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 hover:bg-brand-red hover:text-white transition-all flex items-center justify-center">
               <i class="fas fa-times"></i>
              </button>
           </div>
@@ -419,13 +419,13 @@
     @apply w-10 h-10 flex items-center justify-center text-lg shrink-0 transition-all duration-300 rounded-xl border border-white/5 bg-white/5;
   }
   .nav-link.active .icon-container {
-    @apply bg-femsa-red border-transparent text-white shadow-lg shadow-femsa-red/40;
+    @apply bg-brand-red border-transparent text-white shadow-lg shadow-brand-red/40;
   }
   .label {
     @apply ml-4 text-sm font-bold hidden lg:block tracking-tight;
   }
   .active-indicator {
-    @apply absolute left-0 w-1.5 h-6 bg-femsa-red rounded-r-full scale-y-0 transition-transform duration-300;
+    @apply absolute left-0 w-1.5 h-6 bg-brand-red rounded-r-full scale-y-0 transition-transform duration-300;
   }
   .nav-link.active .active-indicator {
     @apply scale-y-100;
@@ -440,6 +440,6 @@
     @apply space-y-2 mb-4;
   }
   .ai-content li {
-    @apply flex items-start gap-2 before:content-['•'] before:text-femsa-red before:font-black;
+    @apply flex items-start gap-2 before:content-['•'] before:text-brand-red before:font-black;
   }
 </style>

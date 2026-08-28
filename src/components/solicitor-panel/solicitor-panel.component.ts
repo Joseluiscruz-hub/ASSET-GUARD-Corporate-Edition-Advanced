@@ -123,7 +123,7 @@ import { GeminiService } from '../../services/gemini.service';
             <i class="fas fa-check text-5xl text-green-500"></i>
           </div>
           <h3 class="text-3xl font-black text-slate-800 mb-2">¡Reporte Enviado!</h3>
-          <p class="text-slate-500 text-base font-medium">El equipo de mantenimiento Toyota ha sido notificado y está en camino.</p>
+          <p class="text-slate-500 text-base font-medium">El equipo de mantenimiento ORSTED CORP ha sido notificado y está en camino.</p>
           
           <div class="bg-gray-50 border border-gray-200 px-6 py-4 rounded-2xl mt-8 shadow-inner w-full">
             <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">ID de Seguimiento</p>
