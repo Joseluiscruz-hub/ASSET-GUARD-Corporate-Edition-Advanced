@@ -25,7 +25,7 @@ import { Asset, RefurbishmentRecord } from '../../types';
                 <i class="fas fa-paint-roller text-white"></i>
               </div>
               <div>
-                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400">Planta Cuautitlán</span>
+                <span class="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400">Planta Demo</span>
                 <div class="flex items-center gap-2">
                   <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
                   <span class="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Sistema Activo</span>
