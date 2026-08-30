@@ -485,7 +485,7 @@ export class DataService {
     }
   }
 
-  reportFailure(assetId: string, description: string) {
+  reportFailure(assetId: string, description: string, _type?: FailureReport['type']) {
     this.addLiveFailure({
       economico: assetId,
       falla: description,
@@ -493,6 +493,29 @@ export class DataService {
       reporta: 'Operador (App)',
       estatus: 'Abierta'
     });
+  }
+
+  completeRepair(assetId: string, diagnosis: string, cost: number, parts: string[], type?: FailureReport['type']) {
+    const activeFailure = this.forkliftFailures().find(
+      f => f.economico === assetId && f.estatus !== 'Cerrada'
+    );
+    if (!activeFailure) return;
+
+    this.closeLiveFailure(activeFailure.id);
+
+    const report: FailureReport = {
+      id: 'REP-' + Date.now(),
+      assetId,
+      entryDate: activeFailure.fechaIngreso,
+      exitDate: new Date().toISOString(),
+      failureDescription: activeFailure.falla,
+      diagnosis,
+      partsUsed: parts,
+      estimatedCost: cost,
+      technician: 'ORSTED CORP Tech',
+      type: type || 'Mecánico'
+    };
+    this.reportsSignal.update(list => [report, ...list]);
   }
 
   private syncAssetsWithFailures(failures: ForkliftFailureEntry[]) {

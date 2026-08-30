@@ -99,6 +99,22 @@ export interface FailureUpdate {
   fecha: string;    // ISO Date
 }
 
+// --- ESTADO DE REFACCION (Enum) ---
+// Advanced display values for the original 4 + Edition logistics states.
+
+export enum EstadoRefaccion {
+  NO_APLICA = 'N/A',
+  EN_STOCK = 'En Stock',
+  PEDIDA = 'Pedida',
+  POR_RECIBIR = 'Por Recibir',
+  COTIZANDO = 'COTIZANDO',
+  APROBACION_PENDIENTE = 'APROBACION_PENDIENTE',
+  ORDENADA = 'ORDENADA',
+  EN_TRANSITO = 'EN_TRANSITO',
+  RECIBIDA = 'RECIBIDA',
+  ENTREGADA_TECNICO = 'ENTREGADA_TECNICO'
+}
+
 // --- AUDIT LOG (Live Panel) ---
 
 export interface ForkliftFailureEntry {
@@ -114,7 +130,7 @@ export interface ForkliftFailureEntry {
 
   // ORSTED CORP Management Fields
   ordenCompra?: string;
-  estatusRefaccion?: 'N/A' | 'En Stock' | 'Pedida' | 'Por Recibir';
+  estatusRefaccion?: EstadoRefaccion;
   fechaPromesa?: string;          // ISO Date for expected parts
 
   // Advanced Tracking
@@ -171,14 +187,6 @@ export interface AIInspectionResponse {
   };
 }
 
-// --- ESTADO DE REFACCION (Enum) ---
-
-export enum EstadoRefaccion {
-  NO_APLICA  = 'N/A',
-  EN_STOCK   = 'En Stock',
-  PEDIDA     = 'Pedida',
-  POR_RECIBIR = 'Por Recibir',
-}
 
 export interface HistoryEntry {
   timestamp: string;
