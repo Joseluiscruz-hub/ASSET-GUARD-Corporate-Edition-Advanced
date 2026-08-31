@@ -285,11 +285,11 @@
         <div class="hidden md:flex items-center gap-6">
           <div class="text-right">
             <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">Disponibilidad</p>
-            <p class="text-sm font-black text-emerald-500 mt-1">98.4%</p>
+            <p class="text-sm font-black text-emerald-500 mt-1">{{ availabilityPct() }}%</p>
           </div>
           <div class="text-right">
             <p class="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">Alertas</p>
-            <p class="text-sm font-black text-brand-red mt-1">02</p>
+            <p class="text-sm font-black text-brand-red mt-1">{{ alertCount() }}</p>
           </div>
         </div>
       </div>

@@ -49,6 +49,8 @@ export class AppComponent {
   lastUpdate = this.dataService.lastUpdate;
   plantMode = this.dataService.plantMode;
   failures = this.dataService.forkliftFailures;
+  alertCount = computed(() => this.failures().filter(f => f.estatus !== 'Cerrada').length);
+  availabilityPct = computed(() => this.dataService.fleetAvailability().percentage);
 
   // AI Insights State
   aiInsights = signal<SafeHtml | null>(null);

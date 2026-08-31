@@ -241,22 +241,21 @@ import { KpiCardComponent } from '../ui/kpi-card.component';
 export class DashboardComponent {
   dataService = inject(DataService);
   
-  lastUpdate = signal(new Date());
-  activeFailures = computed(() => this.dataService.forkliftFailures().filter(f => f.estatus !== 'Cerrada'));
+  lastUpdate = this.dataService.lastUpdate;
+  issueFilter = signal<string | null>(null);
+  allActiveFailures = computed(() => this.dataService.forkliftFailures().filter(f => f.estatus !== 'Cerrada'));
+  activeFailures = computed(() => {
+    const issue = this.issueFilter();
+    const list = this.allActiveFailures();
+    if (!issue) return list;
+    const kw = issue.toLowerCase();
+    return list.filter(f => (f.falla || '').toLowerCase().includes(kw));
+  });
   kpi = this.dataService.kpiData;
   
-  safetyStats = computed(() => ({
-    daysWithoutAccident: 142,
-    record: 365
-  }));
+  safetyStats = this.dataService.safetyStats;
 
-  fleetAvailability = computed(() => {
-    const total = this.dataService.assets().length;
-    const active = total - this.activeFailures().length;
-    return {
-      percentage: total > 0 ? Math.round((active / total) * 100) : 0
-    };
-  });
+  fleetAvailability = this.dataService.fleetAvailability;
 
   availabilityStatusText = computed(() => this.fleetAvailability().percentage > 90 ? 'Saludable' : 'Alerta');
   availabilityGap = computed(() => {
@@ -264,7 +263,7 @@ export class DashboardComponent {
     return gap > 0 ? `-${gap}% vs Meta` : 'Meta Superada';
   });
 
-  operativeCount = computed(() => this.dataService.assets().length - this.activeFailures().length);
+  operativeCount = computed(() => this.dataService.assets().length - this.allActiveFailures().length);
   totalAssets = computed(() => this.dataService.assets().length);
   fleetCapacityLabel = computed(() => `${this.operativeCount()} Activos Online`);
 
@@ -283,11 +282,22 @@ export class DashboardComponent {
 
   analisisDisponibilidad = signal<any>(null);
 
-  recentEvents = signal([
-    { title: 'MTTO Preventivo Finalizado', time: '10:45 AM', user: 'JUAN PEREZ', icon: 'fa-check', color: 'bg-emerald-500' },
-    { title: 'Nueva Alerta de Sensor', time: '09:30 AM', user: 'SYSTEM', icon: 'fa-exclamation-triangle', color: 'bg-amber-500' },
-    { title: 'Activo MT-802 Ingresado', time: '08:15 AM', user: 'CARLOS R.', icon: 'fa-wrench', color: 'bg-brand-red' },
-  ]);
+  recentEvents = computed(() => {
+    return [...this.dataService.forkliftFailures()]
+      .sort((a, b) => new Date(b.fechaIngreso).getTime() - new Date(a.fechaIngreso).getTime())
+      .slice(0, 5)
+      .map(f => {
+        const closed = f.estatus === 'Cerrada';
+        const alta = f.prioridad === 'Alta';
+        return {
+          title: `${f.economico}: ${f.falla}`,
+          time: new Date(f.fechaIngreso).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' }),
+          user: f.reporta || 'Sistema',
+          icon: closed ? 'fa-check' : alta ? 'fa-exclamation-triangle' : 'fa-wrench',
+          color: closed ? 'bg-emerald-500' : alta ? 'bg-brand-red' : 'bg-amber-500'
+        };
+      });
+  });
 
   getPriorityColor(p: string) {
     switch (p) {
@@ -327,20 +337,50 @@ export class DashboardComponent {
   }
 
   downloadReport() {
-    console.log('Descargando reporte ejecutivo...');
+    window.print();
   }
 
   analizarDisponibilidad() {
-    this.analisisDisponibilidad.set({
-      causas: [
-        { desc: 'Falta de Refacciones Críticas', pct: 45 },
-        { desc: 'Saturación en Taller Central', pct: 30 },
-        { desc: 'Demoras en Diagnóstico Externo', pct: 25 }
-      ]
-    });
+    const open = this.allActiveFailures();
+    if (open.length === 0) {
+      this.analisisDisponibilidad.set({
+        causas: [{ desc: 'Sin unidades abiertas en taller', pct: 0 }]
+      });
+      return;
+    }
+
+    const buckets: Record<string, number> = {
+      'Fallas hidráulicas': 0,
+      'Fallas eléctricas': 0,
+      'Frenos y tracción': 0,
+      'Llantas / rodaje': 0,
+      'Espera de refacciones': 0,
+      'Diagnóstico pendiente': 0,
+      'En reparación': 0
+    };
+
+    for (const f of open) {
+      const text = `${f.falla || ''} ${f.estatusRefaccion || ''}`.toLowerCase();
+      if (/hidr[aá]ul/.test(text)) buckets['Fallas hidráulicas']++;
+      else if (/el[eé]ctr/.test(text)) buckets['Fallas eléctricas']++;
+      else if (/freno|tracci[oó]n/.test(text)) buckets['Frenos y tracción']++;
+      else if (/llanta|rodaje/.test(text)) buckets['Llantas / rodaje']++;
+      else if (/refacc|pedida|ordenada|tr[aá]nsito/.test(text)) buckets['Espera de refacciones']++;
+      else if (f.estatus === 'Abierta') buckets['Diagnóstico pendiente']++;
+      else buckets['En reparación']++;
+    }
+
+    const causas = Object.entries(buckets)
+      .filter(([, count]) => count > 0)
+      .map(([desc, count]) => ({ desc, pct: Math.round((count / open.length) * 100) }))
+      .sort((a, b) => b.pct - a.pct);
+
+    this.analisisDisponibilidad.set({ causas });
   }
 
   filterByIssue(issue: string) {
-    console.log('Filtrando por:', issue);
+    this.issueFilter.update(cur => (cur === issue ? null : issue));
+    const table = document.querySelector('.lg\\:col-span-2');
+    table?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
