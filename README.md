@@ -241,6 +241,8 @@ Sistema CMMS (Computerized Maintenance Management System) para gestión de monta
 - Gerencia de operaciones (reportes ejecutivos)
 - Operadores de planta (reporte de fallas móvil)
 
+> Orsted Corp es tenant de laboratorio (Microsoft 365 E5). No es el cliente ni el empleador.
+
 ---
 
 *Desarrollado por **Joseluiscruz-hub** — AssetGuard Corporate Edition Advanced 2026*
