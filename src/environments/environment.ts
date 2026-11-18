@@ -1,8 +1,8 @@
 // environment.ts — Solo para desarrollo local (ng serve)
-// El demo público de GitHub Pages no incluye clave Gemini.
+// La API key de Gemini no vive en el cliente. Se configura como secreto de Functions.
 export const environment = {
   production: false,
-  geminiApiKey: '',
+  functionsRegion: 'us-central1',
   firebase: {
     apiKey:            'demo-api-key',
     authDomain:        'demo-project.firebaseapp.com',

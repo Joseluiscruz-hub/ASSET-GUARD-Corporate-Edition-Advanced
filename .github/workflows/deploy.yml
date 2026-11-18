@@ -28,11 +28,8 @@ jobs:
       - name: Install Angular CLI
         run: npm install -g @angular/cli
 
-      - name: Fix Gemini model (gemini-1.5-flash -> gemini-2.0-flash)
-        run: |
-          sed -i "s/gemini-1\.5-flash/gemini-2.0-flash/g" src/services/gemini.service.ts
-          echo "Model updated:"
-          grep -n "gemini" src/services/gemini.service.ts | head -10
+      - name: Run unit tests
+        run: npm test
 
       - name: Generate environment.prod.ts
         run: |
@@ -43,7 +40,7 @@ jobs:
           const content = [
             'export const environment = {',
             '  production: true,',
-            '  geminiApiKey: ' + JSON.stringify('') + ',',
+            '  functionsRegion: ' + JSON.stringify(e.VITE_FUNCTIONS_REGION||'us-central1') + ',',
             '  firebase: {',
             '    apiKey: ' + JSON.stringify(e.VITE_FIREBASE_API_KEY||'demo-key') + ',',
             '    authDomain: ' + JSON.stringify(e.VITE_FIREBASE_AUTH_DOMAIN||'demo.firebaseapp.com') + ',',
@@ -57,7 +54,7 @@ jobs:
           ].join('\\n');
           fs.mkdirSync('src/environments', {recursive:true});
           fs.writeFileSync('src/environments/environment.prod.ts', content);
-          console.log('Generated environment.prod.ts OK (geminiApiKey empty for Pages demo)');
+          console.log('Generated environment.prod.ts OK (Gemini key is a Functions secret, not baked into the client)');
           "
         env:
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
