@@ -5,7 +5,7 @@
   "description": "Firebase Functions for AssetGuard Gemini 2.5 Flash backend",
   "type": "module",
   "engines": {
-    "node": "20"
+    "node": "24"
   },
   "main": "lib/index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "firebase-functions": "7.4.0"
   },
   "devDependencies": {
-    "@types/node": "20.19.43",
+    "@types/node": "24.19.2",
     "typescript": "5.5.4"
   }
 }
