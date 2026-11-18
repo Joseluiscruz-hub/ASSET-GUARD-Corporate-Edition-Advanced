@@ -7,9 +7,17 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"Public Sans"', 'system-ui', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+      },
       colors: {
-        'brand-red': '#DA291C',
-        'brand-accent': '#EB0A1E',
+        'brand-gold': '#D4AF37',
+        'brand-gold-soft': '#C5A880',
+        'brand-ink': '#14181c',
+        'brand-red': '#D4AF37',
+        'brand-accent': '#C5A880',
         'corporate-dark': '#0F172A',
         'corporate-slate': '#1E293B',
       },
@@ -35,7 +43,7 @@ export default {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'corporate-gradient': 'linear-gradient(135deg, #DA291C 0%, #EB0A1E 100%)',
+        'corporate-gradient': 'linear-gradient(135deg, #D4AF37 0%, #C5A880 100%)',
       },
     },
   },

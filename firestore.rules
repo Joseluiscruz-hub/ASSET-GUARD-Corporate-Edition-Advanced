@@ -1,0 +1,281 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Authorization is based on Firebase Auth custom claims (`request.auth.token.role`).
+    // Assign claims with the Admin SDK, e.g. setCustomUserClaims(uid, { role: 'admin' }).
+    // Do not trust a role field written by the client.
+    function tokenRole() {
+      return request.auth.token.role;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && tokenRole() == 'admin';
+    }
+
+    function hasRole(roles) {
+      return isAdmin() || (isSignedIn() && tokenRole() in roles);
+    }
+
+    function isPlannerOrAdmin() {
+      return hasRole(['admin', 'planner']);
+    }
+
+    function isTechOrAbove() {
+      return hasRole(['admin', 'planner', 'technician']);
+    }
+
+    function isBoundedString(val, minLen, maxLen) {
+      return val is string && val.size() >= minLen && val.size() <= maxLen;
+    }
+
+    function isOptionalBoundedString(val, maxLen) {
+      return val == null || (val is string && val.size() <= maxLen);
+    }
+
+    function isValidRole(role) {
+      return role in ['admin', 'planner', 'technician', 'viewer'];
+    }
+
+    // ===============================================================
+    // Collection Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if isAdmin();
+
+      allow create: if isOwner(userId) &&
+        request.resource.data.keys().hasAll(['uid', 'email', 'displayName', 'role']) &&
+        request.resource.data.keys().hasOnly(['uid', 'email', 'displayName', 'photoURL', 'role', 'updatedAt']) &&
+        request.resource.data.uid == userId &&
+        isOptionalBoundedString(request.resource.data.get('email', null), 200) &&
+        isBoundedString(request.resource.data.displayName, 1, 120) &&
+        isOptionalBoundedString(request.resource.data.get('photoURL', null), 500) &&
+        (
+          request.resource.data.role == 'viewer'
+        );
+
+      allow update: if (
+        isAdmin() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role', 'updatedAt']) &&
+        isValidRole(request.resource.data.role)
+      ) || (
+        isOwner(userId) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'photoURL', 'updatedAt']) &&
+        isBoundedString(request.resource.data.displayName, 1, 120)
+      );
+
+      allow delete: if false;
+    }
+
+    match /assets/{assetId} {
+      allow read: if isSignedIn();
+
+      allow create: if isPlannerOrAdmin() &&
+        request.resource.data.keys().hasAll(['id', 'brand', 'model', 'serial', 'fuelType', 'status', 'statusSince', 'location', 'critical', 'cleanlinessStatus']) &&
+        request.resource.data.keys().hasOnly([
+          'id', 'brand', 'model', 'serial', 'sapCode', 'acquisitionDate', 'fuelType',
+          'status', 'statusSince', 'image', 'location', 'lastFailure', 'critical',
+          'assignedOperators', 'supervisor', 'operatingHours', 'cleanlinessStatus',
+          'lastSanitization', 'maintenanceTasks'
+        ]) &&
+        isBoundedString(request.resource.data.id, 1, 40) &&
+        isBoundedString(request.resource.data.brand, 1, 80) &&
+        isBoundedString(request.resource.data.model, 1, 80) &&
+        isBoundedString(request.resource.data.serial, 1, 80) &&
+        isBoundedString(request.resource.data.location, 1, 120) &&
+        request.resource.data.critical is bool &&
+        request.resource.data.cleanlinessStatus in ['Sanitized', 'Pending', 'Critical'];
+
+      allow update: if (
+        isPlannerOrAdmin() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'brand', 'model', 'serial', 'sapCode', 'acquisitionDate', 'fuelType',
+          'status', 'statusSince', 'image', 'location', 'lastFailure', 'critical',
+          'assignedOperators', 'supervisor', 'operatingHours', 'cleanlinessStatus',
+          'lastSanitization', 'maintenanceTasks'
+        ])
+      ) || (
+        isTechOrAbove() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'statusSince', 'lastFailure'])
+      ) || (
+        isTechOrAbove() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['cleanlinessStatus', 'lastSanitization']) &&
+        request.resource.data.cleanlinessStatus in ['Sanitized', 'Pending', 'Critical']
+      );
+
+      allow delete: if isAdmin();
+    }
+
+    match /failureReports/{reportId} {
+      allow read: if isSignedIn();
+
+      allow create: if isTechOrAbove() &&
+        request.resource.data.keys().hasAll(['id', 'assetId', 'entryDate', 'failureDescription', 'estimatedCost', 'technician', 'type', 'partsUsed']) &&
+        request.resource.data.keys().hasOnly([
+          'id', 'assetId', 'entryDate', 'exitDate', 'failureDescription',
+          'diagnosis', 'partsUsed', 'estimatedCost', 'technician', 'type'
+        ]) &&
+        isBoundedString(request.resource.data.id, 1, 60) &&
+        isBoundedString(request.resource.data.assetId, 1, 40) &&
+        isBoundedString(request.resource.data.failureDescription, 1, 1000) &&
+        isBoundedString(request.resource.data.technician, 1, 120) &&
+        request.resource.data.estimatedCost is number &&
+        request.resource.data.estimatedCost >= 0 &&
+        request.resource.data.partsUsed is list;
+
+      allow update: if isPlannerOrAdmin() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'exitDate', 'diagnosis', 'partsUsed', 'estimatedCost', 'technician', 'type'
+        ]);
+
+      allow delete: if isAdmin();
+    }
+
+    match /activeFailures/{failureId} {
+      allow read: if isSignedIn();
+
+      allow create: if isTechOrAbove() &&
+        request.resource.data.keys().hasAll(['id', 'economico', 'falla', 'reporta', 'fechaIngreso', 'prioridad', 'estatus', 'seguimiento']) &&
+        request.resource.data.keys().hasOnly([
+          'id', 'economico', 'falla', 'reporta', 'fechaIngreso', 'fechaSalida',
+          'prioridad', 'estatus', 'seguimiento', 'ordenCompra', 'estatusRefaccion', 'fechaPromesa'
+        ]) &&
+        isBoundedString(request.resource.data.id, 1, 60) &&
+        isBoundedString(request.resource.data.economico, 1, 40) &&
+        isBoundedString(request.resource.data.falla, 1, 1000) &&
+        isBoundedString(request.resource.data.reporta, 1, 120) &&
+        request.resource.data.prioridad in ['Alta', 'Media', 'Baja'] &&
+        request.resource.data.estatus in ['Abierta', 'En Proceso', 'Cerrada'] &&
+        request.resource.data.seguimiento is list;
+
+      allow update: if isTechOrAbove() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'estatus', 'seguimiento', 'ordenCompra', 'estatusRefaccion', 'fechaPromesa', 'fechaSalida'
+        ]) &&
+        request.resource.data.estatus in ['Abierta', 'En Proceso', 'Cerrada'];
+
+      allow delete: if isAdmin();
+    }
+
+    match /maintenanceSchedule/{scheduleId} {
+      allow read: if isSignedIn();
+
+      allow create: if isPlannerOrAdmin() &&
+        request.resource.data.keys().hasAll(['id', 'model', 'serial', 'economico', 'supervisor', 'smpType', 'scheduledDate', 'otFolio', 'serviceOrder', 'technician', 'status']) &&
+        request.resource.data.keys().hasOnly([
+          'id', 'model', 'serial', 'economico', 'supervisor', 'smpType',
+          'scheduledDate', 'realDate', 'duration', 'otFolio', 'serviceOrder',
+          'hourMeter', 'technician', 'status', 'history', 'comments'
+        ]) &&
+        isBoundedString(request.resource.data.id, 1, 60) &&
+        isBoundedString(request.resource.data.economico, 1, 40) &&
+        request.resource.data.smpType in ['REV', 'X', 'Y', 'Z'] &&
+        request.resource.data.status in ['Completado', 'Programado', 'Vencido', 'En Proceso'];
+
+      allow update: if (
+        isTechOrAbove() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['realDate', 'status', 'history', 'comments']) &&
+        request.resource.data.status in ['Completado', 'Programado', 'Vencido', 'En Proceso']
+      ) || isPlannerOrAdmin();
+
+      allow delete: if isAdmin();
+    }
+
+    match /inventory/{partId} {
+      allow read: if isSignedIn();
+
+      allow create: if isPlannerOrAdmin() &&
+        request.resource.data.keys().hasAll(['id', 'sku', 'name', 'category', 'stock', 'minStock', 'unitCost', 'location', 'supplier']) &&
+        request.resource.data.keys().hasOnly([
+          'id', 'sku', 'name', 'category', 'stock', 'minStock', 'unitCost', 'location', 'supplier', 'lastRestock'
+        ]) &&
+        isBoundedString(request.resource.data.id, 1, 60) &&
+        isBoundedString(request.resource.data.sku, 1, 50) &&
+        isBoundedString(request.resource.data.name, 1, 160) &&
+        request.resource.data.category in ['Mecánico', 'Eléctrico', 'Hidráulico', 'Consumible', 'Estructural'] &&
+        request.resource.data.stock is number && request.resource.data.stock >= 0 &&
+        request.resource.data.minStock is number && request.resource.data.minStock >= 0 &&
+        request.resource.data.unitCost is number && request.resource.data.unitCost >= 0;
+
+      allow update: if (
+        isPlannerOrAdmin() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'sku', 'name', 'category', 'stock', 'minStock', 'unitCost', 'location', 'supplier', 'lastRestock'
+        ]) &&
+        request.resource.data.stock is number && request.resource.data.stock >= 0 &&
+        request.resource.data.minStock is number && request.resource.data.minStock >= 0 &&
+        request.resource.data.unitCost is number && request.resource.data.unitCost >= 0
+      ) || (
+        isTechOrAbove() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['stock', 'lastRestock']) &&
+        request.resource.data.stock is number && request.resource.data.stock >= 0
+      );
+
+      allow delete: if isPlannerOrAdmin();
+    }
+
+    match /workOrders/{workOrderId} {
+      allow read: if isSignedIn();
+
+      allow create: if isTechOrAbove() &&
+        request.resource.data.keys().hasAll(['id', 'title', 'description', 'assetId', 'priority', 'status', 'dueDate', 'createdAt', 'estimatedHours']) &&
+        request.resource.data.keys().hasOnly([
+          'id', 'title', 'description', 'assetId', 'priority', 'status',
+          'assignedTo', 'dueDate', 'createdAt', 'estimatedHours'
+        ]) &&
+        isBoundedString(request.resource.data.id, 1, 60) &&
+        isBoundedString(request.resource.data.title, 1, 180) &&
+        isBoundedString(request.resource.data.description, 1, 1500) &&
+        isBoundedString(request.resource.data.assetId, 1, 40) &&
+        request.resource.data.priority in ['Baja', 'Media', 'Alta', 'Urgente'] &&
+        request.resource.data.status in ['Backlog', 'To Do', 'In Progress', 'Review', 'Done'] &&
+        request.resource.data.estimatedHours is number && request.resource.data.estimatedHours >= 0;
+
+      allow update: if isTechOrAbove() &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'title', 'description', 'assetId', 'priority', 'status', 'assignedTo', 'dueDate', 'estimatedHours'
+        ]) &&
+        request.resource.data.priority in ['Baja', 'Media', 'Alta', 'Urgente'] &&
+        request.resource.data.status in ['Backlog', 'To Do', 'In Progress', 'Review', 'Done'];
+
+      allow delete: if isPlannerOrAdmin();
+    }
+
+    match /haccpLogs/{logId} {
+      allow read: if isSignedIn();
+
+      allow create: if isTechOrAbove() &&
+        request.resource.data.keys().hasAll(['id', 'assetId', 'zone', 'status', 'inspectedBy', 'timestamp', 'checklistPassed']) &&
+        request.resource.data.keys().hasOnly([
+          'id', 'assetId', 'zone', 'status', 'inspectedBy', 'timestamp', 'notes', 'checklistPassed'
+        ]) &&
+        isBoundedString(request.resource.data.id, 1, 60) &&
+        isBoundedString(request.resource.data.assetId, 1, 40) &&
+        isBoundedString(request.resource.data.zone, 1, 120) &&
+        isBoundedString(request.resource.data.inspectedBy, 1, 120) &&
+        request.resource.data.status in ['Sanitized', 'Pending', 'Critical'] &&
+        request.resource.data.checklistPassed is bool;
+
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+  }
+}

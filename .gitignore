@@ -11,3 +11,8 @@ build.log
 .env.local
 .idea/
 coverage/
+
+# Functions secrets and build output
+functions/.env
+functions/.env.*
+functions/*.local

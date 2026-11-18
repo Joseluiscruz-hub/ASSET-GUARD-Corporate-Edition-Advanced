@@ -1,7 +1,6 @@
 // =======================================================================================
 // auth.guard.ts — AssetGuard Corporate Edition Advanced
-// Guard funcional con roles. La app es SPA (sin Angular Router activo),
-// por lo que este guard está listo para cuando se active el Router.
+// Guard funcional con roles + helpers de vistas para RBAC en el shell.
 // =======================================================================================
 
 import { inject } from '@angular/core';
@@ -9,29 +8,43 @@ import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, map, take } from 'rxjs';
+import { defaultPathForRole } from './view-permissions';
+
+export { VIEW_PERMISSIONS, canAccessView, getDefaultViewForRole, defaultPathForRole } from './view-permissions';
 
 /**
- * Guard para proteger rutas y verificar roles.
- * Uso en app.routes.ts:
- *   { path: 'admin', component: AdminComponent, canActivate: [authGuard(['admin'])] }
+ * Guard de autenticación. Uso en app.routes.ts:
+ *   { path: 'dashboard', loadComponent: ..., canActivate: [authGuard] }
+ * Para restringir por rol: canActivate: [roleGuard(['admin'])]
  */
-export const authGuard = (allowedRoles?: string[]): CanActivateFn => {
+export const authGuard: CanActivateFn = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  return resolveAccess(authService, router);
+};
+
+export function roleGuard(allowedRoles: string[]): CanActivateFn {
   return () => {
     const authService = inject(AuthService);
-    const router      = inject(Router);
-
-    // Si la auth aún no está lista, esperamos a que lo esté (Observable)
-    if (!authService.isAuthReady()) {
-      return toObservable(authService.isAuthReady).pipe(
-        filter(ready => ready === true),
-        take(1),
-        map(() => evaluateAccess(authService, router, allowedRoles))
-      );
-    }
-
-    return evaluateAccess(authService, router, allowedRoles);
+    const router = inject(Router);
+    return resolveAccess(authService, router, allowedRoles);
   };
-};
+}
+
+function resolveAccess(
+  authService: AuthService,
+  router: Router,
+  allowedRoles?: string[]
+) {
+  if (!authService.isAuthReady()) {
+    return toObservable(authService.isAuthReady).pipe(
+      filter(ready => ready === true),
+      take(1),
+      map(() => evaluateAccess(authService, router, allowedRoles))
+    );
+  }
+  return evaluateAccess(authService, router, allowedRoles);
+}
 
 function evaluateAccess(
   authService: AuthService,
@@ -41,23 +54,19 @@ function evaluateAccess(
   const user    = authService.currentUser();
   const profile = authService.userProfile();
 
-  // 1. Sin sesión → redirigir a login
   if (!user) {
     router.navigate(['/login']);
     return false;
   }
 
-  // 2. Sin restricción de rol → cualquier usuario autenticado puede entrar
   if (!allowedRoles || allowedRoles.length === 0) {
     return true;
   }
 
-  // 3. Verificar rol
   if (profile && allowedRoles.includes(profile.role)) {
     return true;
   }
 
-  // 4. Sin permiso → redirigir al dashboard
-  router.navigate(['/dashboard']);
+  router.navigate([defaultPathForRole(profile?.role)]);
   return false;
 }

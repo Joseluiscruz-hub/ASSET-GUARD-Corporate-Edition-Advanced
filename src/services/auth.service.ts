@@ -22,7 +22,45 @@ import {
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { firebaseApp } from '../firebase-init';
 import { db } from '../firebase-init'; // Firestore instance
-import { UserProfile } from '../types';
+
+import { UserProfile, UserRole } from '../types';
+
+const VALID_ROLES: UserRole[] = ['admin', 'planner', 'technician', 'viewer'];
+
+export function mapAuthErrorToSpanishMX(error: unknown): string {
+  const err = error as { code?: string; message?: string };
+  const code = err?.code || '';
+
+  switch (code) {
+    case 'auth/invalid-credential':
+    case 'auth/wrong-password':
+    case 'auth/user-not-found':
+      return 'Correo o contraseña incorrectos. Verifica tus credenciales e intenta de nuevo.';
+    case 'auth/invalid-email':
+      return 'El formato del correo electrónico no es válido.';
+    case 'auth/email-already-in-use':
+      return 'Este correo ya está registrado. Intenta iniciar sesión con tu contraseña.';
+    case 'auth/weak-password':
+      return 'La contraseña es muy débil. Usa al menos 6 caracteres.';
+    case 'auth/too-many-requests':
+      return 'Demasiados intentos fallidos. Espera unos minutos antes de volver a intentarlo.';
+    case 'auth/user-disabled':
+      return 'Esta cuenta ha sido deshabilitada por el administrador.';
+    case 'auth/popup-closed-by-user':
+    case 'auth/cancelled-popup-request':
+      return 'Se cerró la ventana de autenticación antes de completar el ingreso.';
+    case 'auth/popup-blocked':
+      return 'El navegador bloqueó la ventana emergente. Habilita las ventanas emergentes para continuar.';
+    case 'auth/operation-not-allowed':
+    case 'auth/admin-restricted-operation':
+      return 'Este método de acceso no está habilitado en la consola de Firebase. Usa Google o Modo Demo.';
+    case 'auth/network-request-failed':
+      return 'Sin conexión de red con los servicios de autenticación. Puedes ingresar con Modo Demo.';
+    default:
+      return err?.message || 'No fue posible iniciar sesión. Intenta nuevamente.';
+  }
+}
+
 
 // AuthUser compatible con ambos repos
 export interface AuthUser {
@@ -67,6 +105,38 @@ export class AuthService {
         this.isAuthReady.set(true);
       });
     });
+  }
+
+  clearError(): void {
+    this.error.set(null);
+  }
+
+  formatRoleLabel(role: UserRole): string {
+    switch (role) {
+      case 'admin': return 'Administrador';
+      case 'planner': return 'Planeador';
+      case 'technician': return 'Técnico';
+      default: return 'Observador';
+    }
+  }
+
+  async loginWithEmail(email: string, password: string): Promise<boolean> {
+    return this.login(email, password);
+  }
+
+  async registerWithEmail(email: string, password: string, displayName: string): Promise<boolean> {
+    return this.register(email, password, displayName);
+  }
+
+  async loginDemo(preferredRole: UserRole = 'planner'): Promise<boolean> {
+    const ok = await this.loginAsDemo();
+    if (ok) {
+      const current = this.userProfile();
+      if (current) {
+        this.userProfile.set({ ...current, role: preferredRole });
+      }
+    }
+    return ok;
   }
 
   // --- LOGIN EMAIL/PASSWORD ---
@@ -197,33 +267,39 @@ export class AuthService {
 
   // --- SINCRONIZACIÓN DE PERFIL EN FIRESTORE (de Edithion) ---
   private async syncUserProfile(user: User): Promise<void> {
+    const token = await user.getIdTokenResult();
+    const claimRole = this.roleFromClaims(token.claims as Record<string, unknown>);
+
     try {
       const userDocRef = doc(db, 'users', user.uid);
       const userDoc = await getDoc(userDocRef);
 
       if (userDoc.exists()) {
-        this.userProfile.set(userDoc.data() as UserProfile);
+        const stored = userDoc.data() as UserProfile;
+        this.userProfile.set({
+          ...stored,
+          role: claimRole ?? 'viewer'
+        });
       } else {
-        // Crear perfil por defecto
         const profile: UserProfile = {
           uid: user.uid,
           email: user.email || '',
           displayName: user.displayName || '',
           photoURL: user.photoURL || '',
-          role: user.email === 'admin@assetguard.com' ? 'admin' : 'viewer'
+          role: 'viewer',
+          updatedAt: new Date().toISOString()
         };
         await setDoc(userDocRef, profile);
-        this.userProfile.set(profile);
+        this.userProfile.set({ ...profile, role: claimRole ?? 'viewer' });
       }
     } catch (error) {
       console.error('Error sincronizando perfil de usuario:', error);
-      // Si falla Firestore, usar perfil básico del usuario
       this.userProfile.set({
         uid: user.uid,
         email: user.email || '',
         displayName: user.displayName || '',
         photoURL: user.photoURL || '',
-        role: 'viewer'
+        role: claimRole ?? 'viewer'
       });
     }
   }
@@ -235,40 +311,14 @@ export class AuthService {
   }
 
   // --- MANEJO DE ERRORES EN ESPAÑOL MEXICANO ---
-  private handleAuthError(err: any): void {
-    const errorCode = err.code;
-    let message = 'Error desconocido. Intenta de nuevo.';
+  private handleAuthError(err: unknown): void {
+    this.error.set(mapAuthErrorToSpanishMX(err));
+  }
 
-    switch (errorCode) {
-      case 'auth/invalid-email':
-        message = 'El correo electrónico no es válido.';
-        break;
-      case 'auth/user-disabled':
-        message = 'Esta cuenta ha sido deshabilitada.';
-        break;
-      case 'auth/user-not-found':
-        message = 'No existe una cuenta con este correo.';
-        break;
-      case 'auth/wrong-password':
-        message = 'Contraseña incorrecta.';
-        break;
-      case 'auth/invalid-credential':
-        message = 'Credenciales inválidas. Verifica tu correo y contraseña.';
-        break;
-      case 'auth/email-already-in-use':
-        message = 'Ya existe una cuenta con este correo.';
-        break;
-      case 'auth/weak-password':
-        message = 'La contraseña debe tener al menos 6 caracteres.';
-        break;
-      case 'auth/too-many-requests':
-        message = 'Demasiados intentos. Espera un momento.';
-        break;
-      case 'auth/popup-closed-by-user':
-        message = 'Inicio de sesión cancelado.';
-        break;
-    }
-
-    this.error.set(message);
+  private roleFromClaims(claims: Record<string, unknown> | undefined): UserRole | null {
+    const value = claims?.['role'];
+    return typeof value === 'string' && VALID_ROLES.includes(value as UserRole)
+      ? (value as UserRole)
+      : null;
   }
 }

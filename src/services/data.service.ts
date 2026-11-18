@@ -512,7 +512,7 @@ export class DataService {
       diagnosis,
       partsUsed: parts,
       estimatedCost: cost,
-      technician: 'ORSTED CORP Tech',
+      technician: 'JL Automation Tech',
       type: type || 'Mecánico'
     };
     this.reportsSignal.update(list => [report, ...list]);

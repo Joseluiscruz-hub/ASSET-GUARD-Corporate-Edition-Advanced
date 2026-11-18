@@ -6,12 +6,43 @@
 
 // --- AUTENTICACIÓN Y PERFILES (de Edithion) ---
 
+export type UserRole = 'admin' | 'planner' | 'technician' | 'viewer';
+
+export type AppView =
+  | 'dashboard'
+  | 'home-zones'
+  | 'compliance'
+  | 'service'
+  | 'work-orders'
+  | 'inventory'
+  | 'assets'
+  | 'solicitor'
+  | 'settings'
+  | 'refurbishment';
+
 export interface UserProfile {
   uid: string;
   email: string;
   displayName: string;
   photoURL: string;
-  role: 'admin' | 'planner' | 'technician' | 'viewer';
+  role: UserRole;
+  updatedAt?: string;
+}
+
+export interface ZoneSummary {
+  zone: string;
+  totalAssets: number;
+  operativeCount: number;
+  tallerCount: number;
+  preventiveCount: number;
+  criticalAssetsCount: number;
+  activeFailuresCount: number;
+  availabilityPct: number;
+  haccpSanitizedCount: number;
+  haccpPendingCount: number;
+  haccpCriticalCount: number;
+  haccpCompliancePct: number;
+  assets: Asset[];
 }
 
 // --- ACTIVOS ---
