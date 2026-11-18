@@ -5,13 +5,13 @@
 - Todo usuario debe autenticarse con Firebase Auth (correo, Google o sesión anónima de demostración).
 - Los permisos de backend se basan en **custom claims** de Firebase Auth, no en un campo `role` que el cliente pueda escribir.
 - Claim esperado: `request.auth.token.role` con uno de: `admin`, `planner`, `technician`, `viewer`.
-- Un administrador se provisióna fuera de la app, con el Admin SDK:
+- Un administrador se provisiona fuera de la app, con el Admin SDK. Script del repo:
 
-  ```js
-  await admin.auth().setCustomUserClaims(uid, { role: 'admin' });
+  ```powershell
+  node functions/scripts/set-role.mjs --uid <UID> --role admin --project asset-guard-demo
   ```
 
-  El usuario debe volver a iniciar sesión (o refrescar el ID token) para que el claim aplique.
+  El usuario debe cerrar sesión y volver a entrar (o refrescar el ID token) para que el claim aplique.
 
 - El perfil en `/users/{uid}` es informativo para la UI. Las reglas de Firestore solo permiten que un usuario cree su propio perfil con `role: 'viewer'`. Cambiar el rol en Firestore no otorga privilegios.
 
