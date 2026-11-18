@@ -645,7 +645,7 @@ export class MaintenanceComplianceComponent implements AfterViewInit, OnDestroy 
     doc.setFontSize(22);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor('#ce1126');
-    doc.text('ORSTED CORP', 14, 20);
+    doc.text('JL Automation', 14, 20);
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     doc.text('EQUIPOS INDUSTRIALES', 14, 26);
@@ -720,7 +720,7 @@ export class MaintenanceComplianceComponent implements AfterViewInit, OnDestroy 
     doc.setTextColor(0, 0, 0);
     doc.text('Nota: la programacion puede estar sujeta a cambios dependiendo del horometro, asi como la hora programada', 14, finalY + 5);
 
-    doc.save(`Programa_SMP_Orsted.pdf`);
+    doc.save(`Programa_SMP_JL_Automation.pdf`);
   }
 
 

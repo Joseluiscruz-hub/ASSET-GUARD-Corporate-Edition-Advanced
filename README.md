@@ -21,6 +21,17 @@ Este repositorio representa la **versión avanzada y fusionada** de AssetGuard, 
 
 ---
 
+## 🔐 IA en el servidor (Gemini 2.5 Flash)
+
+La API key de Gemini **no viaja en el cliente**. El `GeminiService` llama HTTPS callable functions (`analyzeMaintenanceHistory`, `generateExecutiveReport`, `generateLotoProcedure`, `analyzeImage`, `getOperatorAdvice`) que exigen un ID token de Firebase. Configuración a cargo del operador:
+
+```bash
+firebase functions:secrets:set GEMINI_API_KEY
+firebase deploy --only functions
+```
+
+Los administradores se asignan con custom claims (`admin.auth().setCustomUserClaims(uid, { role: 'admin' })`), no con un correo hardcodeado. Ver `security_spec.md`.
+
 ## ✨ Funcionalidades Principales
 
 ### 🤖 Inteligencia Artificial (Gemini 2.5 Flash)
@@ -50,7 +61,7 @@ Este repositorio representa la **versión avanzada y fusionada** de AssetGuard, 
 
 ### 📊 Gestión de Activos
 - Inventario de flota con filtros y búsqueda
-- Historial de fallas bidireccional (Planta ↔ ORSTED CORP)
+- Historial de fallas bidireccional (Planta ↔ corporativo)
 - Órdenes de trabajo (WorkOrders)
 - Programa de mantenimiento SMP (Compliance)
 - Integración HACCP / inocuidad alimentaria
@@ -82,7 +93,7 @@ src/
 │   ├── asset-list/           # Inventario de flota
 │   ├── asset-detail/         # Detalle + historial + análisis IA por activo
 │   ├── admin/                # Panel administrativo
-│   ├── service-panel/        # Gestión técnica ORSTED CORP (fallas activas)
+│   ├── service-panel/        # Gestión técnica (fallas activas)
 │   ├── solicitor-panel/      # App operador (reporte de fallas)
 │   ├── login/                # Pantalla de autenticación
 │   ├── maintenance-compliance/ # Programa SMP
@@ -91,7 +102,7 @@ src/
 │   └── work-orders/          # Órdenes de trabajo (de Edithion)
 │
 └── environments/
-    └── environment.ts        # Config: geminiApiKey, firebase
+    └── environment.ts        # Config: firebase + functionsRegion (la key de Gemini no va al cliente)
 ```
 
 ---
@@ -111,7 +122,6 @@ npm install
 Crear archivo `.env.local`:
 
 ```env
-VITE_GEMINI_API_KEY=tu_api_key_de_google_ai_studio
 ```
 
 Crear/editar `src/environments/environment.ts`:
@@ -119,7 +129,7 @@ Crear/editar `src/environments/environment.ts`:
 ```typescript
 export const environment = {
   production: false,
-  geminiApiKey: import.meta.env['VITE_GEMINI_API_KEY'] || '',
+  functionsRegion: 'us-central1',
   firebase: {
     apiKey: "...",
     authDomain: "...",
@@ -152,7 +162,7 @@ npm run build
 
 | Variable | Descripción | Requerido |
 |---|---|---|
-| `VITE_GEMINI_API_KEY` | API Key de Google AI Studio (Gemini) | Sí (para IA) |
+| `GEMINI_API_KEY` (Functions secret) | API Key de Gemini, solo en el servidor | Sí (para IA). `firebase functions:secrets:set GEMINI_API_KEY` |
 | Firebase config | En `environment.ts` | Sí (para auth/db) |
 
 ---
@@ -235,7 +245,7 @@ npm run build     # Verificación de build
 
 ## 🏢 Contexto del Proyecto
 
-Sistema CMMS (Computerized Maintenance Management System) para gestión de montacargas y activos industriales en entorno ORSTED CORP. Diseñado para:
+Sistema CMMS (Computerized Maintenance Management System) de JL Automation para gestión de montacargas y activos industriales. Diseñado para:
 - Plantas de distribución con flota mixta (eléctrico, gas LP, diesel)
 - Equipos de mantenimiento predictivo
 - Gerencia de operaciones (reportes ejecutivos)

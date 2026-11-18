@@ -6,101 +6,19 @@
         <div class="relative w-20 h-20">
           <div class="absolute inset-0 border-4 border-brand-red/20 rounded-full"></div>
           <div class="absolute inset-0 border-4 border-brand-red rounded-full border-t-transparent animate-spin"></div>
-          <i class="fas fa-industry" title="ORSTED CORP"></i>
+          <img src="assets/brand/jl-logo-512.png" alt="JL Automation" class="w-16 h-16 rounded-full object-contain mx-auto">
         </div>
         <div class="text-center">
           <p class="text-white font-black tracking-[0.3em] uppercase text-xs animate-pulse">AssetGuard</p>
-          <p class="text-slate-500 text-[10px] uppercase tracking-widest mt-2">Enterprise Edition</p>
+          <p class="text-brand-gold-soft text-[10px] uppercase tracking-widest mt-2">JL Automation</p>
         </div>
       </div>
     </div>
   } @else if (!user()) {
-    <div class="fixed inset-0 z-[100] bg-corporate-dark flex items-center justify-center p-6 overflow-hidden">
-      <!-- Background Elements -->
-      <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-red/10 rounded-full blur-[120px] animate-pulse-slow"></div>
-      <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 1.5s"></div>
-      
-      <div class="max-w-4xl w-full flex bg-white rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] overflow-hidden relative z-10 animate-slide-up">
-        <!-- Left Side: Branding/Visual -->
-        <div class="hidden lg:flex w-1/2 bg-corporate-dark relative p-12 flex-col justify-between">
-          <div class="absolute inset-0 opacity-20">
-            <div class="absolute inset-0 bg-gradient-to-br from-brand-red to-transparent"></div>
-            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80" class="w-full h-full object-cover grayscale opacity-30">
-          </div>
-          
-          <div class="relative z-10">
-            <span class="font-black tracking-widest">ORSTED CORP</span>
-            <div class="mt-12">
-              <h1 class="text-4xl font-black text-white leading-tight tracking-tight">Potencia la <br><span class="text-brand-red">Excelencia</span> Operativa.</h1>
-              <p class="text-slate-400 mt-4 text-sm leading-relaxed max-w-xs">Plataforma avanzada para la gestión integral de activos, mantenimiento predictivo y control de inventarios corporativos.</p>
-            </div>
-          </div>
-
-          <div class="relative z-10 flex items-center gap-4 text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-            <span>ORSTED CORP Logistics</span>
-            <span class="w-1.5 h-1.5 bg-brand-red rounded-full"></span>
-            <span>Planta Demo</span>
-          </div>
-        </div>
-
-        <!-- Right Side: Login Form -->
-        <div class="flex-1 p-8 lg:p-16 flex flex-col justify-center bg-white">
-          <div class="mb-10 lg:hidden text-center">
-            <span class="font-black tracking-widest">ORSTED CORP</span>
-          </div>
-
-          <div class="mb-10 text-center lg:text-left">
-            <h2 class="text-3xl font-black text-slate-900 tracking-tight">Bienvenido</h2>
-            <p class="text-slate-500 text-sm mt-2">Inicia sesión para acceder al panel de control</p>
-          </div>
-
-          @if (loginError()) {
-            <div class="mb-6 p-4 bg-red-50 border-l-4 border-brand-red rounded-r-xl text-xs text-red-700 flex items-start gap-3 animate-fade-in">
-              <i class="fas fa-exclamation-circle mt-0.5"></i>
-              <div>
-                <p class="font-bold">Error de acceso</p>
-                <p>{{ loginError() }}</p>
-              </div>
-            </div>
-          }
-
-          <div class="space-y-4">
-            <button (click)="loginWithGoogle()"
-              [disabled]="isLoggingIn()"
-              class="w-full group flex items-center justify-between bg-slate-900 hover:bg-black text-white p-1 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 disabled:opacity-60 disabled:cursor-not-allowed">
-              <div class="flex items-center gap-4 pl-6">
-                <i class="fab fa-google text-lg"></i>
-                <span class="font-bold text-sm">Google Workspace</span>
-              </div>
-              <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-brand-red transition-colors">
-                @if (isLoggingIn()) {
-                  <i class="fas fa-circle-notch fa-spin"></i>
-                } @else {
-                  <i class="fas fa-arrow-right"></i>
-                }
-              </div>
-            </button>
-
-            <div class="relative py-4">
-              <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-100"></div></div>
-              <div class="relative flex justify-center text-xs uppercase font-bold text-slate-400 tracking-widest"><span class="bg-white px-4">Acceso Rápido</span></div>
-            </div>
-
-            <button (click)="loginAsDemo()"
-              [disabled]="isLoggingIn()"
-              class="w-full flex items-center justify-center gap-3 bg-slate-50 hover:bg-slate-100 text-slate-600 py-4 rounded-2xl font-bold transition-all border border-slate-100 text-sm">
-              <i class="fas fa-desktop text-xs"></i> Visualizar Modo Demo
-            </button>
-          </div>
-
-          <div class="mt-12 text-center text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">
-            AssetGuard Corporate Advanced v4.0
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-login />
   }
 
+  @if (user()) {
   <!-- SIDEBAR NAVIGATION -->
   <aside class="w-20 lg:w-72 bg-corporate-dark text-slate-400 flex flex-col justify-between shrink-0 z-30 transition-all duration-500 shadow-[20px_0_60px_-15px_rgba(0,0,0,0.3)] relative">
     <!-- Sidebar Glow -->
@@ -110,12 +28,10 @@
       <!-- Brand Section -->
       <div class="h-24 flex flex-col items-center justify-center lg:items-start lg:px-8 bg-black/40 border-b border-white/5 mb-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 bg-brand-red rounded-xl flex items-center justify-center shadow-lg shadow-brand-red/20 rotate-3 group hover:rotate-0 transition-transform">
-            <i class="fas fa-industry" title="ORSTED CORP"></i>
-          </div>
+          <img src="assets/brand/jl-logo-512.png" alt="JL Automation" class="w-10 h-10 rounded-full object-contain ring-1 ring-brand-gold/40 bg-black">
           <div class="hidden lg:block">
             <h2 class="text-white font-black text-sm tracking-tight leading-none uppercase">AssetGuard</h2>
-            <p class="text-[9px] text-slate-500 uppercase tracking-widest mt-1 font-bold">Planta Demo</p>
+            <p class="text-[9px] text-brand-gold-soft uppercase tracking-widest mt-1 font-bold">JL Automation</p>
           </div>
         </div>
       </div>
@@ -174,10 +90,13 @@
         </a>
 
         <a routerLink="/refurbishment" 
-          class="w-full flex items-center p-3 rounded-lg transition-colors group relative border-l-4"
-          [ngClass]="{'border-indigo-500 bg-slate-800/60 text-white': currentUrl().includes('refurbishment'), 'border-transparent hover:bg-slate-800/50': !currentUrl().includes('refurbishment')}">
-          <i class="fas fa-paint-roller w-6 text-center text-slate-400 group-hover:text-white transition-colors" [class.text-indigo-400]="currentUrl().includes('refurbishment')"></i>
-          <span class="ml-3 text-sm font-bold hidden lg:block">Remozamiento</span>
+          class="nav-link group"
+          [class.active]="currentUrl().includes('refurbishment')">
+          <div class="icon-container border-indigo-500/20 text-indigo-400">
+            <i class="fas fa-paint-roller"></i>
+          </div>
+          <span class="label">Remozamiento</span>
+          <div class="active-indicator bg-indigo-500"></div>
         </a>
 
         <a routerLink="/inventory" 
@@ -322,7 +241,7 @@
           </div>
           <div>
             <h3 class="font-black text-xl tracking-tight leading-none">Inteligencia Corporativa</h3>
-            <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em] mt-2 font-bold">Powered by Gemini Pro</p>
+            <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em] mt-2 font-bold">Powered by Gemini 2.5 Flash</p>
           </div>
         </div>
         <button (click)="toggleAiPanel()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition relative z-10">
@@ -392,7 +311,7 @@
       <div class="fixed inset-0 z-[60] bg-corporate-dark/80 backdrop-blur-md flex items-center justify-center p-6 animate-fade-in">
         <div class="w-full max-w-7xl max-h-[92vh] overflow-hidden rounded-[40px] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.6)] border border-white/10 flex flex-col bg-white dark:bg-[#0B0F19]">
           <div class="p-6 border-b border-slate-100 dark:border-white/5 flex justify-end absolute top-0 right-0 z-10">
-             <button (click)="selectedAssetId.set(null)" class="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 hover:bg-brand-red hover:text-white transition-all flex items-center justify-center">
+             <button (click)="selectedAssetId.set(null)" class="w-12 h-12 rounded-full bg-black/5 dark:bg-white/5 hover:bg-brand-gold hover:text-brand-ink hover:text-white transition-all flex items-center justify-center">
               <i class="fas fa-times"></i>
              </button>
           </div>
@@ -403,6 +322,7 @@
       </div>
     }
   </div>
+  }
 </div>
 
 <style>

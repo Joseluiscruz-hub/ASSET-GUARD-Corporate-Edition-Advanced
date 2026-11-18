@@ -397,7 +397,7 @@ export class ServicePanelComponent {
 
   addNote(id: string, note: string) {
     if (!note) return;
-    this.dataService.addFailureUpdate(id, note, 'ORSTED CORP Tech');
+    this.dataService.addFailureUpdate(id, note, 'JL Automation Tech');
   }
 
   closeTicket(id: string) {

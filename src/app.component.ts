@@ -1,12 +1,13 @@
 import { Component, inject, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { SafeHtml } from '@angular/platform-browser';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs';
 import { DataService } from './services/data.service';
 import { GeminiService } from './services/gemini.service';
 import { AuthService } from './services/auth.service';
-import DOMPurify from 'dompurify';
+import { SanitizeService } from './services/sanitize.service';
+import { LoginComponent } from './components/login/login.component';
 import { AssetDetailComponent } from './components/asset-detail/asset-detail.component';
 
 type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'settings' | 'compliance' | 'inventory' | 'work-orders';
@@ -17,7 +18,8 @@ type View = 'home' | 'dashboard' | 'assets' | 'service' | 'solicitor' | 'setting
   imports: [
     CommonModule,
     RouterModule,
-    AssetDetailComponent
+    AssetDetailComponent,
+    LoginComponent
   ],
   templateUrl: './app.component.html',
   styles: [`
@@ -29,7 +31,7 @@ export class AppComponent {
   dataService = inject(DataService);
   geminiService = inject(GeminiService);
   authService = inject(AuthService);
-  sanitizer = inject(DomSanitizer);
+  sanitizeService = inject(SanitizeService);
   router = inject(Router);
 
   // State
@@ -123,8 +125,7 @@ export class AppComponent {
       const active = this.failures().filter(f => f.estatus !== 'Cerrada');
 
       const summary = await this.geminiService.generateExecutiveReport(kpi, active, availability);
-      const cleanHtml = DOMPurify.sanitize(summary);
-      this.aiInsights.set(this.sanitizer.bypassSecurityTrustHtml(cleanHtml));
+      this.aiInsights.set(this.sanitizeService.sanitizeHtml(summary));
     } catch (err) {
       console.error('AI Summary Error:', err);
     } finally {
@@ -145,7 +146,7 @@ export class AppComponent {
     if (url.includes('dashboard')) return 'Dashboard Corporativo (NOC)';
     if (url.includes('compliance')) return 'Programa SMP - Cumplimiento';
     if (url.includes('assets')) return 'Gestión de Activos / Flota';
-    if (url.includes('service')) return 'Panel de Servicio Técnico ORSTED CORP';
+    if (url.includes('service')) return 'Panel de Servicio Técnico';
     if (url.includes('report')) return 'App Operador (Solicitante)';
     if (url.includes('inventory')) return 'Inventario y Refacciones';
     if (url.includes('work-orders')) return 'Órdenes de Trabajo';

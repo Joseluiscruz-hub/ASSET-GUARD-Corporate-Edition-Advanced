@@ -1,8 +1,8 @@
 import { Component, input, inject, signal, computed, effect } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import DOMPurify from 'dompurify';
+import { SafeHtml } from '@angular/platform-browser';
+import { SanitizeService } from '../../services/sanitize.service';
 import { FormsModule } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 import { GeminiService } from '../../services/gemini.service';
@@ -425,7 +425,7 @@ export class AssetDetailComponent {
 
   private dataService = inject(DataService);
   private geminiService = inject(GeminiService);
-  private sanitizer = inject(DomSanitizer);
+  private sanitizeService = inject(SanitizeService);
   private route = inject(ActivatedRoute, { optional: true });
 
   resolvedAssetId = computed(
@@ -494,13 +494,13 @@ export class AssetDetailComponent {
       '<p class="text-gray-500 animate-pulse">Generando procedimiento de seguridad...</p>'
     );
     const html = await this.geminiService.generateLotoProcedure(currentAsset, lastFailure);
-    this.lotoResult.set(DOMPurify.sanitize(html));
+    this.lotoResult.set(this.sanitizeService.sanitizeRaw(html));
   }
 
   printLoto() {
     const printWindow = window.open('', '', 'height=600,width=800');
     if (printWindow && this.lotoResult()) {
-      const cleanHtml = DOMPurify.sanitize(this.lotoResult()!);
+      const cleanHtml = this.sanitizeService.sanitizeRaw(this.lotoResult()!);
       printWindow.document.write('<html><head><title>LOTO</title>');
       printWindow.document.write('</head><body class="p-8">');
       printWindow.document.write(cleanHtml);
@@ -533,7 +533,7 @@ export class AssetDetailComponent {
     this.aiLoading.set(true);
     try {
       const result = await this.geminiService.analyzeMaintenanceHistory(currentAsset, this.history());
-      this.aiResult.set(this.sanitizer.bypassSecurityTrustHtml(DOMPurify.sanitize(result)));
+      this.aiResult.set(this.sanitizeService.sanitizeHtml(result));
     } catch {
       this.aiResult.set(null);
     } finally {
