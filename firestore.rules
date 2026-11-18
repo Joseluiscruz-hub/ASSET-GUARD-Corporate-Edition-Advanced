@@ -66,7 +66,7 @@ service cloud.firestore {
         request.resource.data.keys().hasOnly(['uid', 'email', 'displayName', 'photoURL', 'role', 'updatedAt']) &&
         request.resource.data.uid == userId &&
         isOptionalBoundedString(request.resource.data.get('email', null), 200) &&
-        isBoundedString(request.resource.data.displayName, 1, 120) &&
+        isBoundedString(request.resource.data.displayName, 0, 120) &&
         isOptionalBoundedString(request.resource.data.get('photoURL', null), 500) &&
         (
           request.resource.data.role == 'viewer'
@@ -79,7 +79,7 @@ service cloud.firestore {
       ) || (
         isOwner(userId) &&
         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'photoURL', 'updatedAt']) &&
-        isBoundedString(request.resource.data.displayName, 1, 120)
+        isBoundedString(request.resource.data.displayName, 0, 120)
       );
 
       allow delete: if false;
@@ -273,6 +273,23 @@ service cloud.firestore {
         isBoundedString(request.resource.data.inspectedBy, 1, 120) &&
         request.resource.data.status in ['Sanitized', 'Pending', 'Critical'] &&
         request.resource.data.checklistPassed is bool;
+
+      allow update: if false;
+      allow delete: if isAdmin();
+    }
+
+    // AI analysis history written by the client (saveAIResult / getAIHistory).
+    // Signed-in users may read and append; entries are immutable after create.
+    match /ai_history/{entryId} {
+      allow read: if isSignedIn();
+
+      allow create: if isSignedIn() &&
+        request.resource.data.keys().hasAll(['assetId', 'type', 'result', 'timestamp', 'user']) &&
+        request.resource.data.keys().hasOnly(['assetId', 'type', 'result', 'timestamp', 'user']) &&
+        isBoundedString(request.resource.data.assetId, 1, 40) &&
+        isBoundedString(request.resource.data.type, 1, 80) &&
+        isBoundedString(request.resource.data.timestamp, 1, 40) &&
+        isBoundedString(request.resource.data.user, 1, 120);
 
       allow update: if false;
       allow delete: if isAdmin();
